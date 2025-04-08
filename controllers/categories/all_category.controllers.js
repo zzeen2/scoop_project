@@ -68,18 +68,6 @@ exports.getAllCategories = (req, res) => {
     });
 };
 
-// 세부 카테고리 페이지 렌더링
-exports.getDetailCategory = (req, res) => {
-    const { categoryName } = req.params;
-    const { subCategory } = req.query; // 세부 카테고리 가져오기
-    
-
-    const subCategories = detailCategories[categoryName] || []; // 서브카테고리 배열
-
-    let filtered = dummyClubs.filter(c => c.category === categoryName); // 해당 카테고리만 필터링
-
-    // subCategory가 있고 "전체"가 아니면 다시 필터링
-// ✅ 전체 동호회 페이지 (검색 기능 포함)
 exports.getAllCategories = (req, res) => {
     const { keyword } = req.query;
 
