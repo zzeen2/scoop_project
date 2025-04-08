@@ -1,0 +1,9 @@
+.wrap {
+    padding-top: 75px;
+    margin-left: 200px;
+    min-height: calc(100vh - 130px);
+}
+body {
+    margin: 0;
+    overflow: hidden;
+}
