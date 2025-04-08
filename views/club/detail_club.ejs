@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동호회 상세페이지</title>
+    <!-- 캘린더 라이브러리 -->
+    <link rel="stylesheet" href="/public/css/club/detail_club.css">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/locales/ko.js'></script>
+</head>
+<body>
+    <%- include("../common/header") %>
+    <%- include("../common/side_bar") %>
+    <div class="page-container">
+        <div class="main-content">
+            <div class="club-detail-container">
+                <div class="club-header">
+                    <div class="club-image-container">
+                        <img src="" alt="동호회 이미지" class="club-image">
+                    </div>
+                    <!-- 스크립트로 처리 -->
+                    <div class="club-info">
+                        <div class="club-title-section">
+                            <h2 class="club-name">FC 멋쟁이</h2>
+                            <button class="btn-heart" aria-label="찜하기">
+                                <span class="heart-icon">♡</span>
+                            </button>
+                        </div>
+                        <div class="club-category">
+                            <span class="main-category">스포츠</span>
+                            <span style="font-size: 1.2em;">›</span>
+                            <span class="sub-category">축구</span>
+                        </div>
+                        <div class="club-tags">
+                            <span class="tag">축구</span>
+                            <span class="tag">축구모임</span>
+                            <span class="tag">주말축구</span>
+                        </div>
+                        <div class="club-members-count">
+                            <span class="current">27</span>/<span class="max">30</span>명
+                        </div>
+                        <p class="club-description">
+                            매주 토요일 오전 강남 풋살장에서 함께 축구를 즐기는 동호회입니다. 
+                            실력 상관없이 축구를 좋아하는 분들과 함께 즐겁게 운동하고 친목을 다지고 있습니다.
+                            가끔 인근 동호회와 친선 경기도 진행합니다.
+                        </p>
+                        <div class="club-top-actions">
+                            <button class="btn btn-join">가입 신청</button>
+                            <button class="btn btn-guest">게스트 참여</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="club-tabs">
+                    <button class="tab-btn active" data-tab="schedule">일정</button>
+                    <button class="tab-btn" data-tab="members">멤버</button>
+                    <button class="tab-btn" data-tab="reviews">리뷰</button>
+                    <button class="tab-btn" data-tab="verifications">참여 인증</button>
+                </div>
+                <div class="tab-content">
+                    <!-- 일정 탭 -->
+                    <div class="tab-pane active" id="schedule">
+                        <div class="schedule-header">
+                            <h3>동호회 일정 달력</h3>
+                            <!-- <div class="schedule-filter">
+                                <select id="schedule-view">
+                                    <option value="month">월별 보기</option>
+                                    <option value="week">주별 보기</option>
+                                    <option value="list">리스트 보기</option>
+                                </select>
+                            </div> -->
+                        </div>
+                        
+                        <div id="calendar"></div>
+                        
+                        <!-- 일정 상세 모달 -->
+                        <div class="schedule-detail" id="schedule-detail-modal" style="display: none;">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">정기 축구 모임</h3>
+                                    <span class="close-modal">&times;</span>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="event-info">
+                                        <!-- 스크립트 처리 -->
+                                        <p><strong>날짜:</strong> 2025년 4월 13일 토요일</p>
+                                        <p><strong>시간:</strong> 오전 10:00 - 오후 12:00</p>
+                                        <p><strong>장소:</strong> 강남 풋살파크</p>
+                                        <p><strong>설명:</strong> 정기 축구 모임입니다. 간단한 준비운동 후 5:5 미니게임으로 진행됩니다.</p>
+                                    </div>
+                                    <div class="participation-poll">
+                                        <h4>참여 여부</h4>
+                                        <div class="poll-options">
+                                            <button class="poll-btn poll-yes">참석</button>
+                                            <button class="poll-btn poll-no">불참</button>
+                                            <button class="poll-btn poll-maybe">미정</button>
+                                        </div>
+                                        <div class="participants">
+                                            <!-- 스크립트 처리 -->
+                                            <div class="participant-group">
+                                                <h5>참석 (15명)</h5>
+                                                <div class="participant-list attending">
+                                                    <span class="participant">홍길동</span>
+                                                    <span class="participant">김철수</span>
+                                                    <span class="participant">이영희</span>
+                                                </div>
+                                            </div>
+                                            <div class="participant-group">
+                                                <h5>불참 (5명)</h5>
+                                                <div class="participant-list not-attending">
+                                                    <span class="participant">박지성</span>
+                                                    <span class="participant">손흥민</span>
+                                                </div>
+                                            </div>
+                                            <div class="participant-group">
+                                                <h5>미정 (3명)</h5>
+                                                <div class="participant-list maybe-attending">
+                                                    <span class="participant">황의조</span>
+                                                    <span class="participant">이강인</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="guest-section">
+                                        <h4>게스트 참여</h4>
+                                        <p>이번 모임에 게스트로 참여하고 싶으신가요?</p>
+                                        <button class="btn btn-guest-apply">게스트 참여 신청</button>
+                                        <div class="guest-list">
+                                            <h5>게스트 참여자 (2명)</h5>
+                                            <div class="guest-item">
+                                                <span class="guest-name">최준호</span>
+                                            </div>
+                                            <div class="guest-item">
+                                                <span class="guest-name">정민수</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 멤버 탭 -->
+                    <div class="tab-pane" id="members">
+                        <div class="members-header">
+                            <h3>동호회 멤버</h3>
+                        </div>
+                        <div class="members-list">
+                            <div class="member-group">
+                                <h4>운영진</h4>
+                                <div class="member-cards admin-members">
+                                    <div class="member-card">
+                                        <div class="member-avatar">
+                                            <img src="https://via.placeholder.com/100" alt="프로필 이미지">
+                                        </div>
+                                        <div class="member-info">
+                                            <h5 class="member-name">김동호</h5>
+                                            <span class="member-join-date">2023.05.15 가입</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="member-group">
+                                <h4>회원 (24명)</h4>
+                                <div class="member-cards regular-members">
+                                    <!-- 회원카드 스크립트 처리 -->
+                                    <div class="member-card">
+                                        <div class="member-avatar">
+                                            <img src="https://via.placeholder.com/100" alt="프로필 이미지">
+                                        </div>
+                                        <div class="member-info">
+                                            <h5 class="member-name">홍길동</h5>
+                                            <span class="member-join-date">2023.09.15 가입</span>
+                                        </div>
+                                    </div>
+                                    <div class="member-card">
+                                        <div class="member-avatar">
+                                            <img src="https://via.placeholder.com/100" alt="프로필 이미지">
+                                        </div>
+                                        <div class="member-info">
+                                            <h5 class="member-name">김철수</h5>
+                                            <span class="member-join-date">2023.10.05 가입</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 페이지네이션(보류) -->
+                                <div class="pagination">
+                                    <button class="pagination-btn" disabled>이전</button>
+                                    <span class="pagination-page active">1</span>
+                                    <span class="pagination-page">2</span>
+                                    <span class="pagination-page">3</span>
+                                    <button class="pagination-btn">다음</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 리뷰 탭 -->
+                    <div class="tab-pane" id="reviews">
+                        <div class="reviews-header">
+                            <h3>동호회 리뷰</h3>
+                            <div class="reviews-actions">
+                                <button class="btn btn-write-review">리뷰 작성</button>
+                            </div>
+                        </div>
+                        <div class="review-stats">
+                            <div class="rating-average">
+                                <div class="average-score">4.8</div>
+                                <div class="stars">★★★★★</div>
+                                <div class="review-count">총 15개 리뷰</div>
+                            </div>
+                            <div class="rating-bars">
+                                <div class="rating-bar">
+                                    <span class="rating-label">5점</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 85%;"></div>
+                                    </div>
+                                    <span class="rating-count">12</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span class="rating-label">4점</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 12%;"></div>
+                                    </div>
+                                    <span class="rating-count">2</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span class="rating-label">3점</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 6%;"></div>
+                                    </div>
+                                    <span class="rating-count">1</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span class="rating-label">2점</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="rating-count">0</span>
+                                </div>
+                                <div class="rating-bar">
+                                    <span class="rating-label">1점</span>
+                                    <div class="bar-container">
+                                        <div class="bar" style="width: 0%;"></div>
+                                    </div>
+                                    <span class="rating-count">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 리뷰 작성 폼 -->
+                        <div class="review-form" style="display: none;">
+                            <h4>리뷰 작성</h4>
+                            <div class="rating-input">
+                                <span>평점:</span>
+                                <div class="star-rating">
+                                    <input type="radio" id="star5" name="rating" value="5">
+                                    <label for="star5">★</label>
+                                    <input type="radio" id="star4" name="rating" value="4">
+                                    <label for="star4">★</label>
+                                    <input type="radio" id="star3" name="rating" value="3">
+                                    <label for="star3">★</label>
+                                    <input type="radio" id="star2" name="rating" value="2">
+                                    <label for="star2">★</label>
+                                    <input type="radio" id="star1" name="rating" value="1">
+                                    <label for="star1">★</label>
+                                </div>
+                            </div>
+                            <textarea class="review-textarea" placeholder="동호회 활동에 대한 솔직한 리뷰를 작성해주세요. (최소 20자 이상)"></textarea>
+                            <div class="review-form-actions">
+                                <button class="btn btn-cancel-review">취소</button>
+                                <button class="btn btn-submit-review">리뷰 등록</button>
+                            </div>
+                        </div>
+                        <!-- 리뷰 목록 -->
+                        <div class="reviews-list">
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">
+                                            <img src="https://via.placeholder.com/100" alt="프로필 이미지">
+                                        </div>
+                                        <div class="reviewer-details">
+                                            <span class="reviewer-name">홍길동</span>
+                                            <div class="review-rating">★★★★★</div>
+                                        </div>
+                                    </div>
+                                    <div class="review-date">2024.03.15</div>
+                                </div>
+                                <div class="review-content">
+                                    <p>매주 토요일마다 즐겁게 운동하고 있습니다. 모든 회원들이 친절하고 실력에 상관없이 함께 즐기는 분위기가 좋아요. 운영진도 일정 관리를 잘 해주셔서 감사합니다. 앞으로도 계속 활동할 계획입니다!</p>
+                                </div>
+                                <div class="review-actions">
+                                    <button class="btn-edit-review">수정</button>
+                                    <button class="btn-delete-review">삭제</button>
+                                </div>
+                            </div>
+                            
+                            <div class="review-item">
+                                <div class="review-header">
+                                    <div class="reviewer-info">
+                                        <div class="reviewer-avatar">
+                                            <img src="https://via.placeholder.com/100" alt="프로필 이미지">
+                                        </div>
+                                        <div class="reviewer-details">
+                                            <span class="reviewer-name">김철수</span>
+                                            <div class="review-rating">★★★★★</div>
+                                        </div>
+                                    </div>
+                                    <div class="review-date">2024.02.28</div>
+                                </div>
+                                <div class="review-content">
+                                    <p>축구를 잘 못해서 걱정했는데, 친절하게 가르쳐주시고 부담없이 참여할 수 있어서 좋았습니다. 운동 후 간단한 뒤풀이도 즐겁고 좋은 인연 만들 수 있어서 감사해요.</p>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- 리뷰 페이지네이션 -->
+                        <div class="pagination">
+                            <button class="pagination-btn" disabled>이전</button>
+                            <span class="pagination-page active">1</span>
+                            <span class="pagination-page">2</span>
+                            <button class="pagination-btn">다음</button>
+                        </div>
+                    </div>
+
+                    <!-- 참여 인증 탭 -->
+                    <div class="tab-pane" id="verifications">
+                        <div class="verifications-header">
+                            <h3>참여 인증</h3>
+                            <div class="verification-actions">
+                                <button class="btn btn-upload-verification">인증 사진 등록</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 참여 인증 설명 -->
+                        <div class="verification-info">
+                            <p>동호회 활동에 참여하신 후 인증 사진을 등록해주세요. 다른 회원들과 활동 모습을 공유해보세요!</p>
+                        </div>
+                        
+                        <!-- 인증 사진 업로드 모달-->
+                        <div class="verification-form" style="display: none;">
+                            <h4>참여 인증 등록</h4>
+                            <div class="verification-event-select">
+                                <label>인증할 모임 선택</label>
+                                <select class="event-select">
+                                    <option value="">모임을 선택하세요</option>
+                                    <option value="1">2025-04-13 정기 축구 모임</option>
+                                    <option value="2">2025-04-20 번개 모임</option>
+                                    <option value="3">2025-04-27 월례 회식</option>
+                                </select>
+                            </div>
+                            
+                            <div class="verification-upload-container">
+                                <div class="verification-upload-box">
+                                    <div class="upload-icon">📷</div>
+                                    <p class="upload-info">클릭하여 인증 사진을 업로드하세요</p>
+                                    <input type="file" id="verification-image" accept="image/*" style="display: none;">
+                                </div>
+                                <div class="verification-preview" style="display: none;">
+                                    <img src="" alt="미리보기" id="verification-preview-img">
+                                    <button class="btn-remove-preview">×</button>
+                                </div>
+                            </div>
+                            
+                            <div class="verification-form-actions">
+                                <button class="btn btn-cancel-verification">취소</button>
+                                <button class="btn btn-submit-verification">등록</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 참여 인증 갤러리 -->
+                        <div class="verification-gallery">
+                            <h4>최근 참여 인증</h4>
+                            
+                            <div class="verification-filters">
+                                <select class="filter-event">
+                                    <option value="all">모든 모임</option>
+                                    <option value="1">2025-04-13 정기 축구 모임</option>
+                                    <option value="2">2025-04-20 번개 모임</option>
+                                    <option value="3">2025-04-27 월례 회식</option>
+                                </select>
+                            </div>
+                            
+                            <div class="verification-grid">
+                                <!-- 인증 사진 항목(스크립트 처리) -->
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">홍길동</div>
+                                        <div class="verification-date">2025-04-13</div>
+                                        <div class="verification-event">정기 축구 모임</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">김철수</div>
+                                        <div class="verification-date">2025-04-13</div>
+                                        <div class="verification-event">정기 축구 모임</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">이영희</div>
+                                        <div class="verification-date">2025-04-13</div>
+                                        <div class="verification-event">정기 축구 모임</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">박지성</div>
+                                        <div class="verification-date">2025-03-30</div>
+                                        <div class="verification-event">친선 경기</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">손흥민</div>
+                                        <div class="verification-date">2025-03-30</div>
+                                        <div class="verification-event">친선 경기</div>
+                                    </div>
+                                </div>
+                                
+                                <div class="verification-item">
+                                    <div class="verification-image">
+                                        <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
+                                    </div>
+                                    <div class="verification-meta">
+                                        <div class="verification-user">이강인</div>
+                                        <div class="verification-date">2025-03-30</div>
+                                        <div class="verification-event">친선 경기</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="verification-load-more">
+                                <button class="btn btn-load-more">더 보기</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src = "/public/script/club/detail_club.js"></script>
+</html>
