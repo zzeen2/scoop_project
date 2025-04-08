@@ -6,6 +6,7 @@ const dummyClubs = [
         subCategory: "축구",
         location: "서울",
         members: 12,
+        tags: ["손흥민", "축구", "국대"],
         img: "/public/images/축구.png",
         guestExperience: true
     },
@@ -37,13 +38,14 @@ const dummyClubs = [
         guestExperience: true
     },
     {
-    name: "대구 야구 동호회",
-    category: "스포츠",
-    subCategory: "야구",
-    location: "대구",
-    members: 9,
-    img: "/public/images/야구.png",
-    guestExperience: false
+        name: "대구 야구 동호회",
+        category: "스포츠",
+        subCategory: "야구",
+        location: "대구",
+        members: 9,
+        tags: ["이정후", "야구", "국대"],
+        img: "/public/images/야구.png",
+        guestExperience: false
     }
 ];
 
@@ -77,8 +79,48 @@ exports.getDetailCategory = (req, res) => {
     let filtered = dummyClubs.filter(c => c.category === categoryName); // 해당 카테고리만 필터링
 
     // subCategory가 있고 "전체"가 아니면 다시 필터링
+// ✅ 전체 동호회 페이지 (검색 기능 포함)
+exports.getAllCategories = (req, res) => {
+    const { keyword } = req.query;
+
+    let filteredClubs = dummyClubs;
+
+    // 검색어가 있을 경우, 이름 또는 태그에 포함된 동호회 필터링
+    if (keyword) {
+        filteredClubs = dummyClubs.filter(club =>
+            club.name.includes(keyword) ||
+            (club.tags && club.tags.some(tag => tag.includes(keyword)))
+        );
+    }
+
+    const recommendedClubs = filteredClubs.filter(club => club.guestExperience);
+
+    res.render('categories/all_category', {
+        categoryName: null,
+        clubs: filteredClubs,
+        recommendedClubs,
+        keyword
+    });
+};
+
+// ✅ 세부 카테고리 페이지
+exports.getDetailCategory = (req, res) => {
+    const { categoryName } = req.params;
+    const { subCategory, keyword  } = req.query;
+
+    const subCategories = detailCategories[categoryName] || [];
+
+    let filtered = dummyClubs.filter(c => c.category === categoryName);
+
     if (subCategory && subCategory !== '전체') {
         filtered = filtered.filter(club => club.subCategory === subCategory);
+    }
+
+    if (keyword) {
+        filtered = filtered.filter(club =>
+            club.name.includes(keyword) ||
+            (club.tags && club.tags.some(tag => tag.includes(keyword)))
+        );
     }
 
     const recommendedClubs = filtered.filter(club => club.guestExperience);
@@ -88,6 +130,7 @@ exports.getDetailCategory = (req, res) => {
         clubs: filtered,
         subCategories,
         selectedSubCategory: subCategory || '전체', // 어떤 서브카테고리를 눌렀는지 view로 넘겨줌
-        recommendedClubs // ✅ 추천 동호회 리스트
+        recommendedClubs, // ✅ 추천 동호회 리스트
+        keyword 
     });
 };

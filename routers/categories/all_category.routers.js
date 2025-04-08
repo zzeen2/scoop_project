@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const categoryCtrl = require('../controllers/categoryController');
+const categoryCtrl = require('../../controllers/categories/all_category.controllers');
 
 // 전체 동호회 보기
 router.get('/', categoryCtrl.getAllCategories);
