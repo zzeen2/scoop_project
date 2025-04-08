@@ -1,3 +1,12 @@
+
+* {
+    padding: 0%;
+    margin: 0;
+    list-style: none;
+}
+
+
+
 header {
     display: flex;
     align-items: center;
@@ -27,3 +36,17 @@ header div {
     height: 90px;
 }
 
+header img {
+    height: 90px;
+    width: 90px;
+}
+
+#loginli {
+    user-select: none;
+    text-decoration: none;
+    color: black;
+}
+
+#alogin {
+    margin-right: 15px;
+}
