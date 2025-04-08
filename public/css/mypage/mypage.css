@@ -1,0 +1,326 @@
+
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-size: 16px;
+
+}
+
+a {
+    color: black;
+}
+input { 
+    height: 35px;
+    border-radius: 4px;
+    outline: none;
+    padding: 5px 10px ;
+    box-sizing: border-box;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    
+}
+#gender input {
+    box-shadow: none;
+}
+
+#loginwrap {
+    width: 100%;
+    height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#loginform {
+    width: 300px;
+    height: 200px;
+    border: 1px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 10px;
+}
+
+#loginform input {
+    height: 25px;
+    outline: none;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+#loginform button {
+    width: 120px;
+    height: 30px;
+}
+
+#loginform img {
+    width: 180px;
+    height: 40px;
+}
+
+#Bodywrap {
+    background-color: rgb(221, 231, 231);
+    width: 100%;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+}
+
+#Bodycontent {
+    width: 1000px;
+    background-color: rgb(247, 247, 247);
+}
+
+#Userinfo {
+    width: 1000px;
+
+    height: 150px;
+    background-color: #f1efe6;
+    padding: 10px 50px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    
+}
+
+#Introduction  {
+    width: 1000px;
+    min-height: 70px;
+    background-color: #f1efe6;
+    padding: 10px 50px;
+    box-sizing: border-box;
+}
+.Contentul  {
+    width: 1000px;
+    min-height: 200px;
+    background-color: rgb(247, 247, 247);
+    padding: 10px 50px;
+    box-sizing: border-box;
+    /* display: flex; */
+}
+#Contentul img{
+
+    border-radius: 7px;
+    /* border: 1px solid; */
+    margin-right: 30px;
+    width: 300px;
+    height: 150px;
+}
+#Contentul li {
+    width: 400px;
+    /* height: 200px; */
+}
+
+.Contentli {
+    
+    display: flex;
+}
+.Contentli ul {
+    padding: 10px 0 ;
+}
+.Contentli li {
+    
+    height: 35px;
+}
+
+.clubinfo {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#Userinfo img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+}
+
+#Userul {
+    padding: 20px 20px;
+    box-sizing: border-box;
+}
+
+#Userul li {
+    width: 760px;
+    padding: 3px 8px;
+    box-sizing: border-box;
+    /* font-size: 24px; */
+}
+
+#Userul li:nth-child(2) span:nth-child(1){
+    display: inline-block;
+    width: 350px;
+    box-sizing: border-box;
+}
+
+#Userul li:nth-child(3) span:nth-child(1){
+    display: inline-block;
+    width: 350px;
+    box-sizing: border-box;
+}
+#Userul a {
+    width: 70px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    border: 1px solid;
+    border-radius: 5px;
+    background-color: rgb(157, 211, 164);
+}
+
+p {
+    width: 590px;
+    margin: auto;
+}
+
+#Edit {
+    float: right;
+    display: flex;
+}
+
+#Edit a {
+    margin-right: 10px;
+}
+
+#Userdetailwrap {
+    width: 100%;
+    height: calc(100vh - 70px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(236, 236, 236);
+
+}
+#Userdetaildiv {
+    
+    width: 700px;
+    height: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* border: 1px solid; */
+    border-radius: 10px;
+    background-color: rgb(248, 248, 248);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+
+}
+
+#Userdetailform {
+    width: 500px;
+    height: 700px;
+    padding: 50px 0 ;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+#Userdetailform button {
+    width: 80px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid;
+    
+}
+#locationbtn {
+    width: 120px !important ;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid;
+}
+#Userdetailform button:hover {
+    background-color: rgb(197, 197, 197);
+}
+
+#Userdetailform div {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    
+}
+
+
+
+textarea {
+    padding: 10px;
+    width: 500px;
+    height: 120px;
+    resize: none;
+    box-sizing: border-box;
+    outline: none;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);;
+}
+
+#gender {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#Userintrestwrap {
+    width: 100%;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#userintrestdiv {
+    width: 700px;
+    height: 700px;
+    border-radius: 7px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#Userintrestul {
+    width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+}
+
+#Userintrestul li {
+    margin: 8px 35px;
+    width: 180px;
+    height: 40px;
+    border: 1px solid rgb(209, 201, 198);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 22px;
+    font-weight: bold;
+    background-color: rgba(255, 255, 255, 0.877);
+    user-select: none;
+    box-sizing: border-box;
+}
+
+#Userintrestul li:hover {
+    background: linear-gradient(40deg, #ffe5b7, #ffcc6e);
+    scale: 1.1;
+}
+
+h1 {
+    margin-top: 20px;
+    font-size: 26px;
+    box-sizing: border-box;
+}
+
+#Userintrestul button {
+    margin-top: 30px;
+    margin: 30px 50px;
+    width: 150px;
+    height: 40px;
+}
+
+.active {
+    background: linear-gradient(40deg, #ffe5b7, #ffcc6e);
+}
+
+
