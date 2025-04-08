@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/public/css/main/main.css">
+</head>
+<body>
+  
+  <div id="loading">
+    <img src="/public/images/logo.png" alt="스쿱" id="club_logo" />
+  
+    <div class="loader">
+      <div class="loading-text">
+        스쿱에 오신것을 환영합니다
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+  
+      <div class="loading-bar-background">
+        <div class="loading-bar">
+          <div class="white-bars-container">
+            <div class="white-bar"></div>
+            <div class="white-bar"></div>
+            <div class="white-bar"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("../common/header") %>
+  <div class="wrap">
+    <div class="map-container">
+      <div id="map">
+        <div class="map_category_bar">
+          <button class="category-btn">회원이 많은 순</button>
+          <button class="category-btn">즐겨찾기 많이 된 순</button>
+          <button class="category-btn">리뷰가 많은</button>
+          <button class="category-btn">모임이 잦은</button>
+          <button class="category-btn">활발한</button>
+          <button class="category-btn">지역 단위</button>
+          <button class="category-btn">광역 단위</button>
+        </div>
+      </div>
+      
+      <div class="map-right-content">
+        <div class="content-box">
+          <img src="/" alt="동호회 이미지" />
+          <h3>동호회 이름</h3>
+        </div>
+        
+        <div class="content-box">
+          <img src="/" alt="동호회 이미지" />
+          <h3>동호회 이름</h3>
+        </div>
+        
+        <div class="content-box">
+          <img src="/" alt="동호회 이미지" />
+          <h3>동호회 이름</h3>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <%- include("../common/side_bar") %>
+  <%- include("../common/footer") %>
+</body>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b809f71776d66974e4cb1caee3375cea"></script>
+<script src="/public/script/main/main.js"></script>
+</html>
