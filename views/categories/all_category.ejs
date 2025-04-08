@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="/public/css/categories/all_category.css">
+</head>
+
+<body>
+    <%- include("../common/header") %>
+    <%- include("../common/side_bar") %>
+    <%- include("../common/footer") %>
+      
+    <main>
+      <div class="top-bar">
+        <h2 class="title">
+          <%= categoryName ? categoryName + " 카테고리" : "전체 동호회 목록" %>
+        </h2>
+        <form class="recommend-search-bar" method="GET" action="">
+          <input
+            type="text"
+            name="keyword"
+            placeholder="동호회 이름 검색"
+            value="<%= keyword || '' %>"
+          />
+          <button type="submit">검색</button>
+        </form>
+      </div>
+    
+      <div class="club-container">
+        <div class="club-cards">
+          <% clubs.forEach(club=> { %>
+            <div class="club-card">
+              <img src="<%= club.img %>" alt="동호회 이미지" class="club-img">
+              <div class="club-info">
+                <h3><%= club.name %></h3>
+                <p>카테고리: <%= club.category %></p>
+                <p>지역: <%= club.location %></p>
+                <p>멤버 수: <%= club.members %>명</p>
+              </div>
+            </div>
+          <% }) %>
+        </div>
+    
+        <div class="recommend-section">
+          <h3>게스트 체험이 있는 동호회 추천</h3>
+          <% recommendedClubs.forEach(club=> { %>
+            <div class="recommend-card">
+              <img src="<%= club.img %>" alt="<%= club.name %>" />
+              <p><%= club.name %></p>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+    </main>
+
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동호회 수정페이지</title>
+    <link rel="stylesheet" href="/public/css/club/manage_club.css">
+</head>
+<body>
+    <%- include("../common/header") %> 
+    <div class = "main-content"> 
+        <div class = "header">
+            <div class = "page-title">
+                <h1> 동호회 수정 </h1>
+            </div>
+        </div>
+        <div id = "club-form">
+            <div class = "form-header">
+                <h2 class = "form-title">새 동호회 정보 입력</h2>
+                <p class = "form-information"> 새로운 동호회를 생성하여 같은 관심사를 가진 사람들과 함께하세요! </p>
+            </div>
+            
+            <form>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 이름</label>
+                    <input type="text" class = "form-input" id = "club_name" placeholder="동호회 이름을 알려주세요." required>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 설명</label>
+                    <textarea class = "form-input-txtarea" id="club_information" placeholder="동호회에 대한 설명을 해주세요."></textarea>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
+                    <div class = "form-container">
+                        <div class = "image-upload">
+                            <div class = "upload-icon">📷</div>
+                            <p class = "upload-info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
+                            <input type="file" id = "club-image">
+                        </div>
+                    </div>
+                </div>
+                <div class = "addFrom-group">
+                    <label class="label">태그</label>
+                    <div class = "add-tag">
+                        <span class="tag">
+                            축구 <span class="tag-remove">×</span>
+                        </span>
+                        <span class="tag">
+                            축구모임 <span class="tag-remove">×</span>
+                        </span>
+                        
+                        <input type="text" class = "tag-input" placeholder="태그를 입력하고 Enter를 누르세요">
+                    </div>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">카테고리 선택</label>
+                    <div class ="category-container">
+                        <div class = "main-category">
+                            <label class = "main-category-text">대표 카테고리</label>
+                        </div>
+                        <select class = "category-select" id="" required>
+                            <option value="" >대표 카테고리를 선택하세요</option>
+                            <!-- 스크립트에서 처리 -->
+                            <option value="sports">스포츠</option>
+                        </select>
+                        <div class = "sub-category">
+                            <label class = "sub-category-text">세부카테고리</label>
+                            <div class = "sub-category-box">
+                                <div class = "sub-category-cardBox">
+                                <!-- 스크립트에서 처리 -->
+                                    <span class="sub-category-card">축구</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "selected-categories">
+                            <label class = "selected-categories-text">선택된 카테고리</label>
+                        </div>
+                        <div class = "selected-categories-container">
+                            <!-- 스크립트에서 처리 -->
+                            <span class = "selected-main-category">스포츠</span>
+                            <span style="font-size: 1.2em;">›</span>
+                            <span class = "selected-sub-category">축구</span>
+                        </div>
+                    </div>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">멤버 정원</label>
+                    <div class = "member-container">
+                        <input type="number" class="memeber-input" min="2" placeholder="최대 인원수를 입력하세요." required >
+                        <span style="color:#666">명</span>
+                    </div>
+                    <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
+                </div>
+                <!-- 가입조건 내용은 없어도됨 -->
+                <div class = "addFrom-group">
+                    <label class = "label">가입조건</label>
+                    <textarea class = "form-input-txtarea2" id="" placeholder="가입 조건이 있다면 간단히 작성해주세요."></textarea>
+                </div>
+                <div class="addForm-btn-container">
+                    <button type="button" class="btn btn-cancel">취소</button>
+                    <button type="button" class="btn btn-ok">동호회 생성하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
