@@ -1,8 +1,4 @@
-
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Club extends Model {
     static init(sequelize) {
         return super.init({
@@ -33,7 +29,5 @@ class Club extends Model {
         models.Clubs.hasMany(models.Tags, {foreignKey : 'club_id_fk', sourceKey : 'club_id'})
     }
 }
-
-
 
 module.exports = Club;

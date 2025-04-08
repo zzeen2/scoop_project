@@ -1,10 +1,4 @@
-
-
-
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Participant extends Model {
     static init(sequelize) {
         return super.init({
@@ -24,7 +18,5 @@ class Participant extends Model {
         models.Participants.belongsTo(models.Events, {foreignKey : 'participants_id_fk', target : 'id', onDelete : 'CASCADE'})
     }
 }
-
-
 
 module.exports = Participant;

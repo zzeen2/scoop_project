@@ -1,10 +1,4 @@
-
-
-
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Userintrest extends Model {
     static init(sequelize) {
         return super.init({
@@ -24,7 +18,5 @@ class Userintrest extends Model {
         models.Userintrests.belongsTo(models.Users, {foreignKey : 'user_id_fk', target : 'uid', onDelete : 'CASCADE'})
     }
 }
-
-
 
 module.exports = Userintrest;

@@ -1,9 +1,4 @@
-
-
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Point extends Model {
     static init(sequelize) {
         return super.init({
@@ -23,7 +18,5 @@ class Point extends Model {
         
     }
 }
-
-
 
 module.exports = Point;

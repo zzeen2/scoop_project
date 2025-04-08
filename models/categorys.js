@@ -1,6 +1,4 @@
 const {DataTypes, Model} = require('sequelize');
-
-
 class Category extends Model {
     static init(sequelize) {
         return super.init({
@@ -22,7 +20,5 @@ class Category extends Model {
         models.Categorys.hasMany(models.Clubs, {foreignKey : 'categorys_id_fk', sourceKey : 'id'})
     }
 }
-
-
 
 module.exports = Category;

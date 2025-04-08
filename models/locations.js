@@ -1,10 +1,4 @@
-
-
-
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Location extends Model {
     static init(sequelize) {
         return super.init({
@@ -25,7 +19,5 @@ class Location extends Model {
         models.Locations.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', target : 'club_id', onDelete : 'CASCADE'})
     }
 }
-
-
 
 module.exports = Location;

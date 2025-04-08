@@ -1,7 +1,4 @@
-
 const {DataTypes, Model} = require('sequelize');
-
-
 class Verification extends Model {
     static init(sequelize) {
         return super.init({
@@ -21,7 +18,5 @@ class Verification extends Model {
 
     }
 }
-
-
 
 module.exports = Verification;
