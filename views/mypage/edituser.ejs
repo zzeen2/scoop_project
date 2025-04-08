@@ -1,0 +1,87 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <link rel="stylesheet" href="/public/css/common/header.css">
+    <link rel="stylesheet" href="/public/css/mypage/mypage.css">
+</head>
+<body>
+    <header>
+        <div>
+            <img src="/public/images/logo.png" alt="로고">
+            <span>동호회</span>
+        </div>
+        <ul>
+            <!-- <a href="/login" id="alogin">로그인</a> -->
+            <div>
+                <a href="/logout" id="alogout">로그아웃</a>
+            </div>
+        </ul>
+    </header>
+    <div id="Userdetailwrap">
+        <div id="Userdetaildiv">
+            <form action="" id="Userdetailform">
+                <label for="">나이 : </label>
+                <input type="text" name="age" placeholder="나이">
+                <label for="" id="gender">성별 : 
+                    <label for="male">남성 : </label>
+                    <input type="radio" name="gender" value="male"> 
+                    <label for="female" >여성 : </label>
+                    <input type="radio" name="gender" value="female" >
+                </label>
+                <label for="">활동 위치 : <button id="locationbtn" type="button" onclick="getLocation()">현재 위치 검색</button></label>
+                <input type="text" name="longitude" placeholder="longitude" id="Longitude">
+                <input type="text" name="latitude" placeholder="latitude" id="Latitude">
+                <label for="">자기소개 : </label>
+                <textarea name="content" ></textarea>
+                <div>
+                    <button>환료</button>
+                    <button type="button"><a href="/">취소</a></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    Userdetailform.onsubmit = async (e) => {
+        e.preventDefault();
+        const {age : {value : agevalue}, 
+        gender : {value : gendervalue},
+        longitude : {value :longitudevalue},
+        latitude : {value : latitudevalue},
+        content : {value : contentvalue}} = e.target;
+        console.log({agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue})
+        const {data} = await axios.post('/Updateuserdetail', {agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue})
+        console.log(data,'mypage')
+        if(data.state === 200) {
+            console.log(data.state)
+            location.href = '/mypage'
+        }
+        else {
+            location.href = '/error'
+        }
+
+        
+
+    }
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+            Latitude.value = position.coords.latitude;
+            Longitude.value = position.coords.longitude;
+        }, function(error) {
+            alert('Error getting location: ' + error.message);
+        });
+        } else {
+        alert("Geolocation is not supported by this browser.");
+        }
+    }
+</script>
+
+</html>
