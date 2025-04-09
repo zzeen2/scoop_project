@@ -5,7 +5,4 @@ const mypageRouter = require('./mypage/mypage.routers')
 
 
 
-
-
-
-module.exports = {mypageRouter, mainRouter}
+module.exports = {mainRouter, mypageRouter}
