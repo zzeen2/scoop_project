@@ -1,5 +1,5 @@
-const mainRouter = require('./main.router');
-const mypageRouter = require('./mypage/mypage.router')
+const mainRouter = require('./main/main.routers');
+const mypageRouter = require('./mypage/mypage.routers')
 
 
 

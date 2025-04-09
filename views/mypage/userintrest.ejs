@@ -64,7 +64,7 @@
     }
 
     const Updatecategory = async (e) => {
-        const {data} =  await axios.post('/Updateuserintrest', {userdata})
+        const {data} =  await axios.post('/Userintrest', {userdata})
         console.log(data)
         if(data) {
             location.href = '/mypage'
