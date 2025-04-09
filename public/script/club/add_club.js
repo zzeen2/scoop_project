@@ -248,3 +248,41 @@ document.addEventListener("DOMContentLoaded", function () {
     // 초기 실행
     loadMainCategories();
 });
+
+
+// 태그 생성
+document.addEventListener("DOMContentLoaded", ()=> {
+    const tagInput = document.getElementById("club_tags");
+    const tagContainer = tagInput.parentElement;
+
+    tagInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            setTimeout(() => {
+                const tagText = tagInput.value.trim();
+                if (!tagText) return;
+    
+                const existingTags = tagContainer.querySelectorAll(".tag");
+                const duplicate = Array.from(existingTags).some(tag =>
+                    tag.firstChild.textContent.trim() === tagText
+                );
+                if (duplicate) {
+                    tagInput.value = "";
+                    return;
+                }
+    
+                const tag = document.createElement("span");
+                tag.className = "tag";
+                tag.innerHTML = `${tagText} <span class="tag-remove">×</span>`;
+    
+                tag.querySelector(".tag-remove").addEventListener("click", () => {
+                    tag.remove();
+                });
+    
+                tagContainer.insertBefore(tag, tagInput);
+                tagInput.value = "";
+            }, 0); 
+        }
+    });    
+})             
+
