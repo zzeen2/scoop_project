@@ -13,6 +13,24 @@
 
     <link rel="stylesheet" href="/public/css/common/header.css">
     <link rel="stylesheet" href="/public/css/mypage/mypage.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events: [
+            {
+                title : '참여',
+                backgroundColor: '#9d2933',
+                date: '2025-04-08'
+            }]
+        })
+        calendar.render()
+      })
+
+    </script>
 </head>
 <body>
     <header>
@@ -41,17 +59,18 @@
                     <li>
                         <span>나이 : <%= Userdata.age %> </span>
                         <span>성별 : <%= Userdata.gender %></span>
-                    </li>
-                
-                    <li>
-                        <span>동호회 멤버 : </span>
                         <div id="Edit">
                             <a href="/Edituser" id="Edituser">정보 수정</a>
                             <a href="/Userintrest" id="Userintrest">관심 분야</a>
                         </div>
                     </li>
+                
+                    <li>
+                        <!-- <span>동호회 멤버 : </span> -->
+                    </li>
                 </ul>
             </div>
+            <span id="line"></span>
             <div id="Introduction">
                 자기소개 : 
                 <p>
@@ -59,10 +78,11 @@
                 </p>
             </div>
             
-            <ul id="Contentul">
+            
+            <ul class="Contentul">
                
                 <li class="Contentli"> 
-                    <img src="" alt="">
+                    <a href="" class="imagetag"><img src="" alt=""></a>
                     <ul class="">
                         <li>동호회 이름 : </li>
                         <li>내용 : </li>
@@ -79,7 +99,11 @@
                 <li>3</li>
                 <li>4</li> -->
             </ul>
+           
+    
         </div>
+        <div id='calendar'></div>
+        
         
     </div>
 </body>

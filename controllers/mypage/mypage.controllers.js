@@ -13,13 +13,13 @@ const Createuser = async ( kakao_id1, kakao_name1, kakao_profile_image1, age1, g
             return ({state : 200, message : '수정 완료료 1'})
         } else {
             console.log('hhhhhhhhhhh')            
-            const data = await Users.create({kakao_id : kakao_id1, kakao_name : kakao_name1, kakao_profile_image : kakao_profile_image1, age : age1, gender : gender1, introduction : introduction1, latitude : latitude1, longitude : longitude1})
+            const data = await Users.create({uid : kakao_id1, kakao_id : kakao_id1, kakao_name : kakao_name1, kakao_profile_image : kakao_profile_image1, age : age1, gender : gender1, introduction : introduction1, latitude : latitude1, longitude : longitude1})
             
             return ({state : 200, message : '수정 완료료'})
         }
     } catch (error) {
         console.log(error)
-        return error
+        return ({state : 400, message : error})
     }
 }
 
@@ -38,13 +38,13 @@ const Finduserintrest = async (uid) => {
 }
 const Deleteuserintrest = async (uid) => {
     const data = await Userintrests.destroy({where : {uid}})
-    return ( 'delete')
+    return ({state : 200, message : '삭제 완료료'})
 }
 const Updatecategory = async (id, content) => {
     console.log(id, content)
     try {
         await sequelize.query('ALTER TABLE userintrests AUTO_INCREMENT = 1')
-        const data = await Userintrests.create({uid : id , category_name : content})
+        const data = await Userintrests.create({uid : id , keyword_category_name : content})
         console.log(data)
     } catch (error) {
         console.log(error)

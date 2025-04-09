@@ -64,7 +64,7 @@
     }
 
     const Updatecategory = async (e) => {
-        const {data} =  await axios.post('/Updateuserintrest', {userdata})
+        const {data} =  await axios.post('/Userintrest', {userdata})
         console.log(data)
         if(data) {
             location.href = '/mypage'
@@ -75,3 +75,6 @@
     }
 </script>
 </html> 
+
+
+<!-- Kaggle 등에서 지하철역 좌표 CSV/JSON 데이터를 받아 사용 -->
