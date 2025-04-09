@@ -1,5 +1,6 @@
 const mainRouter = require('./main.router');
 const mypageRouter = require('./mypage/mypage.router')
+const createRouter = require('./club/add_club.routers')
 
 
 
@@ -7,5 +8,4 @@ const mypageRouter = require('./mypage/mypage.router')
 
 
 
-
-module.exports = {mypageRouter, mainRouter}
+module.exports = {mypageRouter, mainRouter, createRouter}

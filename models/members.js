@@ -4,7 +4,6 @@ class Member extends Model {
         return super.init({
             member_uid : {type : DataTypes.STRING(20),primaryKey : true, allowNull : false},
             signup_date : {type : DataTypes.STRING(20), allowNull : false}
-
         }, {
             sequelize,
             timestamps : true ,
