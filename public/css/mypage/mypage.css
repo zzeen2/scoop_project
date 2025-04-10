@@ -69,7 +69,7 @@ input {
 
 }
 #Bodywrap {
-    background-color: rgb(221, 231, 231);
+    /* background-color: rgb(221, 231, 231); */
     width: 100%;
     /* height: calc(100vh - 75px); */
     min-height: calc(100vh - 75px);
@@ -79,14 +79,14 @@ input {
 }
 #calendar {
     height: 500px;
-    width: 360px;
+    width: 340px;
 }
 #Bodycontent {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     min-height: calc(100vh - 75px);
     width: 1200px;
-    background-color: rgb(247, 247, 247);
-    margin-left: 180px;
+    /* background-color: rgb(247, 247, 247); */
+    margin-left: 340px;
 }
 
 #Userinfo {
@@ -112,7 +112,7 @@ input {
 .Contentul  {
     width: 1200px;
     min-height: 200px;
-    background-color: rgb(247, 247, 247);
+    /* background-color: rgb(247, 247, 247); */
     padding: 10px 50px;
     box-sizing: border-box;
     display: flex;
@@ -139,10 +139,15 @@ input {
     display: flex;
 }
 .Contentli ul {
+    width: 600px;
     padding: 10px 0 ;
 }
 .Contentli li {
-    
+    /* display: inline-block; */
+    white-space: nowrap;
+    width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     height: 35px;
 }
 
@@ -150,6 +155,13 @@ input {
     width: 300px;
     display: flex;
     justify-content: space-between;
+}
+
+.clubinfo span {
+    /* display: inline-block;
+    width: 600px;
+    overflow: hidden;
+    text-overflow: ellipsis; */
 }
 
 #Userinfo img {
@@ -213,7 +225,7 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(236, 236, 236);
+    /* background-color: rgb(236, 236, 236); */
 
 }
 #Userdetaildiv {
@@ -239,10 +251,12 @@ p {
     justify-content: space-around;
 }
 #Userdetailform button {
-    width: 80px;
-    height: 35px;
-    border-radius: 5px;
-    border: 1px solid;
+    cursor: pointer;
+    width: 150px;
+    height: 40px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
     
 }
 
@@ -346,16 +360,21 @@ h1 {
     border: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
     border-radius: 7px;
+    cursor: pointer;
     
 }
+
 #Userintrestul button:hover {
+    background-color: #dddddd;
+}
+/* #Userintrestul button:hover {
     background-color: #3eb32e;
     color: white;
 }
 #Userintrestul button:nth-child(2):hover {
     background-color: #3eb32e;
     color: white;
-}
+} */
 
 .active {
     background: linear-gradient(40deg, #ffe5b7, #ac905d);

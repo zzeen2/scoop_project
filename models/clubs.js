@@ -11,7 +11,7 @@ class Club extends Model {
             club_category_name : {type : DataTypes.STRING(20), allowNull : false},
             allow_guest : {type : DataTypes.STRING(20)},
             view_count : {type : DataTypes.INTEGER(10)}
-
+            
         }, {
             sequelize,
             timestamps : true ,
@@ -25,7 +25,7 @@ class Club extends Model {
         models.Clubs.hasMany(models.Locations, {foreignKey : 'club_id_fk', sourceKey : 'club_id'})
         models.Clubs.hasMany(models.Members, {foreignKey : 'club_id_fk', sourceKey : 'club_id'})
         models.Clubs.hasMany(models.Events, {foreignKey : 'club_id_fk', sourceKey : 'club_id'})
-        models.Clubs.belongsTo(models.Categorys, {foreignKey : 'categorys_id_fk', onDelete : 'CASCADE', target : 'id'})
+        models.Clubs.belongsTo(models.Categorys, {foreignKey : 'categorys_id_fk', onDelete : 'CASCADE', target : 'name'})
         models.Clubs.hasMany(models.Tags, {foreignKey : 'club_id_fk', sourceKey : 'club_id'})
     }
 }

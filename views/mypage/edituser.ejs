@@ -58,12 +58,13 @@
         e.preventDefault();
         const {age : {value : agevalue}, 
         gender : {value : gendervalue},
-        longitude : {value :longitudevalue},
+        location : {value :locationvalue},
         // longitude : {value :longitudevalue},
         // latitude : {value : latitudevalue},
         content : {value : contentvalue}} = e.target;
-        console.log({agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue})
-        const {data} = await axios.post('/Edituser', {agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue})
+        console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
+        
+        const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
         console.log(data,'mypage')
         if(data.state === 200) {
             console.log(data.state)
