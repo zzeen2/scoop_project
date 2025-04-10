@@ -1,13 +1,6 @@
 // 취소버튼 클릭 이벤트
 
-// 확인버튼 클릭 이벤트
-console.log("dfd")
-ok_btn.onclick = async (e) => {
-    console.log("동호회 생성 버튼 눌렀어    ")
-    e.preventDefault();
-};
-
-/**
+/** 카카오 api로직
     사용자 입력
     ↓
     브라우저 → GET /clubs/search?query=강남역
@@ -24,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const localSection = document.getElementById("local-range-section");
     const wideSection = document.getElementById("wide-range-section");
 
-    const subwayInput = document.getElementById("subway-search");
+    const subwayInput = document.getElementById("subway_search");
     const subwayList = document.getElementById("subway-suggestions");
 
     const districtInput = document.getElementById("district-search");
@@ -49,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Kakao 검색 함수
     async function searchKakaoKeyword(keyword) {
         try {
-            const response = await fetch(`/clubs/search?query=${encodeURIComponent(keyword)}`);
+            const response = await fetch(`/clubs/create/search?query=${encodeURIComponent(keyword)}`);
             if (!response.ok) {
                 console.error("❌ 서버에서 Kakao API 호출 실패:", response.status);
                 return [];
@@ -175,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- 대표 카테고리 로딩
     async function loadMainCategories() {
         try {
-            const res = await fetch("/clubs/categories/main");
+            const res = await fetch("/clubs/create/categories/main");
             const categories = await res.json();
             
             console.log("res", res);
@@ -196,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // --- 세부 카테고리 로딩
     async function loadSubCategories(mainId) {
         try {
-            const res = await fetch(`/clubs/categories/sub/${mainId}`);
+            const res = await fetch(`/clubs/create/categories/sub/${mainId}`);
             const subCategories = await res.json();
 
             subCategoryBox.innerHTML = "";
@@ -283,6 +276,92 @@ document.addEventListener("DOMContentLoaded", ()=> {
                 tagInput.value = "";
             }, 0); 
         }
+        //console.log(tagContainer);
     });    
-})             
+})
 
+// 이미지 업로드
+document.addEventListener("DOMContentLoaded", () => {
+    const club_image = document.getElementById("club_image");
+    const imageUploadBox = document.querySelector(".image-upload");
+    const icon = document.querySelector(".upload-icon");
+    const upload_info = document.querySelector(".upload-info");
+
+    imageUploadBox.addEventListener("click", () => {
+        club_image.click();
+    });
+
+    club_image.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const existingImg = imageUploadBox.querySelector("img");
+            if (existingImg) existingImg.remove();
+
+            const previewImg = document.createElement("img");
+            previewImg.src = event.target.result;
+            previewImg.alt = "동호회 이미지 미리보기";
+            previewImg.style.width = "80%";
+            previewImg.style.aspectRatio = "4 / 3";
+            previewImg.style.objectFit = "cover";
+            previewImg.style.borderRadius = "8px";
+
+            icon.style.display = "none";
+            upload_info.style.display = "none";
+
+            imageUploadBox.appendChild(previewImg);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+
+// 데이터 보내기
+ok_btn.onclick = async (e) => {
+    e.preventDefault();
+    console.log("dd");
+    const form = new FormData();
+
+    form.append("name", club_name.value.trim());
+    form.append("introduction", club_information.value.trim());
+    form.append("image", club_image.files[0]);
+    form.append("member_limit", document.querySelector(".memeber-input").value);
+    form.append("main_category_id", main_category_id.value);
+    form.append("sub_category_name", sub_category_name.value);
+    // 활동범위
+    const rangeType = document.querySelector("input[name='range_type']:checked").value;
+    form.append("activity_type", rangeType);
+
+    if (rangeType === "local") { // 지역범위 선택하면
+        form.append("local_station", subway_search.value.trim());
+        form.append("wide_regions", ""); // 광역범위는 빈문자열로 보내기
+    } else { // 광역범위 선택하면
+        const selected = document.querySelectorAll(".selected-district");
+        const wideRegions = Array.from(selected).map(span => span.textContent.replace(" ×", ""));
+        form.append("wide_regions", JSON.stringify(wideRegions));
+        form.append("local_station", "");// 지역범위는 빈문자열로 보내기
+    }
+
+    // 태그들
+    const tags = Array.from(document.querySelectorAll(".tag")).map(tag => tag.firstChild.textContent.trim());
+    form.append("tags", JSON.stringify(tags));
+    console.log("태그확인 : ",tags  )
+
+    try {
+        const res = await axios.post("/clubs/create/", form, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
+        if (res.status === 200) {
+            alert("동호회가 성공적으로 생성되었습니다!");
+            location.href = "/";
+        }
+    } catch (err) {
+        console.error("동호회 생성 실패:", err);
+        alert("동호회 생성 중 오류가 발생했습니다.");
+    }
+}

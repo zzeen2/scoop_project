@@ -33,8 +33,8 @@
                     <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
                     <div class = "form-container">
                         <div class = "image-upload">
-                            <div class = "upload-icon">📷</div>
-                            <p class = "upload-info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
+                            <div class = "upload-icon" id = "icon">📷</div>
+                            <p class = "upload-info" id ="upload_info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
                             <input type="file" id = "club_image">
                         </div>
                     </div>
@@ -98,7 +98,7 @@
                     <!-- 지역단위: 지하철역 검색 -->
                     <div id="local-range-section" style="margin-top:10px;">
                     <div class="relative-wrapper">
-                        <input type="text" id="subway-search" class="form-input" placeholder="지하철역 이름을 입력하세요">
+                        <input type="text" id="subway_search" class="form-input" placeholder="지하철역 이름을 입력하세요">
                         <ul id="subway-suggestions" class="suggestions-list"></ul>
                     </div>
                     </div>
@@ -116,7 +116,7 @@
 
                 <div class="addForm-btn-container">
                     <button type="button" class="btn btn-cancel">취소</button>
-                    <button  class="btn btn-ok" id = "ok_btn">동호회 생성하기</button>
+                    <button  type="button" class="btn btn-ok" id = "ok_btn">동호회 생성하기</button>
                 </div>
             </form>
         </div>

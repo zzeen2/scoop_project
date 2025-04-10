@@ -11,8 +11,8 @@ app.use(express.urlencoded({extended : false}))
 app.use('/public', express.static(path.join(__dirname, "public")))
 
 app.use('/categories', categoryRouter);
+app.use('/clubs/create', createRouter)
 app.use('/clubs', manageClubRouter);
-app.use('/clubs', createRouter)
 
 app.get('/' , (req, res) => {
     res.render('main/main')

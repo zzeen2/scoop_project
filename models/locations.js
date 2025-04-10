@@ -5,7 +5,6 @@ class Location extends Model {
             club_id : {type : DataTypes.STRING(20),primaryKey : true, allowNull : false},
             point : {type : DataTypes.STRING(200), allowNull : false},
             poligon : {type : DataTypes.STRING(200), allowNull : false}
-            
 
         }, {
             sequelize,

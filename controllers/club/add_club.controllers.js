@@ -1,5 +1,4 @@
-const {Clubs} = require("../../models/configs");
-const {Categorys} = require("../../models/configs")
+const {Categorys, Clubs, Locations, Tags} = require("../../models/configs")
 
 // 정보 입력 저장 
 const createController = {
@@ -38,4 +37,64 @@ const getSubCategories = async (req,res) => {
     }
 }
 
-module.exports = {getMainCategories, getSubCategories }
+// 데이터 추가하기
+const createClub = async (req, res, userId) => {
+    try {
+        if (!req.body.activity_type) {
+            return res.status(400).json({ message: "activity_type이 필요합니다" });
+        }
+
+        const {
+            name,
+            introduction,
+            main_category_id,
+            sub_category_name,
+            member_limit,
+            local_station
+        } = req.body;
+
+        const wide_regions = req.body.wide_regions ? JSON.parse(req.body.wide_regions) : [];
+        const tags = req.body.tags || [];
+
+        // 중복 방지
+        const existing = await Clubs.findOne({ where: { name } });
+        if (existing) {
+            return res.status(400).json({ message: "이미 존재하는 동호회 이름입니다." });
+        }
+
+        const image = req.file ? `/uploads/clubs/${req.file.filename}` : "/public/default.png";
+
+        // 동호회 생성
+        const newClub = await Clubs.create({
+            name,
+            introduction,
+            image,
+            creator_id: userId,
+            member_limit: parseInt(member_limit),
+            club_category_name: sub_category_name,
+            categorys_id_fk: parseInt(main_category_id),
+            view_count: 0
+        });
+
+        // 위치 저장
+        await Locations.create({
+            club_id: newClub.club_id,
+            point: local_station || "",
+            poligon: wide_regions.length ? JSON.stringify(wide_regions) : ""
+        });
+
+        // 태그 저장
+        for (const tagText of tags) {
+            await Tags.create({
+                club_id_fk: newClub.club_id,
+                name: tagText
+            });
+        }
+
+        return res.status(200).json({ message: "동호회 생성 완료" });
+    } catch (err) {
+        console.error("동호회 생성 중 에러:", err);
+        res.status(500).json({ message: "서버 오류 발생" });
+    }
+};
+module.exports = {getMainCategories, getSubCategories , createClub}

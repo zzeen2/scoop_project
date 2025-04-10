@@ -1,4 +1,6 @@
+
 const { DataTypes, Model} = require('sequelize');
+
 class User extends Model {
     static init(sequelize) {
         return super.init({
@@ -28,7 +30,13 @@ class User extends Model {
         models.Users.hasMany(models.Reviews, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Hearts, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Events, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        // models.Users.hasMany(models.Members, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        // models.Users.hasMany(models.Categorys, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        // models.Users.hasMany(models.Locations, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        // models.Users.hasMany(models.Participants, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        // models.Users.hasMany(models.Verifications, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
     }
 }
+
 
 module.exports = User;
