@@ -54,7 +54,8 @@ const createClub = async (req, res, userId) => {
         } = req.body;
 
         const wide_regions = req.body.wide_regions ? JSON.parse(req.body.wide_regions) : [];
-        const tags = req.body.tags || [];
+        const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
+
 
         // 중복 방지
         const existing = await Clubs.findOne({ where: { name } });
@@ -87,7 +88,7 @@ const createClub = async (req, res, userId) => {
         for (const tagText of tags) {
             await Tags.create({
                 club_id_fk: newClub.club_id,
-                name: tagText
+                tag: tagText
             });
         }
 
