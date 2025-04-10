@@ -26,7 +26,14 @@
             </div>
         </ul>
     </header>
+   
     <div id="Userdetailwrap">
+        <div id="Popup">
+            <ul>
+                <li></li>
+                <button>확인</button>
+            </ul>
+        </div>
         <div id="Userdetaildiv">
             <form action="" id="Userdetailform">
                 <label for="">나이 : </label>
@@ -47,7 +54,7 @@
                 <textarea name="content" ></textarea>
                 <div>
                     <button>환료</button>
-                    <button type="button"><a href="/mypage">취소</a></button>
+                    <a href="/mypage"><button type="button">취소</button></a>
                 </div>
             </form>
         </div>
@@ -64,6 +71,10 @@
         content : {value : contentvalue}} = e.target;
         console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
         
+        if(agevalue.trim() === '' || gendervalue.trim() === '' || locationvalue === '' || contentvalue === '') {
+            Userdetailwrap.classList.add('popup');
+
+        }
         const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
         console.log(data,'mypage')
         if(data.state === 200) {
