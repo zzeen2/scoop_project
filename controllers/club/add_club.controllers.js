@@ -1,11 +1,5 @@
-const {Categorys, Clubs, Locations, Tags} = require("../../models/configs")
-
-// 정보 입력 저장 
-const createController = {
-    async create () {
-
-    }
-}
+const {Categorys, Clubs, Locations, Tags, Points} = require("../../models/configs")
+const jwt = require("jsonwebtoken")
 
 // 대표 카테고리 조회
 const getMainCategories = async (req,res) => {
@@ -98,4 +92,25 @@ const createClub = async (req, res, userId) => {
         res.status(500).json({ message: "서버 오류 발생" });
     }
 };
-module.exports = {getMainCategories, getSubCategories , createClub}
+
+// 접근제한 미들웨어
+const checkUserPoint = async (req, res, next) => {
+    try {
+        const token = req.cookies.login_access_token;
+        if(!token) return res.json({state : 400, message : "로그인이 필요합니다."})
+        const decoded = jwt.verify(token, process.env.TOKEN);
+        const userId = decoded.id;
+
+        const searchUserPoint = await Points.findOne({where : { user_id_fk : userId }});
+        console.log(searchUserPoint);
+        const point = searchUserPoint?.point || 0;
+        if (point < 300) res.json({state : 401, message : "동호회생성은 포인트 300점 이상부터 가능합니다."})
+        next();
+    } catch (error) {
+        console.log("포인트 확인 오류", error);
+        res.json({state : 403, message : "포인트 확인 중 서버 오류"})
+    }
+}
+
+
+module.exports = {getMainCategories, getSubCategories , createClub, checkUserPoint}
