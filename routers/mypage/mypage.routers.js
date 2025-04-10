@@ -5,7 +5,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest} = require('../../controllers/mypage/mypage.controllers')
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories} = require('../../controllers/mypage/mypage.controllers')
 
 
 
@@ -119,9 +119,9 @@ router.post('/Edituser', async (req, res) => {
     const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
     const {nickname, profile_image} = properties;
     console.log(req.body, 'asdfasdf')
-    const { agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue} = req.body;
-    console.log(id, nickname, profile_image, agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue)
-    const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, latitudevalue,  longitudevalue );
+    const { agevalue, gendervalue, locationvalue, contentvalue} = req.body;
+    console.log(id, nickname, profile_image, agevalue, gendervalue, locationvalue, contentvalue)
+    const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, locationvalue );
     console.log(data, 'router')
     res.json({state : 200 , message : '관심분야 수정 완료'})
     
@@ -160,4 +160,5 @@ router.post('/Userintrest', async (req, res) => {
         res.json({state : 200, message : error})
     }
 })
+// seedCategories();
 module.exports = router

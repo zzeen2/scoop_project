@@ -9,8 +9,8 @@ class User extends Model {
             age : {type : DataTypes.INTEGER(20)},
             gender : {type : DataTypes.STRING(20)},
             introduction : {type : DataTypes.INTEGER(200)},
-            latitude : {type : DataTypes.STRING},
-            longitude : {type : DataTypes.STRING}
+            location : {type : DataTypes.STRING(200)},
+            
   
         }, {
             sequelize,
