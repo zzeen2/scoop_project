@@ -37,28 +37,28 @@
       <% }) %>
     </div>
   
-    <!-- ✅ club-container 추가 -->
+    <!-- ✅ club-container -->
     <div class="club-container">
       <div class="club-cards">
         <% clubs.forEach(club => { %>
           <div class="club-card">
-            <img src="<%= club.img %>" alt="동호회 이미지" class="club-img">
+            <img src="<%= club.image %>" alt="<%= club.name %>" class="club-img">
             <div class="club-info">
               <h3><%= club.name %></h3>
-              <p>카테고리: <%= club.category %></p>
-              <p>지역: <%= club.location %></p>
-              <p>멤버 수: <%= club.members %>명</p>
+              <p>카테고리: <%= club.club_category_name %></p>
+              <p>소개: <%= club.introduction || "지역 정보 없음" %></p>
+              <p>멤버 수: <%= club.member_limit || 0 %>명</p>
             </div>
           </div>
         <% }) %>
       </div>
   
-      <!-- ✅ 추천 섹션은 club-container 안으로 -->
+      <!-- ✅ 추천 섹션 -->
       <div class="recommend-section">
         <h3>게스트 체험이 있는 동호회 추천</h3>
         <% recommendedClubs.forEach(club => { %>
           <div class="recommend-card">
-            <img src="<%= club.img %>" alt="<%= club.name %>" />
+            <img src="<%= club.image %>" alt="<%= club.name %>" />
             <p><%= club.name %></p>
           </div>
         <% }) %>

@@ -6,11 +6,11 @@ class User extends Model {
             kakao_id : {type : DataTypes.STRING(20), allowNull : false},
             kakao_name : {type : DataTypes.STRING(20), allowNull : false},
             kakao_profile_image : {type : DataTypes.STRING(200), allowNull : false},
-            age : {type : DataTypes.INTEGER(20), allowNull : false},
-            gender : {type : DataTypes.STRING(20), allowNull : false},
-            introduction : {type : DataTypes.INTEGER(200), allowNull : false},
-            latitude : {type : DataTypes.STRING},
-            longitude : {type : DataTypes.STRING}
+            age : {type : DataTypes.INTEGER(20)},
+            gender : {type : DataTypes.STRING(20)},
+            introduction : {type : DataTypes.INTEGER(200)},
+            location : {type : DataTypes.STRING(200)},
+            
   
         }, {
             sequelize,
