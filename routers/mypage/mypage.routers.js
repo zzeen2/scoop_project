@@ -1,12 +1,11 @@
 
 
 
-// require('dotenv').config()
 const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest} = require('../../controllers/mypage/mypage.controller')
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories} = require('../../controllers/mypage/mypage.controllers')
 
 
 
@@ -64,7 +63,10 @@ router.get('/', async (req, res) => {
         
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
+
+        console.log('done', id, properties.nickname, properties.profile_image)
         const data = await Createuser(id, properties.nickname, properties.profile_image)
+        console.log('done')
         res.render('main/main', {data : properties, uuid : id})
   
     }
@@ -80,7 +82,12 @@ router.get('/mypage', async (req, res) => {
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
         console.log(Userdata, 'asdfasdfs')
-        res.render('mypage/mypage', {data : properties, uuid : id, Userdata})
+        if(Userdata) {
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata})
+        }
+        else {
+            res.render('mypage/mypage', {data : properties, uuid : id})
+        }
     }
     catch(error) {
         console.log('error', error)
@@ -107,15 +114,16 @@ router.get('/Edituser', (req, res) => {
     res.render('mypage/edituser')
 })
 
-router.post('/Updateuserdetail', async (req, res) => {
+router.post('/Edituser', async (req, res) => {
     const {login_access_token} = req.cookies;
     const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
     const {nickname, profile_image} = properties;
-    // console.log(id, nickname, profile_image)
-    const { agevalue, gendervalue, longitudevalue, latitudevalue, contentvalue} = req.body;
-    const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, latitudevalue,  longitudevalue );
+    console.log(req.body, 'asdfasdf')
+    const { agevalue, gendervalue, locationvalue, contentvalue} = req.body;
+    console.log(id, nickname, profile_image, agevalue, gendervalue, locationvalue, contentvalue)
+    const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, locationvalue );
     console.log(data, 'router')
-    res.json(data)
+    res.json({state : 200 , message : '관심분야 수정 완료'})
     
 })
 
@@ -123,7 +131,7 @@ router.get('/Userintrest', (req, res) => {
     res.render('mypage/userintrest')
 })
 
-router.post('/Updateuserintrest', async (req, res) => {
+router.post('/Userintrest', async (req, res) => {
     const {login_access_token} = req.cookies;
     const {id} = jwt.verify(login_access_token, process.env.TOKEN)
     console.log(id)
@@ -141,8 +149,7 @@ router.post('/Updateuserintrest', async (req, res) => {
                 
             }
         }
-        else {
-            
+        else {     
             for (let i = 0; i < userdata.length; i++) {
                 const data = await Updatecategory(id, userdata[i])
                 console.log(data, 'for')
@@ -150,7 +157,8 @@ router.post('/Updateuserintrest', async (req, res) => {
         }
         res.json({state : 200, message : '추가 완료'})
     } catch (error) {
-        res.json(error)
+        res.json({state : 200, message : error})
     }
 })
+// seedCategories();
 module.exports = router
