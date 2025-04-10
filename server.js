@@ -18,7 +18,6 @@ app.get('/' , (req, res) => {
     res.render('main/main')
 })
 
-
 app.listen(3000,() => {
     console.log("서버 작동중...")
 })

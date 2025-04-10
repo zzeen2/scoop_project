@@ -93,7 +93,7 @@ const createClub = async (req, res, userId) => {
 
         return res.status(200).json({ message: "동호회 생성 완료" });
     } catch (err) {
-        console.error("동호회 생성 중 에러:", err);
+        //console.error("동호회 생성 중 에러:", err);
         res.status(500).json({ message: "서버 오류 발생" });
     }
 };
