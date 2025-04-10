@@ -4,8 +4,7 @@ const path = require('path');
 const app = express();
 const categoryRouter = require('./routers/categories/all_category.routers');
 const manageClubRouter = require('./routers/club/manage_club.routers');
-const {mypageRouter} = require('./routers')
-
+const createRouter = require('./routers/club/add_club.routers')
 
 app.set('view engine', 'ejs');
 app.use(express.json())
@@ -13,6 +12,7 @@ app.use(express.urlencoded({extended : false}))
 app.use('/public', express.static(path.join(__dirname, "public")))
 
 app.use('/categories', categoryRouter);
+app.use('/clubs/create', createRouter)
 app.use('/clubs', manageClubRouter);
 
 app.use('/', mypageRouter)

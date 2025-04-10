@@ -22,7 +22,6 @@ window.addEventListener("load", () => {
       }
     );
   
-  
     // 로딩 화면 스크린 동작
     const loadingScreenAnimation = loadingScreen.animate(
       [
