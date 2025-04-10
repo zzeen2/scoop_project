@@ -33,42 +33,36 @@
                     <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
                     <div class = "form-container">
                         <div class = "image-upload">
-                            <div class = "upload-icon">📷</div>
-                            <p class = "upload-info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
-                            <input type="file" id = "club-image">
+                            <div class = "upload-icon" id = "icon">📷</div>
+                            <p class = "upload-info" id ="upload_info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
+                            <input type="file" id = "club_image">
                         </div>
                     </div>
                 </div>
                 <div class = "addFrom-group">
                     <label class="label">태그</label>
-                    <div class = "add-tag">
-                        <span class="tag">
-                            축구 <span class="tag-remove">×</span>
-                        </span>
-                        <span class="tag">
-                            축구모임 <span class="tag-remove">×</span>
-                        </span>
-                        
-                        <input type="text" class = "tag-input" placeholder="태그를 입력하고 Enter를 누르세요">
+                    <div class = "add-tag">           
+                        <input type="text" class = "tag-input" id = "club_tags", placeholder="태그를 입력하고 Enter를 누르세요">
                     </div>
                 </div>
                 <div class = "addFrom-group">
+                    <input type="hidden" name="main_category_id" id="main_category_id">
+                    <input type="hidden" name="sub_category_name" id="sub_category_name">
+
                     <label class = "label required">카테고리 선택</label>
                     <div class ="category-container">
                         <div class = "main-category">
                             <label class = "main-category-text">대표 카테고리</label>
                         </div>
-                        <select class = "category-select" id="" required>
+                        <select class = "category-select" id="club_category" required>
                             <option value="" >대표 카테고리를 선택하세요</option>
                             <!-- 스크립트에서 처리 -->
-                            <option value="sports">스포츠</option>
                         </select>
                         <div class = "sub-category">
                             <label class = "sub-category-text">세부카테고리</label>
                             <div class = "sub-category-box">
                                 <div class = "sub-category-cardBox">
                                 <!-- 스크립트에서 처리 -->
-                                    <span class="sub-category-card">축구</span>
                                 </div>
                             </div>
                         </div>
@@ -77,9 +71,9 @@
                         </div>
                         <div class = "selected-categories-container">
                             <!-- 스크립트에서 처리 -->
-                            <span class = "selected-main-category">스포츠</span>
+                            <span class = "selected-main-category"></span>
                             <span style="font-size: 1.2em;">›</span>
-                            <span class = "selected-sub-category">축구</span>
+                            <span class = "selected-sub-category"></span>
                         </div>
                     </div>
                 </div>
@@ -91,17 +85,42 @@
                     </div>
                     <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
                 </div>
-                <!-- 가입조건 내용은 없어도됨 -->
-                <div class = "addFrom-group">
-                    <label class = "label">가입조건</label>
-                    <textarea class = "form-input-txtarea2" id="" placeholder="가입 조건이 있다면 간단히 작성해주세요."></textarea>
+                <!-- 지역 선택 옵션 -->
+                <div class="addFrom-group">
+                    <label class="label required">활동 범위</label>
+                
+                    <!-- 라디오 버튼: 지역 or 광역 -->
+                    <div>
+                    <label><input type="radio" name="range_type" value="local" checked> 지역단위 (지하철 기준)</label>
+                    <label><input type="radio" name="range_type" value="wide"> 광역단위 (시/구/군 기준)</label>
+                    </div>
+                
+                    <!-- 지역단위: 지하철역 검색 -->
+                    <div id="local-range-section" style="margin-top:10px;">
+                    <div class="relative-wrapper">
+                        <input type="text" id="subway_search" class="form-input" placeholder="지하철역 이름을 입력하세요">
+                        <ul id="subway-suggestions" class="suggestions-list"></ul>
+                    </div>
+                    </div>
+                
+                    <!-- 광역단위: 구/군 검색 및 선택 -->
+                    <div id="wide-range-section" style="margin-top:10px; display:none;">
+                    <div class="relative-wrapper">
+                        <input type="text" id="district-search" class="form-input" placeholder="구 또는 군을 검색하세요 (최대 3개)">
+                        <ul id="district-suggestions" class="suggestions-list"></ul>
+                    </div>
+                    <div id="selected-districts" class="selected-districts"></div>
+                    </div>
                 </div>
+                
+
                 <div class="addForm-btn-container">
                     <button type="button" class="btn btn-cancel">취소</button>
-                    <button type="button" class="btn btn-ok">동호회 생성하기</button>
+                    <button  type="button" class="btn btn-ok" id = "ok_btn">동호회 생성하기</button>
                 </div>
             </form>
         </div>
     </div>
+    <script src="/public/script/club/add_club.js"></script>
 </body>
 </html>

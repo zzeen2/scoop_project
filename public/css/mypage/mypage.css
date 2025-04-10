@@ -78,8 +78,10 @@ input {
     justify-content: center;
 }
 #calendar {
+    padding-left: 10px;
     height: 500px;
     width: 340px;
+    box-sizing: border-box;
 }
 #Bodycontent {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -294,6 +296,7 @@ textarea {
 }
 
 #gender {
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -377,7 +380,7 @@ h1 {
 } */
 
 .active {
-    background: linear-gradient(40deg, #ffe5b7, #ac905d);
+    background: linear-gradient(40deg, #ffe5b7, #ffcc6e);
 }
 
 

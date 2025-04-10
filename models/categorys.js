@@ -16,8 +16,8 @@ class Category extends Model {
         })
     }
     static associate(models) {
-        models.Categorys.hasOne(models.Categorys, {foreignKey : 'categorys_id_fk', target : 'name'})
-        models.Categorys.hasMany(models.Clubs, {foreignKey : 'categorys_id_fk', sourceKey : 'name'})
+        models.Categorys.hasOne(models.Categorys, {foreignKey : 'categorys_id_fk', target : 'id'})
+        models.Categorys.hasMany(models.Clubs, {foreignKey : 'categorys_id_fk', sourceKey : 'id'})
     }
 }
 
