@@ -14,6 +14,18 @@
 <body>
     <%- include('../common/header') %>
     <div id="Userintrestwrap">
+        <div id="Popupwrap1">
+            <div id="Popup1">           
+                <span>정상 환료 되었습니다</span>
+                <a href="/mypage"><button>확인</button> </a>
+            </div>
+        </div>
+        <div id="Popupwraperror1">
+            <div id="Popuperror1">           
+                <span>카태고리 선택 해주세요</span>
+                <a href="/Userintrest"><button>확인</button> </a>
+            </div>
+        </div>
         <div id="userintrestdiv">
             <h1>좋아하는 카테고리 선택해주세요</h1> <br>
             <ul id="Userintrestul">
@@ -48,6 +60,7 @@
     const userdata = []
     for (let i = 0; i < Userintrestbtn.length; i++) {
         Userintrestbtn[i].onclick = (e) => {
+            
             if((userdata.length < 10) && (userdata.indexOf(Userintrestbtn[i].innerText) === -1)) {
                 Userintrestbtn[i].classList.add('active')
                 userdata.push(Userintrestbtn[i].innerText)
@@ -64,13 +77,20 @@
     }
 
     const Updatecategory = async (e) => {
-        const {data} =  await axios.post('/Userintrest', {userdata})
-        console.log(data)
-        if(data) {
-            location.href = '/mypage'
+        if(userdata.length > 0) {
+            
+            const {data} =  await axios.post('/Userintrest', {userdata})
+            console.log(data)
+            if(data.state === 200) {
+                // location.href = '/mypage'
+                Userintrestwrap.classList.add('popup')
+            }
+            else {
+                alert('error')
+            }
         }
         else {
-            alert('error')
+            Userintrestwrap.classList.add('popuperror')
         }
     }
 </script>

@@ -216,47 +216,17 @@ const clubs = [
   ];
 
 const clubdata = async () => {
-    await Clubs.create( {
+    await Clubs.create( 
       
     
-        club_id: 'club002',
-        name: 'Fitness Freaks',
-        introduction: 'Stay fit, stay healthy. Join our workout sessions!',
-        image: 'https://example.com/images/fitness.jpg',
-        creator_id: 'user002',
-        member_limit: 100,
-        club_category_name: 'Health',
-        allow_guest: 'no',
-        view_count: 45
-      },
-      {
-        club_id: 'club003',
-        name: 'Movie Nights',
-        introduction: 'Weekly movie marathons and discussions.',
-        image: 'https://example.com/images/movie.jpg',
-        creator_id: 'user003',
-        member_limit: 30,
-        club_category_name: 'Entertainment',
-        allow_guest: 'yes',
-        view_count: 67
-      },
-      {
-        club_id: 'club004',
-        name: 'Gamers Unite',
-        introduction: 'Multiplayer game events and tournaments.',
-        image: 'https://example.com/images/gaming.jpg',
-        creator_id: 'user004',
-        member_limit: 70,
-        club_category_name: 'Gaming',
-        allow_guest: 'no',
-        view_count: 88
-      },
+    
+
       {
         club_id: 'club005',
         name: 'Art Lovers',
         introduction: 'For those who appreciate and create art.',
         image: 'https://example.com/images/art.jpg',
-        creator_id: 'user005',
+        creator_id: '4202096295',
         member_limit: 40,
         club_category_name: 'Art',
         allow_guest: 'yes',
@@ -267,7 +237,7 @@ const clubdata = async () => {
         name: 'Tech Talk',
         introduction: 'Discuss the latest in technology and innovation.',
         image: 'https://example.com/images/tech.jpg',
-        creator_id: 'user006',
+        creator_id: '4202096295',
         member_limit: 60,
         club_category_name: 'Technology',
         allow_guest: 'yes',
@@ -294,7 +264,7 @@ const clubdata = async () => {
         club_category_name: 'Photography',
         allow_guest: 'no',
         view_count: 59
-      },
+      },  
       {
         club_id: 'club009',
         name: 'Travel Buddies',
@@ -320,4 +290,22 @@ const clubdata = async () => {
 }
 // clubdata();
 // seedCategories();
-module.exports = {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest}
+
+const Findclub = async (id) => {
+    try {
+        const Club = await Clubs.findAll({
+            where : {
+                creator_id: '4202096295'
+            }
+        });
+        // [Club {asd{asd}}, ]
+        const arrayClub = Club.map(el => el.dataValues);
+        // console.log(Club.dataValues,arrayClub[0], 'asdfasdfasdf')
+        return arrayClub;
+    } catch (error) {
+        console.log("세부카테고리 불러오기 오류 : ", error);
+        return({state : 400, message : "세부카테고리 불러오기 오류"})
+    }
+}
+
+module.exports = {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

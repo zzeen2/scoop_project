@@ -75,15 +75,89 @@
                     </li>
                 </ul>
             </div>
-            <span id="line"></span>
+            <!-- <span id="line"></span> -->
             <div id="Introduction">
                 자기소개 : 
                 <p>
                     <%= Userdata.introduction %>
                 </p>
             </div>
+            <span id="line"></span>
             
             
+            <ul class="Contentul">
+               
+                <li class="Contentli"> 
+                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
+                    <ul class="">
+                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
+                        <li>내용 : 
+                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
+3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
+혼술!혼밥!혼영!혼여no(모든지함께)
+                        </li>
+                        <li></li>
+                        <li class="clubinfo">
+                            <span>카태고리</span>
+                            <span>창소</span>
+                            <span>멤버</span>
+                        </li>
+                    </ul>
+
+                </li>
+                <!-- <li>2</li>
+                <li>3</li>
+                <li>4</li> -->
+            </ul>
+            <% for(let i = 0; i < clubdata.length; i++) { %> 
+                <ul class="Contentul">
+                    
+                    
+                    <li class="Contentli"> 
+                        <a href="" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                        <ul class="">
+                            <li>동호회 이름 :  <%= clubdata[i].name %> </li>
+                            <li>내용 : 
+                                <%= clubdata[i].introduction %>
+                            </li>
+                            <li></li>
+                            <li class="clubinfo">
+                                <span>카태고리</span>
+                                <span>창소</span>
+                                <span>멤버</span>
+                            </li>
+                        </ul>
+                        
+                    </li>
+                    <!-- <li>2</li>
+                    <li>3</li>
+                    <li>4</li> -->
+                </ul>
+            <% } %>
+            <ul class="Contentul">
+               
+                <li class="Contentli"> 
+                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
+                    <ul class="">
+                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
+                        <li>내용 : 
+                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
+3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
+혼술!혼밥!혼영!혼여no(모든지함께)
+                        </li>
+                        <li></li>
+                        <li class="clubinfo">
+                            <span>카태고리</span>
+                            <span>창소</span>
+                            <span>멤버</span>
+                        </li>
+                    </ul>
+
+                </li>
+                <!-- <li>2</li>
+                <li>3</li>
+                <li>4</li> -->
+            </ul>
             <ul class="Contentul">
                
                 <li class="Contentli"> 
