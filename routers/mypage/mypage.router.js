@@ -58,23 +58,7 @@ router.get('/auth/kakao/callback', async(req, res) => {
     }
 
 })
-// router.get('/', async (req, res) => {
-//     try{
-        
-//         const {login_access_token} = req.cookies;
-//         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
 
-//         console.log('done', id, properties.nickname, properties.profile_image)
-//         const data = await Createuser(id, properties.nickname, properties.profile_image)
-//         console.log('done')
-//         res.render('main/main', {data : properties, uuid : id})
-  
-//     }
-//     catch(error) {
-//         console.log('error')
-//         res.render('main/main', {data : null})
-//     }
-// })
 
 router.get('/mypage', async (req, res) => {
     try{
@@ -84,7 +68,7 @@ router.get('/mypage', async (req, res) => {
         const clubdata = await Findclub(id);
         // const {a} = clubdata[0]
         // console.log(clubdata,'ffffffffffff')
-        console.log(clubdata, 'asdfasd')
+        
         if(Userdata) {
             res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata})
         }
@@ -164,4 +148,20 @@ router.post('/Userintrest', async (req, res) => {
     }
 })
 // seedCategories();
+
+router.get('/checkcookie', (req, res) => {
+    try {
+        const {login_access_token} = req.cookies;
+        if(login_access_token) {
+
+            res.json({state : 200})
+        }
+        
+    } catch (error) {
+        res.json({state : 400})
+    }
+})
+
+
+
 module.exports = router

@@ -11,7 +11,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 10px 80px;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -21,6 +21,7 @@ header {
     height: 75px;
     box-sizing: border-box;
     z-index: 1000;
+    font-size: 20px;
 }
 
 
@@ -36,9 +37,33 @@ header div {
     height: 90px;
 }
 
-header img {
+#logo {
     height: 50px;
     width: 150px;
 }
 
+
+
+
+.Userlogin img {
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+}
+.Userlogin span {
+    width: max-content;
+    padding-right: 30px;
+    box-sizing: border-box;
+}
+.Userlogin .login-form{
+    display: none;
+}
+
+.activelogin .login-form{
+    display: flex ;
+}
+
+.activelogin #alogin {
+    display: none;
+}
 

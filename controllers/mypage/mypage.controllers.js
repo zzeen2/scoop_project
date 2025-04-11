@@ -308,4 +308,7 @@ const Findclub = async (id) => {
     }
 }
 
+
+
+
 module.exports = {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
