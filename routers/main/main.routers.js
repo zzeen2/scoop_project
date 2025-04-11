@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const {FilteringSort} = require('../../controllers/main/main.controllers')
-const {Createuser} = require('../../controllers/mypage/mypage.controller')
+const {Createuser} = require('../../controllers/mypage/mypage.controllers')
 
 
 
@@ -22,8 +22,9 @@ router.get('/',  async(req, res) => {
 
 
 router.get('/filter', async (req, res) => { 
+  console.log("쿼리쿼리쿼리", req.query)
   const {index} = req.query;
-    console.log("필터링 인덱스", index);
+  console.log("필터링 인덱스", index);
    const data = await FilteringSort(index);
    console.log(data);
    res.json(data);

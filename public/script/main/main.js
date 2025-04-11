@@ -45,12 +45,14 @@ window.addEventListener("load", () => {
 const result = ["member","like", "review"]
 const filterBtn = document.querySelectorAll('.category-btn');
 const clubList = document.querySelector('.club-list')
+
 for (let i = 0; i < filterBtn.length; i++) {
   filterBtn[i].onclick = async () => {
     try {
      const filterData = await axios.get(`/filter?index=${result[i]}`)
+     console.log("filterdata" , filterData)
      const clubs = filterData.data.data;
-
+    console.log("clubs",clubs )
      clubList.innerHTML = '';
 
      if (clubs.length === 0) {

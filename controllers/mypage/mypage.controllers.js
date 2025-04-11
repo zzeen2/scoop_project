@@ -295,7 +295,7 @@ const Findclub = async (id) => {
     try {
         const Club = await Clubs.findAll({
             where : {
-                creator_id: '4202096295'
+                creator_id: id
             }
         });
         // [Club {asd{asd}}, ]

@@ -6,7 +6,7 @@ const cookie = require("cookie-parser")
 const categoryRouter = require('./routers/categories/all_category.routers');
 const manageClubRouter = require('./routers/club/manage_club.routers');
 const createRouter = require('./routers/club/add_club.routers')
-const {mypageRouter, eventsRouter} = require('./routers')
+const {mypageRouter, eventsRouter,mainRouter } = require('./routers')
 
 
 app.set('view engine', 'ejs');
@@ -22,11 +22,9 @@ app.use('/clubs', manageClubRouter);
 
 
 
-app.use(mainRouter)
-
-app.use('/', mypageRouter)
-app.use('/', eventsRouter)
-
+app.use('/', mainRouter)
+app.use(mypageRouter)
+app.use(eventsRouter)
 
 
 // app.get('/' , (req, res) => {
