@@ -1,5 +1,5 @@
 
-const {Users, Userintrests, sequelize} = require('../../models/mypage/configs1');
+const {Users, Userintrests, sequelize} = require('../../models/configs');
 // const Userintrest = require('../models/users/userintrests');
 
 

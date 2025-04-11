@@ -1,11 +1,4 @@
-const mainRouter = require('./main.router');
-const mypageRouter = require('./mypage/mypage.router')
+const mainRouter = require('./main/main.routers');
 
 
-
-
-
-
-
-
-module.exports = {mypageRouter, mainRouter}
+module.exports = {mainRouter}

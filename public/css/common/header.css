@@ -37,16 +37,8 @@ header div {
 }
 
 header img {
-    height: 90px;
-    width: 90px;
+    height: 50px;
+    width: 150px;
 }
 
-#loginli {
-    user-select: none;
-    text-decoration: none;
-    color: black;
-}
 
-#alogin {
-    margin-right: 15px;
-}

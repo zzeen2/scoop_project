@@ -34,34 +34,20 @@
   <%- include("../common/header") %>
   <div class="wrap">
     <div class="map-container">
+
       <div id="map">
-        <div class="map_category_bar">
-          <button class="category-btn">회원이 많은 순</button>
-          <button class="category-btn">즐겨찾기 많이 된 순</button>
-          <button class="category-btn">리뷰가 많은</button>
-          <button class="category-btn">모임이 잦은</button>
-          <button class="category-btn">활발한</button>
-          <button class="category-btn">지역 단위</button>
-          <button class="category-btn">광역 단위</button>
-        </div>
+        <div class="zoom-level-label" id="zoomLabel">지역단위</div>
       </div>
-      
+  
       <div class="map-right-content">
-        <div class="content-box">
-          <img src="/" alt="동호회 이미지" />
-          <h3>동호회 이름</h3>
+        <div class="map_category_bar">
+          <button class="category-btn">회원순</button>
+          <button class="category-btn">좋아요순</button>
+          <button class="category-btn">리뷰순</button>
         </div>
-        
-        <div class="content-box">
-          <img src="/" alt="동호회 이미지" />
-          <h3>동호회 이름</h3>
-        </div>
-        
-        <div class="content-box">
-          <img src="/" alt="동호회 이미지" />
-          <h3>동호회 이름</h3>
-        </div>
-        
+  
+        <div class="club-list"></div>
+  
       </div>
     </div>
   </div>
@@ -69,6 +55,7 @@
   <%- include("../common/footer") %>
 </body>
 
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b809f71776d66974e4cb1caee3375cea"></script>
 <script src="/public/script/main/main.js"></script>
 </html>
