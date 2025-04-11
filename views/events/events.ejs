@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/css/club/add_club.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+ 
+</head>
+<body>
+    <%- include("../common/header") %>
+    <div class = "main-content"> 
+        <div class = "header">
+            <div class = "page-title">
+                <h1> 동호회 관리 </h1>
+            </div>
+        </div>
+        <div id = "club-form1">
+            <form>
+                <div class = "form-header">
+                    <h2 class = "form-title">동호회 수정 정보 입력</h2>
+                    <p class = "form-information">동호회를 수정하여 같은 관심사를 가진 사람들과 함께하세요! </p>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
+                    <div class = "form-container">
+                        <div class = "image-upload">
+                            <div class = "upload-icon" id = "icon1">📷</div>
+                            <p class = "upload-info" id ="upload_info1">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
+                            <input type="file" id = "club_image1">
+                        </div>
+                    </div>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 이름</label>
+                    <input type="text" class = "form-input" id = "club_name" placeholder="동호회 이름을 알려주세요." required>
+                </div>
+                <div class = "addFrom-group">
+                    <label class = "label required">동호회 설명</label>
+                    <textarea class = "form-input-txtarea" id="club_information" placeholder="동호회에 대한 설명을 해주세요."></textarea>
+                </div>
+                
+                <div class="addForm-btn-container1">
+                    <button class="btn btn-ok" id = "ok_btn1">동호회 수정하기</button>
+                </div>
+            </form>
+            <div id='calendar'></div>
+        </div>
+    </div>
+</body>
+<script>
+
+    const data = [];
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            dateClick: function(info) {
+                data.push({
+                    title: '참여',
+                    backgroundColor: '#9d2933',
+                    date: info.dateStr
+                    })
+                },
+            events : data
+      })
+      calendar.render()
+    })
+
+    if(data) {
+        console.log(data)
+    }
+
+
+  </script>
+</html>

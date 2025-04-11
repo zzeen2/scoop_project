@@ -5,8 +5,8 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories} = require('../../controllers/mypage/mypage.controllers')
-
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub} = require('../../controllers/mypage/mypage.controllers');
+const { getSubCategories } = require('../../controllers/club/add_club.controllers');
 
 
 
@@ -81,12 +81,15 @@ router.get('/mypage', async (req, res) => {
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
-        console.log(Userdata, 'asdfasdfs')
+        const clubdata = await Findclub(id);
+        // const {a} = clubdata[0]
+        // console.log(clubdata,'ffffffffffff')
+        console.log(clubdata, 'asdfasd')
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata})
         }
         else {
-            res.render('mypage/mypage', {data : properties, uuid : id})
+            res.render('mypage/mypage', {data : properties, uuid : id, clubdata})
         }
     }
     catch(error) {
