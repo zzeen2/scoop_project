@@ -7,7 +7,8 @@ const categoryRouter = require('./routers/categories/all_category.routers');
 const manageClubRouter = require('./routers/club/manage_club.routers');
 const createRouter = require('./routers/club/add_club.routers')
 const mypageRouter = require('./routers/mypage/mypage.routers')
-
+const {mypageRouter, mainRouter} = require('./routers')
+const cookieParser = require('cookie-parser')
 
 app.set('view engine', 'ejs');
 app.use(express.json())
@@ -19,6 +20,10 @@ app.use('/categories', categoryRouter);
 app.use('/clubs/create', createRouter)
 app.use('/clubs/detail', createRouter)
 app.use('/clubs', manageClubRouter);
+
+
+
+app.use(mainRouter)
 
 app.use('/', mypageRouter)
 
