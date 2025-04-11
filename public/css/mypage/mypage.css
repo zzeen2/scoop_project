@@ -63,11 +63,12 @@ input {
 #line {
     display: block;
     height: 1px;
-    width: 900px;
-    background-color: #e6ddcf;
+    width: 1100px;
+    background-color: #e4ded4;
     margin: 0 auto;
-
 }
+
+
 #Bodywrap {
     /* background-color: rgb(221, 231, 231); */
     width: 100%;
@@ -78,22 +79,24 @@ input {
     justify-content: center;
 }
 #calendar {
+    position: fixed;
     padding-left: 10px;
     height: 500px;
     width: 340px;
     box-sizing: border-box;
+    right: 0px;
+    margin: 0 10px;
 }
 #Bodycontent {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     min-height: calc(100vh - 75px);
     width: 1200px;
     /* background-color: rgb(247, 247, 247); */
-    margin-left: 340px;
 }
 
 #Userinfo {
     width: 1200px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     height: 200px;
     /* background-color: #f1efe6; */
     padding: 10px 50px;
@@ -106,10 +109,16 @@ input {
 
 #Introduction  {
     width: 1200px;
-    min-height: 80px;
+    min-height: 100px;
     /* background-color: #f1efe6; */
     padding: 15px 50px;
+    
     box-sizing: border-box;
+}
+
+#Introduction p {
+    width: 930px;
+    margin: auto;
 }
 .Contentul  {
     width: 1200px;
@@ -154,16 +163,19 @@ input {
 }
 
 .clubinfo {
-    width: 300px;
+    width: 250px !important;
     display: flex;
     justify-content: space-between;
 }
 
 .clubinfo span {
-    /* display: inline-block;
-    width: 600px;
-    overflow: hidden;
-    text-overflow: ellipsis; */
+    background-color: #ffd17a;
+    width: max-content;
+    height: max-content;
+    padding: 0 10px;
+    border-radius: 20px;
+    box-sizing: border-box;
+
 }
 
 #Userinfo img {
@@ -207,10 +219,7 @@ input {
     box-sizing: border-box;
 }
 
-p {
-    width: 590px;
-    margin: auto;
-}
+
 
 #Edit {
     float: right;
@@ -304,10 +313,13 @@ textarea {
 
 #Userintrestwrap {
     width: 100%;
-    margin-top: 100px;
+    height: calc(100vh - 70px);
+    /* margin-top: 70px; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    justify-content: center;
 }
 #userintrestdiv {
     width: 700px;
@@ -383,4 +395,63 @@ h1 {
     background: linear-gradient(40deg, #ffe5b7, #ffcc6e);
 }
 
+#Popupwrap, #Popupwrap1, #Popupwraperror1 {
+    display: none;
+}
 
+.popup #Popupwrap{
+    position: absolute;
+    width: 100%;
+    height: calc(100vh + 70px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.popuperror #Popupwraperror1{
+    position: absolute;
+    width: 100%;
+    height: calc(100vh + 70px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup #Popupwrap1{
+    position: absolute;
+    width: 100%;
+    height: calc(100vh + 70px);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.popup #Popup, .popup #Popup1, .popuperror #Popuperror1 {
+    position: absolute;
+    width: 400px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 7px;
+    
+}
+
+#Popup button, #Popup1 button, #Popuperror1 button{
+    width: 90px;
+    cursor: pointer;
+    height: 30px;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+    border-radius: 7px;
+    
+}
+#Popup button:hover {
+    background-color: #dddddd;
+}

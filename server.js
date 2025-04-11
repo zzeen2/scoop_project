@@ -5,7 +5,7 @@ const app = express();
 const categoryRouter = require('./routers/categories/all_category.routers');
 const manageClubRouter = require('./routers/club/manage_club.routers');
 const createRouter = require('./routers/club/add_club.routers')
-const mypageRouter = require('./routers/mypage/mypage.routers')
+const {mypageRouter, eventsRouter} = require('./routers')
 
 
 app.set('view engine', 'ejs');
@@ -18,6 +18,7 @@ app.use('/clubs/create', createRouter)
 app.use('/clubs', manageClubRouter);
 
 app.use('/', mypageRouter)
+app.use('/', eventsRouter)
 
 
 

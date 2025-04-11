@@ -28,11 +28,11 @@
     </header>
    
     <div id="Userdetailwrap">
-        <div id="Popup">
-            <ul>
-                <li></li>
-                <button>확인</button>
-            </ul>
+        <div id="Popupwrap">
+            <div id="Popup">           
+                <span>입력 정보를 확인해주세요</span>
+                <a href="/Edituser"><button>확인</button> </a>
+            </div>
         </div>
         <div id="Userdetaildiv">
             <form action="" id="Userdetailform">
@@ -73,7 +73,7 @@
         
         if(agevalue.trim() === '' || gendervalue.trim() === '' || locationvalue === '' || contentvalue === '') {
             Userdetailwrap.classList.add('popup');
-
+            return
         }
         const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
         console.log(data,'mypage')

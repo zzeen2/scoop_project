@@ -33,7 +33,7 @@ body {
     font-weight: 600;
     color: #333;
 }
-#club-form{
+#club-form, #club-form1 {
     max-width: 1000px;
     margin: 0 auto;
     padding:40px;
@@ -108,7 +108,7 @@ body {
     color : #999;
     margin-bottom: 10px;
 }
-#club_image{
+#club_image, #club_image1{
     display: none;
 }
 .add-tag{
@@ -251,6 +251,13 @@ body {
     padding-top: 20px;
     border-top: 1px solid #ddd;
 }
+.addForm-btn-container1{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+    margin-bottom: 70px;
+}
 .btn {
     padding: 10px 20px;
     border: none;
@@ -327,4 +334,8 @@ body {
     cursor: pointer;
 }
 
-
+#calendar {
+    padding-top: 50px;
+    border-top: 1px solid #ddd;
+    height: 500px;
+}
