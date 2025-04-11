@@ -18,7 +18,7 @@ class Tag extends Model {
     }
 
     static associate(models) {
-        models.Tags.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', target : 'club_id',  onDelete : 'CASCADE'});
+        models.Tags.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', targetkey : 'club_id',  onDelete : 'CASCADE'});
     }
 }
 

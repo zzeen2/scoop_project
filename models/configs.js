@@ -73,8 +73,8 @@ verifications.associate(db)
 reviews.associate(db)
 tags.associate(db)
 
-sequelize.sync({force : true}).then(() => {
+sequelize.sync({force : false}).then(() => {
     console.log('database on~')
 }).catch(console.log)
 
-// module.exports = db
+module.exports = db
