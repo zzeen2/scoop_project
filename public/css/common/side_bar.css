@@ -62,6 +62,7 @@ a {
     padding: 6px 10px;
     border-radius: 5px;
     white-space: nowrap;
+    pointer-events: none;  /* 사이드바 가려서 넣어야함 */
 }
 
 
