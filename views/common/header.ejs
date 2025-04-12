@@ -5,14 +5,16 @@
 <header>
     <div class="logo">
         <img id="logo" src="/public/images/logo.png" alt="로고">
-        <h1>스쿱</h1>
+        <a href="/"><h1>스쿱</h1></a>
     </div>
     <ul id="userul">
         <div class="Userlogin">
             <a href="/login" id="alogin">로그인</a>
             <div class="login-form">
-                <a href=""><img src="<%= properties.profile_image %>" alt=""></a>
-                <span><%= properties.nickname %> </span>
+                <% if(data) { %> 
+                <a href="/mypage"><img src="<%= data.profile_image %>" alt=""></a>
+                <span><%= data.nickname %> </span>
+                <% } %>
                 <a href="/logout" id="alogout">로그아웃</a>
             </div>
         </div>

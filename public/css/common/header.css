@@ -5,7 +5,9 @@
     list-style: none;
 }
 
-
+h1 {
+    font-size: 26px;
+}
 
 header {
     display: flex;
@@ -21,7 +23,7 @@ header {
     height: 75px;
     box-sizing: border-box;
     z-index: 1000;
-    font-size: 20px;
+    /* font-size: 20px; */
 }
 
 
@@ -38,21 +40,21 @@ header div {
 }
 
 #logo {
-    height: 50px;
-    width: 150px;
+    height: 80px;
+    width: 80px;
 }
 
 
 
 
 .Userlogin img {
-    width: 30px;
-    height: 30px;
-    border-radius: 30px;
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
 }
 .Userlogin span {
     width: max-content;
-    padding-right: 30px;
+    padding:0 20px;
     box-sizing: border-box;
 }
 .Userlogin .login-form{
