@@ -28,14 +28,18 @@
     </div>
   
     <!-- 세부 카테고리 바 -->
-    <div class="subcategory-bar">
-      <% subCategories.forEach(sub => { %>
-        <a href="/categories/<%= categoryName %>?subCategory=<%= sub %>"
-           class="<%= selectedSubCategory === sub ? 'selected' : '' %>">
-          <%= sub %>
-        </a>
-      <% }) %>
-    </div>
+  <div class="subcategory-bar">
+    <a href="/categories/<%= categoryName %>?subCategory=전체"
+        class="<%= selectedSubCategory === '전체' ? 'selected' : '' %>">
+      전체
+    </a>
+    <% subCategories.forEach(sub => { %>
+      <a href="/categories/<%= categoryName %>?subCategory=<%= sub %>"
+          class="<%= selectedSubCategory === sub ? 'selected' : '' %>">
+        <%= sub %>
+      </a>
+    <% }) %>
+  </div>
   
     <!-- ✅ club-container -->
     <div class="club-container">

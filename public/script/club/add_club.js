@@ -210,6 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
             
                     selectedSub.textContent = sub.name;
                     document.getElementById("sub_category_name").value = sub.name;
+                    document.getElementById("sub_category_id").value = sub.id
                 });
 
                 subCategoryBox.appendChild(span);
@@ -320,6 +321,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // 데이터 보내기
 ok_btn.onclick = async (e) => {
+    console.log("선택된 sub_category_id:", document.getElementById("sub_category_id").value);
+
     e.preventDefault();
     console.log("dd");
     const form = new FormData();
@@ -330,6 +333,8 @@ ok_btn.onclick = async (e) => {
     form.append("member_limit", document.querySelector(".memeber-input").value);
     form.append("main_category_id", main_category_id.value);
     form.append("sub_category_name", sub_category_name.value);
+    form.append("sub_category_id", document.getElementById("sub_category_id").value);
+
     // 활동범위
     const rangeType = document.querySelector("input[name='range_type']:checked").value;
     form.append("activity_type", rangeType);

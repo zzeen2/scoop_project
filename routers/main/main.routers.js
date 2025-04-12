@@ -9,7 +9,8 @@ router.get('/',  async(req, res) => {
   const { login_access_token } = req.cookies;
   if (login_access_token) {
     try {
-      const { properties } = jwt.verify(login_access_token, process.env.TOKEN);
+      const { id, properties } = jwt.verify(login_access_token, process.env.TOKEN);
+      console.log("아이디", id)
       const  data = await Createuser(id, properties.nickname, properties.profile_image)
       console.log("있어?",properties)
       res.render('main/main', { data: properties });
