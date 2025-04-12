@@ -2,7 +2,7 @@ const {DataTypes, Model} = require('sequelize');
 class Club extends Model {
     static init(sequelize) {
         return super.init({
-            club_id : {type : DataTypes.INTEGER, primaryKey : true, allowNull : false, autoIncrement : true}, 
+            club_id : {type : DataTypes.STRING, primaryKey : true, allowNull : false}, 
             // 고유아이디 삽입 문제로 integer로 변경함
             name : {type : DataTypes.STRING(20), allowNull : false, unique: true},
             introduction : {type : DataTypes.STRING(200), allowNull : false},

@@ -53,7 +53,7 @@ exports.getDetailCategory = async (req, res) => {
     if (!mainCategory) return res.status(404).send('카테고리를 찾을 수 없습니다.');
 
     const subCategories = await getDetailCategories(categoryName);
-
+    console.log(mainCategory)
     // 하위 카테고리 목록 불러오기 (id들)
     const subCategoryRows = await Categorys.findAll({
         where: {
@@ -62,8 +62,8 @@ exports.getDetailCategory = async (req, res) => {
         }
     });
 
-    const subCategoryIds = subCategoryRows.map(row => row.id);
-
+    const subCategoryIds = subCategoryRows.map(row => row.categorys_id_fk);
+    console.log(subCategoryIds)
     let where = {
         categorys_id_fk: {
             [Op.in]: subCategoryIds
@@ -85,9 +85,9 @@ exports.getDetailCategory = async (req, res) => {
     }
 
     const clubs = await Clubs.findAll({
-        where,
-        include: [Tags]
+        where
     });
+    console.log(clubs)
 
     const recommendedClubs = clubs.filter(club => club.allow_guest === "1");
 
