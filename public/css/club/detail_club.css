@@ -56,22 +56,30 @@
     color: #333;
     margin: 0;
 }
-.btn-heart {
-    background: none;
-    border: none;
-    font-size: 1.8em;
-    color: #ff4757;
+.btn_like {
+    width: 50px;
+    height: 50px;
+    background: url('https://umings.github.io/images/i_like_off.png') no-repeat center / 50px;
+    border: 0;
     cursor: pointer;
-    padding: 5px;
-    transition: transform 0.2s ease;
+    font-size: 0;
+    display: block;
+    margin: 20px auto;
 }
-.btn-heart:hover {
-    transform: scale(1.2);
+
+.btn_like.on {
+    background: url('https://umings.github.io/images/i_like_on.png') no-repeat center / 50px;
+    animation: beating 0.5s 1 alternate;
 }
-.btn-heart.active .heart-icon {
-    content: "♥";
-    font-weight: bold;
+
+
+@keyframes beating {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.25); }
+    70%  { transform: scale(0.9); }
+    100% { transform: scale(1); }
 }
+
 .club-category {
     display: flex;
     align-items: center;

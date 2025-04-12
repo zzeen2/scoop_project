@@ -2,7 +2,7 @@ const {DataTypes, Model} = require('sequelize');
 class Heart extends Model {
     static init(sequelize) {
         return super.init({
-            like_id: {type : DataTypes.INTEGER(10),primaryKey : true, allowNull : false},
+            like_id: {type : DataTypes.INTEGER(10),primaryKey : true, allowNull : false, autoIncrement:true},
 
         }, {
             sequelize,
