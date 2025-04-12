@@ -6,6 +6,8 @@ const {upload} = require("../../lib/multer")
 
 //-------------------- 프론트
 router.get("/", (req,res)=> {
-    res.render("/")
+    res.render("club/detail_club")
 })
 //-------------------- 백엔드
+
+module.exports = router;
