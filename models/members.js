@@ -3,7 +3,8 @@ class Member extends Model {
     static init(sequelize) {
         return super.init({
             member_uid : {type : DataTypes.STRING(20),primaryKey : true, allowNull : false},
-            signup_date : {type : DataTypes.STRING(20), allowNull : false}
+            signup_date : {type : DataTypes.STRING(20), allowNull : false},
+            user_id_fk : { type :DataTypes.STRING(20), allowNull : false}
 
         }, {
             sequelize,
@@ -17,6 +18,7 @@ class Member extends Model {
     static associate(models) {
         // models.Keywords.belongsTo(models.User, {foreignKey : 'user_id', target : 'uid', onDelete : 'CASCADE'})
         models.Members.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', target : 'club_id', onDelete : 'CASCADE'})
+        models.Members.belongsTo(models.Users, { foreignKey : 'user_id_fk', target : 'uid', onDelete : 'CASCADE'})
     }
 }
 
