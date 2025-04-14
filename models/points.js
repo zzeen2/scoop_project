@@ -32,4 +32,7 @@ class Point extends Model {
 }
 
 
+
+
+
 module.exports = Point;

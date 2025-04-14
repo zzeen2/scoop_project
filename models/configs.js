@@ -78,3 +78,4 @@ sequelize.sync({force : false }).then(() => {
 }).catch(console.log)
 
 module.exports = db
+
