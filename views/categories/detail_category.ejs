@@ -9,6 +9,7 @@
 <body>
   <%- include("../common/side_bar") %>
   <%- include("../common/footer") %>
+  <%- include("../common/header", {data}) %> 
 
   <main>
     <div class="top-bar">
@@ -27,30 +28,38 @@
     </div>
   
     <!-- 세부 카테고리 바 -->
-    <div class="subcategory-bar">
-      <% subCategories.forEach(sub => { %>
-        <a href="/categories/<%= categoryName %>?subCategory=<%= sub %>"
-           class="<%= selectedSubCategory === sub ? 'selected' : '' %>">
-          <%= sub %>
-        </a>
-      <% }) %>
-    </div>
+  <div class="subcategory-bar">
+    <a href="/categories/<%= categoryName %>?subCategory=전체"
+        class="<%= selectedSubCategory === '전체' ? 'selected' : '' %>">
+      전체
+    </a>
+    <% subCategories.forEach(sub => { %>
+      <a href="/categories/<%= categoryName %>?subCategory=<%= sub %>"
+          class="<%= selectedSubCategory === sub ? 'selected' : '' %>">
+        <%= sub %>
+      </a>
+    <% }) %>
+  </div>
   
     <!-- ✅ club-container -->
     <div class="club-container">
       <div class="club-cards">
         <% clubs.forEach(club => { %>
-          <div class="club-card">
-            <img src="<%= club.image %>" alt="<%= club.name %>" class="club-img">
-            <div class="club-info">
-              <h3><%= club.name %></h3>
-              <p>카테고리: <%= club.club_category_name %></p>
-              <p>소개: <%= club.introduction || "지역 정보 없음" %></p>
-              <p>멤버 수: <%= club.member_limit || 0 %>명</p>
+          <a href="/clubs/detail/<%= club.club_id %>" class="club-card-link">
+            <div class="club-card">
+              <img src="<%= club.image %>" alt="동호회 이미지" class="club-img">
+              <div class="club-info">
+                <h3><%= club.name %></h3>
+                <p>카테고리: <%= club.club_category_name %></p>
+                <p>소개: <%= club.introduction ? club.introduction : '정보 없음' %></p>
+                <p>멤버 수: <%= club.member_limit ? club.member_limit : 0 %>명</p>
+              </div>
             </div>
-          </div>
+          </a>
         <% }) %>
       </div>
+    </div>
+    
   
       <!-- ✅ 추천 섹션 -->
       <div class="recommend-section">
@@ -64,5 +73,6 @@
       </div>
     </div>
   </main>
+  <script src = "../../public/script/categories/all_category.js"></script>
 </body>
 </html>

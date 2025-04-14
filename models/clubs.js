@@ -11,7 +11,10 @@ class Club extends Model {
             member_limit : {type : DataTypes.INTEGER(10), allowNull : false},
             club_category_name : {type : DataTypes.STRING(20), allowNull : false},
             allow_guest : {type : DataTypes.STRING(20)},
-            view_count : {type : DataTypes.INTEGER(10)}
+            view_count : {type : DataTypes.INTEGER(10)},
+            activity_type: { type: DataTypes.STRING(50), allowNull: true },
+            local_station: { type: DataTypes.STRING(200), allowNull: true },
+            wide_regions: { type: DataTypes.TEXT, allowNull: true } 
 
         }, {
             sequelize,
