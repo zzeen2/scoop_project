@@ -2,16 +2,25 @@
 * {
     padding: 0%;
     margin: 0;
+
+    text-decoration: none;
+}
+ul {
     list-style: none;
 }
+a {
+    color: black;
+}
 
-
+h1 {
+    font-size: 26px;
+}
 
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 10px 80px;
     background-color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: fixed;
@@ -21,6 +30,7 @@ header {
     height: 75px;
     box-sizing: border-box;
     z-index: 1000;
+    /* font-size: 20px; */
 }
 
 
@@ -36,9 +46,33 @@ header div {
     height: 90px;
 }
 
-header img {
-    height: 50px;
-    width: 150px;
+#logo {
+    height: 80px;
+    width: 80px;
 }
 
+
+
+
+.Userlogin img {
+    width: 45px;
+    height: 45px;
+    border-radius: 45px;
+}
+.Userlogin span {
+    width: max-content;
+    padding:0 20px;
+    box-sizing: border-box;
+}
+.Userlogin .login-form{
+    display: none;
+}
+
+.activelogin .login-form{
+    display: flex ;
+}
+
+.activelogin #alogin {
+    display: none;
+}
 

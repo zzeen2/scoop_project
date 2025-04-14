@@ -14,42 +14,10 @@
     <link rel="stylesheet" href="/public/css/common/header.css">
     <link rel="stylesheet" href="/public/css/mypage/mypage.css">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-    <script>
 
-      document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar')
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          events: [
-            {
-                title : '참여',
-                backgroundColor: '#9d2933',
-                date: '2025-04-05'
-            },{
-                title : '참여',
-                backgroundColor: '#9d2933',
-                date: '2025-03-30'
-            }
-        ]
-        })
-        calendar.render()
-      })
-
-    </script>
 </head>
 <body>
-    <header>
-        <div>
-            <img src="/public/images/logo.png" alt="로고">
-            <a href="/">동호회</a>
-        </div>
-        <ul>
-            <!-- <a href="/login" id="alogin">로그인</a> -->
-            <div>
-                <a href="/logout" id="alogout">로그아웃</a>
-            </div>
-        </ul>
-    </header>
+    <%- include("../common/header") %>
     <div id="Bodywrap">
         <div id="Bodycontent">
 
@@ -59,7 +27,7 @@
                     <li>아이디 : <%= uuid %></li>
                     <li>
                         <span>이름 : <%= data.nickname %></span>                      
-                        <span>레벨 : 1</span>
+                        <span>레벨 : <%= Userlevel %></span>
                     </li>
                     <li>
                         <span>나이 : <%= Userdata.age %> </span>
@@ -122,9 +90,9 @@
                             </li>
                             <li></li>
                             <li class="clubinfo">
-                                <span>카태고리</span>
-                                <span>창소</span>
-                                <span>멤버</span>
+                                <span><%= clubdata[i].club_category_name %></span>
+                                <span>잉일체험 : <%= clubdata[i].allow_guest %></span>
+                                <span>멤버 정원 : <%= clubdata[i].member_limit %></span>
                             </li>
                         </ul>
                         
@@ -192,5 +160,24 @@
 </body>
 <script>
 
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const calendarEl = document.getElementById('calendar')
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+          {
+              title : '참여',
+              backgroundColor: '#9d2933',
+              date: '2025-04-05'
+          },{
+              title : '참여',
+              backgroundColor: '#9d2933',
+              date: '2025-03-30'
+          }
+      ]
+      })
+      calendar.render()
+    })
+
+  </script>
 </html>

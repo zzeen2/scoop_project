@@ -1,15 +1,42 @@
 <link rel="stylesheet" href="/public/css/common/header.css">
 <link rel="stylesheet" href="/public/css/common/main.css">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <header>
     <div class="logo">
         <img id="logo" src="/public/images/logo.png" alt="로고">
-        <h1>스쿱</h1>
+        <a href="/"><h1>스쿱</h1></a>
     </div>
-    <ul>
-        <div>
+    <ul id="userul">
+        <div class="Userlogin">
             <a href="/login" id="alogin">로그인</a>
-            <a href="/logout" id="alogout">로그아웃</a>
+            <div class="login-form">
+                <% if(data) { %> 
+                <a href="/mypage"><img src="<%= data.profile_image %>" alt=""></a>
+                <span><%= data.nickname %> </span>
+                <% } %>
+                <a href="/logout" id="alogout">로그아웃</a>
+            </div>
         </div>
     </ul>
 </header>
+
+<script >
+    
+    const Checkcookie = async () => {
+        const {data} = await axios.get('/checkcookie')
+        console.log(data)
+        if(data.state === 200) {
+            console.log('sssssss')
+            userul.classList.add('activelogin')
+        }
+        else {
+            console.log('11111111')
+            userul.classList.remove('activelogin')
+        }
+    }
+
+    Checkcookie();
+
+
+</script>

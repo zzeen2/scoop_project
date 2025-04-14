@@ -33,13 +33,21 @@ body {
     font-weight: 600;
     color: #333;
 }
-#club-form, #club-form1 {
+#club-form, #club-form1  {
     max-width: 1000px;
     margin: 0 auto;
     padding:40px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
     
+}
+
+#club-form2 {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding:40px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
 }
 .form-header{
     margin-bottom: 30px;
@@ -251,7 +259,7 @@ body {
     padding-top: 20px;
     border-top: 1px solid #ddd;
 }
-.addForm-btn-container1{
+.addForm-btn-container1, .addForm-btn-container2, .addForm-btn-container3 {
     display: flex;
     justify-content: flex-end;
     padding-top: 20px;
@@ -337,5 +345,6 @@ body {
 #calendar {
     padding-top: 50px;
     border-top: 1px solid #ddd;
-    height: 500px;
+    height: 520px;
+    margin-bottom: 35px;
 }
