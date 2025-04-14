@@ -2,25 +2,6 @@
 
 
 
-// const axios = require('axios');
-
-
-
-// const Checkcookie = async () => {
-//     const {data} = await axios.get('/checkcookie')
-//     console.log(data)
-//     if(data.state === 200) {
-//         userul.classList.add('activelogin')
-//     }
-//     else {
-//         userul.classList.remove('activelogin')
-//     }
-// }
-
-// Checkcookie();
-
-
-// console.log('sssssss')
 
 console.log('dddddddddddddddddddddddd')
         
@@ -99,7 +80,6 @@ function formatWithOffset(date, offset = '+09:00') {
     calendar.render();
 });
     
-    // await axios.post('/eventdata', {title : title, start : info.startStr, end : info.endStr})
 
 
 if(data) {
@@ -121,4 +101,63 @@ function openPostcode() {
         document.getElementById('addr').value = data.address;
     }
     }).open();
+}
+
+document.addEventListener("DOMContentLoaded", ()=> {
+    const tagInput = document.getElementById("club_tags1");
+    const tagContainer = tagInput.parentElement;
+
+    tagInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            setTimeout(() => {
+                const tagText = tagInput.value.trim();
+                if (!tagText) return;
+    
+                const existingTags = tagContainer.querySelectorAll(".tag1");
+                const duplicate = Array.from(existingTags).some(tag =>
+                    tag.firstChild.textContent.trim() === tagText
+                );
+                if (duplicate) {
+                    tagInput.value = "";
+                    return;
+                }
+    
+                const tag = document.createElement("span");
+                tag.className = "tag1";
+                tag.innerHTML = `${tagText} <span class="tag-remove">×</span>`;
+    
+                tag.querySelector(".tag-remove").addEventListener("click", () => {
+                    tag.remove();
+                });
+    
+                tagContainer.insertBefore(tag, tagInput);
+                tagInput.value = "";
+            }, 0); 
+        }
+        //console.log(tagContainer);
+    });    
+})
+
+club_image1.addEventListener('change', (e) => {
+    const filename = e.target.files[0]
+    console.log(filename.name)
+    imagename.innerHTML = filename.name;
+})
+
+
+
+ok_btn1.onclick = (e) => {
+    e.preventDefault();
+  
+    const Imgpath = club_image1.files[0]
+    const tags = Array.from(document.querySelectorAll(".tag1")).map(tag => tag.firstChild.textContent.trim());
+    // form.append("tags", JSON.stringify(tags));
+    console.log("태그확인 : ",tags,Imgpath )
+
+    const form = new FormData();
+
+    form.append('clubname', club_name1.value.trim());
+    form.append('tags', tags);
+    form.append('content', club_information1.value.trim())
 }

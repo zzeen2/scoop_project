@@ -29,7 +29,7 @@
                     <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
                     <div class = "form-container">
                         <div class = "image-upload" id="imagediv1">
-                            <div class = "upload-icon" id = "icon1">📷</div>
+                            <div class = "upload-icon" id = "icon1">📷<span style="font-size: 18px;" id="imagename"></span></div>
                             <p class = "upload-info" id ="upload_info1">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
                             <input type="file" id = "club_image1">
                         </div>
@@ -40,8 +40,14 @@
                     <input type="text" class = "form-input" id = "club_name1" placeholder="동호회 이름을 알려주세요." required>
                 </div>
                 <div class = "addFrom-group">
+                    <label class="label">태그</label>
+                    <div class = "add-tag">           
+                        <input type="text" class = "tag-input" id = "club_tags1" name="imgpath" placeholder="태그를 입력하고 Enter를 누르세요">
+                    </div>
+                </div>
+                <div class = "addFrom-group">
                     <label class = "label required">동호회 설명</label>
-                    <textarea class = "form-input-txtarea" id="club_information1" placeholder="동호회에 대한 설명을 해주세요."></textarea>
+                    <textarea class = "form-input-txtarea" id="club_information1" placeholder="동호회에 대한 설명을 해주세요." required></textarea>
                 </div>
                 
                 <div class="addForm-btn-container1">
@@ -57,7 +63,7 @@
                 </div> <br><br>
                 <div class = "addFrom-group">
                     <label class = "label required">이벤트 이름</label>
-                    <input type="text" class = "form-input" id = "event_name" placeholder="이벤트 이름을 알려주세요." required>
+                    <input type="text" class = "form-input" id = "event_name1" placeholder="이벤트 이름을 알려주세요." required>
                 </div>
                 <div class = "addFrom-group">
                     <label class = "label required">이벤트 설명</label>
