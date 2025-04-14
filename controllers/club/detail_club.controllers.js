@@ -34,6 +34,9 @@ const isClubMember = async (userId, clubId) => {
 const clubDetail = async (req, res) => {
     const clubId = req.params.clubId;
     const userId = getUserIdFromToken(req);
+    const {login_access_token} = req.cookies;
+            const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
+    
 
     try {
     const club = await Clubs.findOne({
@@ -91,7 +94,8 @@ const clubDetail = async (req, res) => {
         club,
         liked,
         loginUserId: userId,
-        isMember
+        isMember,
+        data : properties
     });
     } catch (error) {
     console.error("상세페이지 오류", error);

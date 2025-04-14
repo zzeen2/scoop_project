@@ -57,7 +57,7 @@ const createClub = async (req, res, userId) => {
             return res.status(400).json({ message: "이미 존재하는 동호회 이름입니다." });
         }
 
-        const image = req.file ? `/images/${req.file.filename}` : "/images/default.png";
+        const image = req.file ? `/images/${req.file.filename}` : "/public/default.png";
 
         const categoryId = parseInt(sub_category_id);
         if (isNaN(categoryId)) {
@@ -73,7 +73,10 @@ const createClub = async (req, res, userId) => {
             member_limit: parseInt(member_limit),
             club_category_name: sub_category_name,
             categorys_id_fk: categoryId, 
-            view_count: 0
+            view_count: 0,
+            activity_type: req.body.activity_type,
+            local_station: req.body.local_station,
+            wide_regions: req.body.wide_regions 
         });
 
         // 위치 저장
