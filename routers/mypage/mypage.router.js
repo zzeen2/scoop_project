@@ -5,17 +5,23 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub} = require('../../controllers/mypage/mypage.controllers');
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint} = require('../../controllers/mypage/mypage.controllers');
 const { getSubCategories } = require('../../controllers/club/add_club.controllers');
-
-
-
-
 
 router.use(cookieParser())
 
-router.get('/login', (req, res) => {
-    res.render('mypage/login')
+router.get('/login', async (req, res) => {
+    try{
+        const {login_access_token} = req.cookies;
+        const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
+        console.log('done', id, properties.nickname, properties.profile_image)
+        console.log('done')
+        res.render('mypage/login', {data : properties})
+    }
+    catch(error) {
+        console.log('error')
+        res.render('mypage/login', {data : null})
+    }
 })
 router.get('/kakao/login', (req, res) => {
     const kakaoAuth = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}`
@@ -58,50 +64,28 @@ router.get('/auth/kakao/callback', async(req, res) => {
     }
 
 })
-// router.get('/', async (req, res) => {
-//     try{
-        
-//         const {login_access_token} = req.cookies;
-//         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
-
-//         console.log('done', id, properties.nickname, properties.profile_image)
-//         const data = await Createuser(id, properties.nickname, properties.profile_image)
-//         console.log('done')
-//         res.render('main/main', {data : properties, uuid : id})
-  
-//     }
-//     catch(error) {
-//         console.log('error')
-//         res.render('main/main', {data : null})
-//     }
-// })
-
 router.get('/mypage', async (req, res) => {
     try{
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
         const clubdata = await Findclub(id);
-        // const {a} = clubdata[0]
-        // console.log(clubdata,'ffffffffffff')
-        console.log(clubdata, 'asdfasd')
+        const [pointdata] = await Checkpoint(id)
+        const Userlevel = Math.floor(pointdata.point/100)
+        console.log(Userlevel,'ffffffffffff')
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel})
         }
         else {
-            res.render('mypage/mypage', {data : properties, uuid : id, clubdata})
+            res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel})
         }
     }
+
     catch(error) {
         console.log('error', error)
         res.render('main/main', {data : null})
     }
 })
-
-// router.get('/', (req, res) => {
-//     res.render('main/main')
-// })
-
 router.get('/logout', (req, res) => {
     const kakao_logout = `https://kauth.kakao.com/oauth/logout?client_id=${process.env.REST_API_KEY}&logout_redirect_uri=${process.env.LOGOUT_REDIRECT_URI}`
     res.redirect(kakao_logout)
@@ -112,13 +96,23 @@ router.get('/auth/kakao/logout/callback', (req, res) => {
     res.clearCookie('kakao_access_token')
     res.redirect('/')
 })
-
-router.get('/Edituser', (req, res) => {
-    res.render('mypage/edituser')
+router.get('/Edituser', async (req, res) => {
+    try{
+        
+        const {login_access_token} = req.cookies;
+        const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
+        console.log('done', id, properties.nickname, properties.profile_image)
+        console.log('done')
+        res.render('mypage/edituser', {data : properties})
+    
+    }
+    catch(error) {
+        console.log('error')
+        res.render('mypage/edituser', {data : null})
+    }
 })
-
 router.post('/Edituser', async (req, res) => {
-    const {login_access_token} = req.cookies;
+const {login_access_token} = req.cookies;
     const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
     const {nickname, profile_image} = properties;
     console.log(req.body, 'asdfasdf')
@@ -129,11 +123,19 @@ router.post('/Edituser', async (req, res) => {
     res.json({state : 200 , message : '관심분야 수정 완료'})
     
 })
-
-router.get('/Userintrest', (req, res) => {
-    res.render('mypage/userintrest')
+router.get('/Userintrest',async (req, res) => {
+    try{
+        const {login_access_token} = req.cookies;
+        const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
+        console.log('done', id, properties.nickname, properties.profile_image)
+        console.log('done')
+        res.render('mypage/userintrest', {data : properties})
+    }
+    catch(error) {
+        console.log('error')
+        res.render('mypage/userintrest', {data : null})
+    }
 })
-
 router.post('/Userintrest', async (req, res) => {
     const {login_access_token} = req.cookies;
     const {id} = jwt.verify(login_access_token, process.env.TOKEN)
@@ -163,5 +165,19 @@ router.post('/Userintrest', async (req, res) => {
         res.json({state : 200, message : error})
     }
 })
-// seedCategories();
+router.get('/checkcookie', (req, res) => {
+    try {
+        const {login_access_token} = req.cookies;
+        if(login_access_token) {
+
+            res.json({state : 200})
+        }
+        
+    } catch (error) {
+        res.json({state : 400})
+    }
+})
+
+console.log('s')
+
 module.exports = router

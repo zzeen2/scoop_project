@@ -1,5 +1,5 @@
 
-const {Categorys, Users, Userintrests, sequelize, Clubs} = require('../../models/configs');
+const {Categorys, Users, Userintrests, sequelize, Clubs, Points} = require('../../models/configs');
 // const Userintrest = require('../models/users/userintrests');
 
 
@@ -22,15 +22,11 @@ const Createuser = async ( kakao_id1, kakao_name1, kakao_profile_image1, age1, g
         return ({state : 400, message : error})
     }
 }
-
-// Users.create({'a','a','a','a','a','a','a','a'})
-
 const Finduser = async (uid) => {
     const [data] = await Users.findAll({where : {kakao_id : uid}})
     // console.log(data, 'finduser')
     return data;
 }
-
 const Finduserintrest = async (uid) => {
     const data = await Userintrests.findAll({where : {uid}})
     console.log(data, 'find')
@@ -51,8 +47,6 @@ const Updatecategory = async (id, content) => {
     }
     return {state : 200, message : '획인'}
 }
-
-
 const categoryData = {
     "스포츠": ["구기스포츠", "수상스포츠", "실내 피트니스", "아웃도어 스포츠", "격투 스포츠", "동계 스포츠", "기타 스포츠"],
     "독서": ["책/독서", "글쓰기"],
@@ -72,7 +66,6 @@ const categoryData = {
     "투자/금융": ["주식투자", "부동산투자", "금융상품"],
     "창업/사업": ["스타트업", "프렌차이즈", "네트워킹"]
 };
-
 const seedCategories = async () => {
     try {
         await Categorys.sync(); 
@@ -101,7 +94,6 @@ const seedCategories = async () => {
         process.exit(1);
     }
 };
-
 const clubs = [
     {
       club_id: 'club001',
@@ -214,7 +206,6 @@ const clubs = [
       view_count: 91
     }
   ];
-
 const clubdata = async () => {
     await Clubs.create( 
       
@@ -308,4 +299,12 @@ const Findclub = async (id) => {
     }
 }
 
-module.exports = {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+const Checkpoint = async (uid) => {
+  const Point = await Points.findAll({where : {user_id_fk : uid}})
+  const arrayPoint = Point.map(el => el.dataValues);
+  return arrayPoint
+}
+
+
+
+module.exports = {Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

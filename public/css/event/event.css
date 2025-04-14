@@ -1,0 +1,82 @@
+
+#Managemember {
+    width: 1000px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 30px auto;
+    padding: 70px 40px;
+}
+h2 {
+    margin-bottom: 30px;
+}
+.Memberlist {
+    width: 400px;
+    margin: 0 auto;
+    font-size: 18px;
+}
+
+ol > li {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    height: 60px;
+    width: 400px;
+    padding: 10px 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+ol button {
+    float: right;
+    width: 56px;
+    height: 40px;
+    background-color: #ffb300;
+    border: none;
+    border-radius: 5px;
+}
+ol button {
+    cursor: pointer;
+}
+
+ol li span {
+    display: inline-block;
+    width: 100px;
+    height: 40px;
+    margin-top: 10px ;
+}
+
+ol button:hover {
+    background-color: #ff8800;
+    color: rgb(238, 238, 238);
+}
+
+#Memberverify {
+    width: 1000px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin: 0 auto;
+    padding: 70px 40px;
+}
+
+#club_image2 {
+    display: none;
+}
+#club_image3 {
+    display: none;
+}
+
+
+#eventlocations {
+    margin-bottom: 25px;
+}
+/* 라벨 전체 스타일  */
+#eventlocations label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;;
+}
+/* 인풋 전체 스타일 */
+#eventlocations input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+}
