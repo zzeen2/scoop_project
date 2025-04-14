@@ -12,19 +12,16 @@ router.use(cookieParser())
 
 router.get('/login', async (req, res) => {
     try{
-            
         const {login_access_token} = req.cookies;
         const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
         console.log('done', id, properties.nickname, properties.profile_image)
         console.log('done')
         res.render('mypage/login', {data : properties})
-  
     }
     catch(error) {
         console.log('error')
         res.render('mypage/login', {data : null})
     }
-    res.render('mypage/login')
 })
 router.get('/kakao/login', (req, res) => {
     const kakaoAuth = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.REST_API_KEY}&redirect_uri=${process.env.REDIRECT_URI}`
