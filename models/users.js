@@ -22,12 +22,14 @@ class User extends Model {
         })
     }
     static associate(models) {
-        models.Users.hasMany(models.Points, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        models.Users.hasOne(models.Points, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Userintrests, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Clubs, {foreignkey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Reviews, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Hearts, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Events, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        models.Users.hasMany(models.Members, { foreignKey: 'user_id_fk', sourceKey: 'uid' });
+        models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
     }
 }
 

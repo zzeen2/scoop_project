@@ -53,7 +53,6 @@ const seedClubs = async () => {
       const club_id = uuidv4().slice(0, 20);
 
       await Clubs.create({
-        club_id,
         name: club.name,
         introduction: club.introduction,
         image: club.image,

@@ -31,17 +31,21 @@
       <div class="club-container">
         <div class="club-cards">
           <% clubs.forEach(club => { %>
-            <div class="club-card">
-              <img src="<%= club.image %>" alt="동호회 이미지" class="club-img">
-              <div class="club-info">
-                <h3><%= club.name %></h3>
-                <p>카테고리: <%= club.club_category_name %></p>
-                <p>소개: <%= club.introduction ? club.introduction : '정보 없음' %></p>
-                <p>멤버 수: <%= club.member_limit ? club.member_limit : 0 %>명</p>
+            <a href="/clubs/detail/<%= club.club_id %>" class="club-card-link">
+              <div class="club-card">
+                <img src="<%= club.image %>" alt="동호회 이미지" class="club-img">
+                <div class="club-info">
+                  <h3><%= club.name %></h3>
+                  <p>카테고리: <%= club.club_category_name %></p>
+                  <p>소개: <%= club.introduction ? club.introduction : '정보 없음' %></p>
+                  <p>멤버 수: <%= club.member_limit ? club.member_limit : 0 %>명</p>
+                </div>
               </div>
-            </div>
+            </a>
           <% }) %>
         </div>
+      </div>
+      
     
         <div class="recommend-section">
           <h3>게스트 체험이 있는 동호회 추천</h3>
@@ -54,5 +58,5 @@
         </div>
       </div>
     </main>
-
+    <script src = "../../public/script/categories/all_category.js"></script>
 </html>

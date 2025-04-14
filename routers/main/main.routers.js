@@ -10,12 +10,19 @@ const wideAreaJsonPath = path.join(__dirname, '..', '..', 'views', 'main', 'Wide
 
 
 router.get('/',  async(req, res) => {
-  try {
-    const sidebarData = await SidebarSort();
-    res.render('main/main', {data : sidebarData.categoryData || [] })
-  } catch (error) {
-    res.json({state : 404, message : "메인페이지 렌더링 오류", error})
-  }
+  const { login_access_token } = req.cookies;
+  if (login_access_token) {
+    try {
+      const { id, properties } = jwt.verify(login_access_token, process.env.TOKEN);
+      console.log("아이디", id)
+      const  data = await Createuser(id, properties.nickname, properties.profile_image)
+      console.log("있어?",properties)
+      res.render('main/main', { data: properties });
+    } catch (error) {
+      console.log('JWT 토큰 오류야:', error);
+      res.render('main/main', { data: null });
+    }
+  } 
 });
 
 

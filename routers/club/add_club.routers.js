@@ -38,12 +38,13 @@ router.get("/categories/sub/:mainId", categoryController.getSubCategories)
 // -- 동호회 생성
 router.post("", upload.single("image"), async (req, res) => {
     try {
-        console.log("서버에 도착한 태그 데이터:", req.body.tags);
+        //console.log("서버에 도착한 태그 데이터:", req.body.tags);
         const token = req.cookies.login_access_token;
         if(!token) return res.json({state:400, message : "로그인이 필요합니다."})
         const decoded = jwt.verify(token, process.env.TOKEN);
         const userId = decoded.id;
         console.log("카카오아이디", userId)
+        console.log("서브카테고리", req.body.sub_category_id)
         await categoryController.createClub(req, res, userId);
     } catch (err) {
         console.error(err);

@@ -43,6 +43,7 @@ const createClub = async (req, res, userId) => {
             introduction,
             main_category_id,
             sub_category_name,
+            sub_category_id, 
             member_limit,
             local_station
         } = req.body;
@@ -50,14 +51,18 @@ const createClub = async (req, res, userId) => {
         const wide_regions = req.body.wide_regions ? JSON.parse(req.body.wide_regions) : [];
         const tags = req.body.tags ? JSON.parse(req.body.tags) : [];
 
-
-        // 중복 방지
+        // 중복 동호회 이름 방지
         const existing = await Clubs.findOne({ where: { name } });
         if (existing) {
             return res.status(400).json({ message: "이미 존재하는 동호회 이름입니다." });
         }
 
-        const image = req.file ? `/uploads/clubs/${req.file.filename}` : "/public/default.png";
+        const image = req.file ? `/images/${req.file.filename}` : "/images/default.png";
+
+        const categoryId = parseInt(sub_category_id);
+        if (isNaN(categoryId)) {
+            return res.status(400).json({ message: "잘못된 카테고리 ID입니다." });
+        }
 
         // 동호회 생성
         const newClub = await Clubs.create({
@@ -67,7 +72,7 @@ const createClub = async (req, res, userId) => {
             creator_id: userId,
             member_limit: parseInt(member_limit),
             club_category_name: sub_category_name,
-            categorys_id_fk: parseInt(main_category_id),
+            categorys_id_fk: categoryId, 
             view_count: 0
         });
 
@@ -88,8 +93,8 @@ const createClub = async (req, res, userId) => {
 
         return res.status(200).json({ message: "동호회 생성 완료" });
     } catch (err) {
-        //console.error("동호회 생성 중 에러:", err);
-        res.status(500).json({ message: "서버 오류 발생" });
+        console.error("동호회 생성 중 에러:", err);
+        return res.status(500).json({ message: "서버 오류 발생!!" });
     }
 };
 
