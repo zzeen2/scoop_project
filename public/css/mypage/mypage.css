@@ -60,7 +60,7 @@ input {
     width: 500px;
     height: 70px;
 }
-#line {
+.line {
     display: block;
     height: 1px;
     width: 1100px;
@@ -120,7 +120,7 @@ input {
     width: 930px;
     margin: auto;
 }
-.Contentul  {
+.Contentul, .Contentul1  {
     width: 1200px;
     min-height: 200px;
     /* background-color: rgb(247, 247, 247); */
@@ -130,7 +130,7 @@ input {
     /* justify-content: center;
     align-items: center; */
 }
-.Contentul img{
+.Contentul img, .Contentul1 img{
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 7px;
     border: none;
@@ -458,4 +458,41 @@ h1 {
 }
 #Popup button:hover {
     background-color: #dddddd;
+}
+
+#contenttype {
+    width: 1100px;
+    margin: 30px auto 0 auto;
+    padding: 5px;
+}
+
+#contenttype button {
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    margin: 0 20px;
+    width: max-content;
+    font-weight: 500;
+    font-size: 18px;
+    color: #2e2e2e;
+    padding-bottom: 10px;
+}
+
+#contenttype button:hover {
+    color: #e99700;
+}
+
+.Contentul, .Contentul1 {
+    display: none;
+}
+
+#myclub.Active {
+    border-bottom: 3px solid #e99700;
+}
+.Contentul.Active , .Contentul1.Active{
+    display: flex;
+}
+
+#myactivities.Active {
+    border-bottom: 3px solid #e99700;
 }

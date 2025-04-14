@@ -1,5 +1,5 @@
 
-const {Categorys, Users, Userintrests, sequelize, Clubs, Points} = require('../../models/configs');
+const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts} = require('../../models/configs');
 // const Userintrest = require('../models/users/userintrests');
 
 
@@ -298,6 +298,22 @@ const Findclub = async (id) => {
         return({state : 400, message : "세부카테고리 불러오기 오류"})
     }
 }
+const Findclub_id = async (clubid) => {
+    try {
+        const Club = await Clubs.findAll({
+            where : {
+                club_id : clubid
+            }
+        });
+        // [Club {asd{asd}}, ]
+        const arrayClub = Club.map(el => el.dataValues);
+        // console.log(Club.dataValues,arrayClub[0], 'asdfasdfasdf')
+        return arrayClub;
+    } catch (error) {
+        console.log("세부카테고리 불러오기 오류 : ", error);
+        return({state : 400, message : "세부카테고리 불러오기 오류"})
+    }
+}
 
 const Checkpoint = async (uid) => {
   const Point = await Points.findAll({where : {user_id_fk : uid}})
@@ -305,6 +321,49 @@ const Checkpoint = async (uid) => {
   return arrayPoint
 }
 
+const Findactivity = async (id) => {
+  const Review = await Reviews.findAll({where : {user_id_fk : id}})
+  const arrayReview = Review.map(el => el.dataValues.club_id_fk)
+  return arrayReview
+}
 
+const Findlike = async (id) => {
+  const Heart = await Hearts.findAll({where : {user_id_fk : id}})
+  const arrayHearts = Heart.map(el => el.dataValues.club_id_fk)
+  return arrayHearts
+}
 
-module.exports = {Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+const Userinput = []
+const Reviewsinput = [{
+  id : 'hello3',
+  content : 'asdfasd',
+  affiliation : 'fffasd',
+  user_id_fk : '4202096295',
+  club_id_fk : '2'
+},{
+  id : 'hello5',
+  content : 'asdfasd',
+  affiliation : 'fffasd',
+  user_id_fk : '4202096295',
+  club_id_fk : '2'
+}]
+const Heartsinput = [{  
+    user_id_fk : '4202096295',
+    club_id_fk : '2',
+}]
+
+const insertdata = async () => {
+  // for (let i = 0; i < Userinput.length; i++) {
+  //   await Reviews.create(Userinput[i])
+  // }
+  // for (let i = 0; i < Reviewsinput.length; i++) {
+  //   await Users.create(Userinput[i])
+  // }
+  for (let i = 0; i < Heartsinput.length; i++) {
+    await Hearts.create(Heartsinput[i])    
+  }
+}
+
+// insertdata();
+
+module.exports = {Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

@@ -50,134 +50,68 @@
                     <%= Userdata.introduction %>
                 </p>
             </div>
-            <span id="line"></span>
+            <span class="line"></span>
+            <div id="contenttype">
+                <button class="Active" id="myclub">나의 동호회</button>
+                <button id="myactivities">나의 활동</button>
+            </div>
+            <span class="line"></span>
             
-            
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
+     
+            <% if(clubdata) { %> 
+                <% for(let i = 0; i < clubdata.length; i++) { %> 
+                    <ul class="Contentul Active">
+                        <li class="Contentli"> 
+                            <a href="" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            <ul class="">
+                                <li>동호회 이름 :  <%= clubdata[i].name %> </li>
+                                <li>내용 : 
+                                    <%= clubdata[i].introduction %>
+                                </li>
+                                <li></li>
+                                <li class="clubinfo">
+                                    <span><%= clubdata[i].club_category_name %></span>
+                                    <span>잉일체험 : <%= clubdata[i].allow_guest %></span>
+                                    <span>멤버 정원 : <%= clubdata[i].member_limit %></span>
+                                </li>
+                            </ul>
+                            
                         </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
+                        <!-- <li>2</li>
+                        <li>3</li>
+                        <li>4</li> -->
                     </ul>
-
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-            <% for(let i = 0; i < clubdata.length; i++) { %> 
-                <ul class="Contentul">
-                    
-                    
-                    <li class="Contentli"> 
-                        <a href="" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
-                        <ul class="">
-                            <li>동호회 이름 :  <%= clubdata[i].name %> </li>
-                            <li>내용 : 
-                                <%= clubdata[i].introduction %>
-                            </li>
-                            <li></li>
-                            <li class="clubinfo">
-                                <span><%= clubdata[i].club_category_name %></span>
-                                <span>잉일체험 : <%= clubdata[i].allow_guest %></span>
-                                <span>멤버 정원 : <%= clubdata[i].member_limit %></span>
-                            </li>
-                        </ul>
-                        
-                    </li>
-                    <!-- <li>2</li>
-                    <li>3</li>
-                    <li>4</li> -->
-                </ul>
+                <% } %>
             <% } %>
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
+            <% if(clubdata1) { %> 
+                <% for(let i = 0; i < clubdata1.length; i++) { %> 
+                    <ul class="Contentul1">
+                        <li class="Contentli"> 
+                            <a href="" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            <ul class="">
+                                <li>동호회 이름 :  <%= clubdata1[i].name %> </li>
+                                <li>내용 : 
+                                    <%= clubdata1[i].introduction %>
+                                </li>
+                                <li></li>
+                                <li class="clubinfo">
+                                    <span><%= clubdata1[i].club_category_name %></span>
+                                    <span>잉일체험 : <%= clubdata1[i].allow_guest %></span>
+                                    <span>멤버 정원 : <%= clubdata1[i].member_limit %></span>
+                                </li>
+                            </ul>
+                            
                         </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
+                        <!-- <li>2</li>
+                        <li>3</li>
+                        <li>4</li> -->
                     </ul>
-
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
-                        </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
-                    </ul>
-
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-           
+                <% } %>
+            <% } %>                  
     
         </div>
-        <div id='calendar'></div>
-        
-        
+        <div id='calendar'></div> 
     </div>
 </body>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const calendarEl = document.getElementById('calendar')
-      const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: [
-          {
-              title : '참여',
-              backgroundColor: '#9d2933',
-              date: '2025-04-05'
-          },{
-              title : '참여',
-              backgroundColor: '#9d2933',
-              date: '2025-03-30'
-          }
-      ]
-      })
-      calendar.render()
-    })
-
-  </script>
+<script src="/public/script/mypage/mypage.js"></script>
 </html>
