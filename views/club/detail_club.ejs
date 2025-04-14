@@ -51,7 +51,10 @@
                         </div>
                         <p class="club-description"><%= club.introduction %></p>
                         <div class="club-top-actions">
-                            <button class="btn btn-join">가입 신청</button>
+                            <% if (!isMember) { %>
+                                <button class = "btn btn-join">가입 신청</button>
+                            <% } %>
+                            <!-- <button class="btn btn-join">가입 신청</button> -->
                             <!-- <button class="btn btn-guest">게스트 참여</button> -->
                         </div>
                     </div>

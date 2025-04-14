@@ -1,5 +1,8 @@
 
 document.addEventListener('DOMContentLoaded', function () {
+    // // -- 가입신청버튼
+    // const memberJoinBtn = document.querySelector('.')    
+
     // -- 찜하기 버튼
     const btn_like = document.querySelector(".btn_like");
     if (btn_like) {

@@ -1,4 +1,4 @@
-const {Categorys, Clubs, Locations, Tags, Points} = require("../../models/configs")
+const {Categorys, Clubs, Locations, Tags, Points, Members} = require("../../models/configs")
 const jwt = require("jsonwebtoken")
 
 // 대표 카테고리 조회
@@ -78,6 +78,7 @@ const createClub = async (req, res, userId) => {
             local_station: req.body.local_station,
             wide_regions: req.body.wide_regions 
         });
+        console.log("유저아이디 : !!!!!!!!! ", newClub)
 
         // 위치 저장
         await Locations.create({
@@ -85,6 +86,14 @@ const createClub = async (req, res, userId) => {
             point: local_station || "",
             poligon: wide_regions.length ? JSON.stringify(wide_regions) : ""
         });
+        
+        // 관리자도 멤버에 포함
+        await Members.create({
+            club_id_fk : newClub.club_id,
+            member_uid: newClub.creator_id,
+            user_id_fk: newClub.creator_id,
+            signup_date : new Date().toISOString().slice(0,10)
+        })
 
         // 태그 저장
         for (const tagText of tags) {
