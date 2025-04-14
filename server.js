@@ -22,7 +22,7 @@ app.use('/clubs', manageClubRouter);
 
 
 
-app.use('/', mainRouter)
+app.use(mainRouter)
 app.use(mypageRouter)
 app.use(eventsRouter)
 

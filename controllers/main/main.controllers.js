@@ -1,5 +1,5 @@
 // 메인페이지 오른쪽 영역 필터링 기능
-const { Clubs, Members, Hearts, Reviews, sequelize: Sequelize } = require('../../models/configs');
+const { Clubs, Members, Hearts, Reviews, Categorys, sequelize: Sequelize } = require('../../models/configs');
 
 const USERORDER = "member";
 const REVIEWORDER = "review";
@@ -38,7 +38,7 @@ const FilteringSort = async (index) => {
                         'name',
                         'introduction',
                         'image',
-                        [Sequelize.fn('COUNT', Sequelize.col('Reviews.id')), 'ReviewCount']
+                        [Sequelize.fn('COUNT', Sequelize.col('Reviews.star')), 'ReviewCount']
                     ],
                     include: [{
                         model: Reviews,
@@ -47,9 +47,9 @@ const FilteringSort = async (index) => {
                     group: ['club_id'],
                     order: [[Sequelize.literal('ReviewCount'), 'DESC']]
                 });
-                return { state: 200, message: "리뷰순 정렬 성공", data };
+                return { state: 200, message: "평점순 정렬 성공", data };
             } catch (error) {
-                return { state: 404, message: "리뷰순 정렬 실패", error };
+                return { state: 404, message: "평점순 정렬 실패", error };
             }
         }
         case LIKEORDER: {
@@ -79,4 +79,13 @@ const FilteringSort = async (index) => {
     }
 };
 
-module.exports = { FilteringSort };
+// SidebarSort - 사이드바 카테고리 조회 함수
+const SidebarSort =  async (depth = 1) => {
+    try {
+        const categoryData = await Categorys.findAll({where : { depth} })
+        return ({state : 200, message : "카테고리 조회 성공", categoryData})
+    } catch (error) {
+        return ({state : 404, message : "카테고리 조회 실패", error})            
+    }
+}
+module.exports = { FilteringSort, SidebarSort};
