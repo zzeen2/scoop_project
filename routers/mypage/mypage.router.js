@@ -80,6 +80,7 @@ router.get('/mypage', async (req, res) => {
             res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel})
         }
     }
+
     catch(error) {
         console.log('error', error)
         res.render('main/main', {data : null})
@@ -177,6 +178,6 @@ router.get('/checkcookie', (req, res) => {
     }
 })
 
-
+console.log('s')
 
 module.exports = router
