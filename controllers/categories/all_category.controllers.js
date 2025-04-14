@@ -1,5 +1,6 @@
 const { Clubs, Tags, Categorys, Locations } = require('../../models/configs');
 const { Op } = require('sequelize');
+const jwt = require('jsonwebtoken')
 
 // 세부 카테고리 목록 불러오기
 const getDetailCategories = async (categoryName) => {
@@ -17,6 +18,8 @@ const getDetailCategories = async (categoryName) => {
 // 전체 동호회 페이지
 exports.getAllCategories = async (req, res) => {
     const { keyword } = req.query;
+    const {login_access_token} = req.cookies;
+            const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
 
     let where = {};
     if (keyword) {
@@ -33,13 +36,16 @@ exports.getAllCategories = async (req, res) => {
         include: [Tags]
     });
 
+    
+
     const recommendedClubs = clubs.filter(club => club.allow_guest === "1");
 
     res.render('categories/all_category', {
         categoryName: null,
         clubs,
         recommendedClubs,
-        keyword
+        keyword,
+        data : properties
     });
 };
 
@@ -47,6 +53,8 @@ exports.getAllCategories = async (req, res) => {
 exports.getDetailCategory = async (req, res) => {
     const rawCategory = req.params.categoryName;
     const categoryName = decodeURIComponent(rawCategory).trim();
+    const {login_access_token} = req.cookies;
+            const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
 
     const { subCategory, keyword } = req.query;
 
@@ -119,7 +127,8 @@ exports.getDetailCategory = async (req, res) => {
         subCategories,
         selectedSubCategory: subCategory || '전체',
         recommendedClubs,
-        keyword
+        keyword,
+        data : properties
     });
 };
 
