@@ -19,7 +19,7 @@ app.use(cookie());
 app.use('/categories', categoryRouter);
 app.use('/clubs/create', createRouter)
 app.use('/clubs/detail', detailRouter)
-app.use('/clubs', manageClubRouter);
+app.use('/clubs/detail', manageClubRouter);
 app.use('/clubs/detail', eventsRouter); 
 app.use('/', mainRouter)
 app.use(mypageRouter)
