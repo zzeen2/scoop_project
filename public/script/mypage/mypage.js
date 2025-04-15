@@ -1,25 +1,23 @@
 
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    const calendarEl = document.getElementById('calendar')
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      events: [
-        {
-            title : '참여',
-            backgroundColor: '#9d2933',
-            date: '2025-04-05'
-        },{
-            title : '참여',
-            backgroundColor: '#9d2933',
-            date: '2025-03-30'
-        }
-    ]
+const eventdate = new Date(participantdate.createdAt).toISOString().slice(0, 10);
+for (let i = 0; i < participantdate.length; i++) {
+    document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+            {
+                title : participantdate.participants_id_fk,
+                backgroundColor: '#9d2933',
+                date: 'eventdate'
+            }
+        ]
+        })
+        calendar.render()
     })
-    calendar.render()
-})
-
+}
 
 
 myclub.onclick = (e) => {

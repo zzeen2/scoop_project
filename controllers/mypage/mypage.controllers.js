@@ -1,5 +1,6 @@
 
-const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts} = require('../../models/configs');
+const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts, Participants} = require('../../models/configs');
+const Participant = require('../../models/participants');
 // const Userintrest = require('../models/users/userintrests');
 
 
@@ -318,6 +319,7 @@ const Findclub_id = async (clubid) => {
 const Checkpoint = async (uid) => {
   const Point = await Points.findAll({where : {user_id_fk : uid}})
   const arrayPoint = Point.map(el => el.dataValues);
+  console.log(arrayPoint, 'hello')
   return arrayPoint
 }
 
@@ -331,6 +333,12 @@ const Findlike = async (id) => {
   const Heart = await Hearts.findAll({where : {user_id_fk : id}})
   const arrayHearts = Heart.map(el => el.dataValues.club_id_fk)
   return arrayHearts
+}
+
+const Getparticipantdate = async (id) => {
+  const Participant = await Participants.findAll({where : {user_id_fk : id}})
+  const arraydate = Participant.map(el => el.dataValues)
+  return arraydate
 }
 
 const Userinput = []
@@ -366,4 +374,4 @@ const insertdata = async () => {
 
 // insertdata();
 
-module.exports = {Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+module.exports = {Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

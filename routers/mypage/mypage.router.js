@@ -5,7 +5,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id} = require('../../controllers/mypage/mypage.controllers');
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate} = require('../../controllers/mypage/mypage.controllers');
 const { getSubCategories } = require('../../controllers/club/add_club.controllers');
 
 router.use(cookieParser())
@@ -68,6 +68,7 @@ router.get('/mypage', async (req, res) => {
     try{
         const clubdata1 = []
         const club_id = []
+
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
@@ -76,6 +77,7 @@ router.get('/mypage', async (req, res) => {
         const Userlevel = Math.floor(pointdata.point)
         const Activitydata = await Findactivity(id) || null;
         const Likedata = await Findlike(id) || null;
+        // const participantdate = await Getparticipantdate(id) || null;
         console.log( 'likeee', Likedata)
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
