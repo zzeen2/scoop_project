@@ -110,8 +110,28 @@
             <% } %>                  
     
         </div>
+        <div id="participantwrap">
+            <div class="participantbody">
+                <div class="participantdiv">
+
+                    <% for(let i = 0; i < participantdate.length; i++) { %> 
+                        <ul>
+                            <h3>이벤트 잠여 정보</h3>
+                            <li>잠여 아이디 : <%= participantdate[i].participant_id %></li>
+                            <li>참가자 유형 : <%= participantdate[i].state %></li>
+                            <li>잠여 날짜 : <%= new Date(participantdate[i].createdAt).toISOString().slice(0, 10) %></li>
+                        </ul>
+                        <% } %>
+                    </div>
+                <button id="Participantbtn">확인</button>
+            </div>
+        </div>
         <div id='calendar'></div> 
     </div>
 </body>
+<script>
+    // inject EJS data into the browser
+    window.mypageData = <%- JSON.stringify(participantdate) %>;
+  </script>
 <script src="/public/script/mypage/mypage.js"></script>
 </html>

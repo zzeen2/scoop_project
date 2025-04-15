@@ -77,5 +77,7 @@ sequelize.sync({force : false }).then(() => {
     console.log('database on~')
 }).catch(console.log)
 
+
+
 module.exports = db
 

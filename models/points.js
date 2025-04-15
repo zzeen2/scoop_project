@@ -10,7 +10,7 @@ class Point extends Model {
             point: {
                 type: DataTypes.INTEGER,
                 allowNull: false,
-                defaultValue: 0
+                defaultValue: 350
             }
         }, {
             sequelize,

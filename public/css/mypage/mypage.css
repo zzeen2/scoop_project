@@ -77,6 +77,7 @@ input {
     margin-top: 75px;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 #calendar {
     position: fixed;
@@ -218,11 +219,13 @@ input {
     justify-content: center;
     border: 1px solid rgb(170, 149, 79);
     border-radius: 5px;
-    background-color: rgb(223, 180, 89);
+    background-color: rgb(255, 199, 79);
     align-items: center;
     box-sizing: border-box;
 }
-
+#Userul a:hover {
+    background-color: rgb(255, 215, 128);
+}
 
 
 #Edit {
@@ -495,4 +498,65 @@ h1 {
 
 #myactivities.Active {
     border-bottom: 3px solid #e99700;
+}
+
+.fc-event-title {
+    cursor: pointer;
+}
+
+#participantwrap {
+    display: none;
+}
+
+#participantwrap.active1 {
+    width: 100%;
+    height: calc(100vh - 75px);
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+#participantwrap .participantbody {
+    width: 500px;
+    height: 600px;
+    padding: 50px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* overflow-y: scroll; */
+}
+
+.participantdiv {
+    width: 500px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: scroll;
+    /* overflow: hidden; */
+}
+
+#participantwrap ul {
+    width: 200px;
+    height: 100px;
+    padding: 20px;
+}
+
+#participantwrap button {
+    width: 100px;
+    height: 40px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-radius: 7px;
+    background-color: #ffbd42;
+    margin-top: 10px;
+}
+
+#participantwrap button:hover {
+    background-color: #ffad14;
 }
