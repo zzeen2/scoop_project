@@ -4,17 +4,18 @@ const Participant = require('../../models/participants');
 // const Userintrest = require('../models/users/userintrests');
 
 
-const Createuser = async ( kakao_id1, kakao_name1, kakao_profile_image1, age1, gender1, introduction1, location) => {
+const Createuser = async ( id, name, image, user_age, user_gender, user_introduction, location) => {
     try {
-        const data = await Users.findOne({where : {kakao_id : kakao_id1}})
+        const data = await Users.findOne({where : {kakao_id : id}})
+        console.log(data, 'controller')
         if (data) {
-            // console.log(data, 'asdf')
-            await Users.update({age : age1, gender : gender1, introduction : introduction1, location : location}, {where : {kakao_id : kakao_id1}})
+            console.log(data, 'asdf')
+            await Users.update({age : user_age, gender : user_gender, introduction : user_introduction, location : location}, {where : {kakao_id : id}})
             console.log('done')
             return ({state : 200, message : '수정 완료료 1'})
         } else {
             console.log('hhhhhhhhhhh')            
-            const data = await Users.create({uid : kakao_id1, kakao_id : kakao_id1, kakao_name : kakao_name1, kakao_profile_image : kakao_profile_image1, age : age1, gender : gender1, introduction : introduction1, location : location})
+            const data = await Users.create({uid : id, kakao_id : kakao_id1, kakao_name : name, kakao_profile_image : image})
             
             return ({state : 200, message : '수정 완료료'})
         }
@@ -338,6 +339,7 @@ const Findlike = async (id) => {
 const Getparticipantdate = async (id) => {
   const Participant = await Participants.findAll({where : {user_id_fk : id}})
   const arraydate = Participant.map(el => el.dataValues)
+  console.log(arraydate)
   return arraydate
 }
 
@@ -372,6 +374,20 @@ const insertdata = async () => {
   }
 }
 
-// insertdata();
+const Createpoint = async (id) => {
+  try {
+    await Points.create({user_id_fk : id})
+    console.log('point created')
+  } catch (error) {
+    console.log('point exits')
+  }
+}
 
-module.exports = {Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+// insertdata();
+// Participants.create({
+//   participant_id : 'asdf5',
+//   user_id_fk : '4202096295'
+
+// })
+
+module.exports = {Createpoint,Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

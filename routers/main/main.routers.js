@@ -1,8 +1,7 @@
 const router = require('express').Router();
 const jwt = require('jsonwebtoken');
 const {FilteringSort} = require('../../controllers/main/main.controllers')
-const {Createuser} = require('../../controllers/mypage/mypage.controllers')
-
+const {Createuser, Createpoint} = require('../../controllers/mypage/mypage.controllers')
 
 
 router.get('/', async (req, res) => {
@@ -12,9 +11,11 @@ router.get('/', async (req, res) => {
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         console.log('done', id, properties.nickname, properties.profile_image)
         await Createuser(id, properties.nickname, properties.profile_image)
+        if(login_access_token) {
+            await Createpoint(id)
+        }
         console.log('done')
         res.render('main/main', {data : properties})
-  
     }
     catch(error) {
         console.log('error')

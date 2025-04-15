@@ -68,7 +68,6 @@ router.get('/mypage', async (req, res) => {
     try{
         const clubdata1 = []
         const club_id = []
-
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
@@ -77,8 +76,9 @@ router.get('/mypage', async (req, res) => {
         const Userlevel = Math.floor(pointdata.point)
         const Activitydata = await Findactivity(id) || null;
         const Likedata = await Findlike(id) || null;
-        // const participantdate = await Getparticipantdate(id) || null;
-        console.log( 'likeee', Likedata)
+        const participantdate = await Getparticipantdate(id) || null;
+
+    
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
         }
@@ -86,7 +86,6 @@ router.get('/mypage', async (req, res) => {
             console.log(club_id, Likedata, 'asdfsadfd')
             console.log(club_id.indexOf(Likedata[i]))
             if(!(club_id.indexOf(Likedata[i]))){
-                console.log('ddddd')
             }else{
                 club_id.push(Likedata[i])
             }
@@ -101,12 +100,11 @@ router.get('/mypage', async (req, res) => {
     
             clubdata1.push(data)
         }
-        console.log(clubdata1)
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1, participantdate})
         }
         else {
-            res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1})
+            res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1, participantdate})
         }
     }
 
@@ -130,8 +128,6 @@ router.get('/Edituser', async (req, res) => {
         
         const {login_access_token} = req.cookies;
         const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
-        console.log('done', id, properties.nickname, properties.profile_image)
-        console.log('done')
         res.render('mypage/edituser', {data : properties})
     
     }
@@ -144,11 +140,9 @@ router.post('/Edituser', async (req, res) => {
 const {login_access_token} = req.cookies;
     const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
     const {nickname, profile_image} = properties;
-    console.log(req.body, 'asdfasdf')
     const { agevalue, gendervalue, locationvalue, contentvalue} = req.body;
     console.log(id, nickname, profile_image, agevalue, gendervalue, locationvalue, contentvalue)
     const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, locationvalue );
-    console.log(data, 'router')
     res.json({state : 200 , message : '관심분야 수정 완료'})
     
 })
@@ -156,8 +150,6 @@ router.get('/Userintrest',async (req, res) => {
     try{
         const {login_access_token} = req.cookies;
         const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
-        console.log('done', id, properties.nickname, properties.profile_image)
-        console.log('done')
         res.render('mypage/userintrest', {data : properties})
     }
     catch(error) {
@@ -168,19 +160,16 @@ router.get('/Userintrest',async (req, res) => {
 router.post('/Userintrest', async (req, res) => {
     const {login_access_token} = req.cookies;
     const {id} = jwt.verify(login_access_token, process.env.TOKEN)
-    console.log(id)
     const {userdata} = req.body;
-    console.log(userdata, 'asdf')
     const [finddata] = await Finduserintrest(id)
+    console.log(finddata,'finddata')
     try {
         if(finddata) {
             console.log( 'finduser')
             await Deleteuserintrest(id)
             for (let i = 0; i < userdata.length; i++) {
                 const data = await Updatecategory(id, userdata[i])
-                // console.log(data)
                 console.log('if')
-                
             }
         }
         else {     

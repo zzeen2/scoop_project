@@ -56,7 +56,7 @@
     categoryId++;
     }
     }
-
+    console.log(mainCategories)
     console.log("✅ 카테고리 삽입 완료");
     return mainCategories;
     }

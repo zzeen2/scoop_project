@@ -29,7 +29,7 @@ class User extends Model {
         models.Users.hasMany(models.Hearts, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Events, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Members, { foreignKey: 'user_id_fk', sourceKey: 'uid' });
-        // models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
+        models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
     }
 }
 
