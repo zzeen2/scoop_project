@@ -19,9 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     date: eventdate
                 }
             ]
-            })
-            calendar.render()
-     
+        })
+        calendar.render()
     }
 })
 document.addEventListener('DOMContentLoaded', () => {

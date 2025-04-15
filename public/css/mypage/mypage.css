@@ -239,29 +239,28 @@ input {
 
 #Userdetailwrap {
     width: 100%;
-    height: calc(100vh - 70px);
+    height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     /* background-color: rgb(236, 236, 236); */
 
 }
 #Userdetaildiv {
     
-    width: 700px;
-    height: 700px;
+    width: 1100px;
+    height: calc(100vh - 75px);
     display: flex;
     flex-direction: column;
     align-items: center;
     /* border: 1px solid; */
-    border-radius: 10px;
-    background-color: rgb(248, 248, 248);
+    /* border-radius: 10px; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
 }
 
 #Userdetailform {
-    width: 500px;
+    width: 800px;
     height: 700px;
     padding: 50px 0 ;
     display: flex;
@@ -301,7 +300,7 @@ input {
 
 textarea {
     padding: 10px;
-    width: 500px;
+    width: 800px;
     height: 120px;
     resize: none;
     box-sizing: border-box;
@@ -320,34 +319,57 @@ textarea {
 
 #Userintrestwrap {
     width: 100%;
-    height: calc(100vh - 70px);
+    height: 100vh ;
     /* margin-top: 70px; */
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
-    justify-content: center;
+    justify-content: flex-end;
 }
 #userintrestdiv {
-    width: 700px;
-    height: 700px;
+    width: 1100px;
+    height: calc(100vh - 75px);
+    padding: 50px ;
     border-radius: 7px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+
+}
+#Userdetailform ul {
+    height: 700px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     justify-content: space-around;
 }
 
+#Userdetailform li {
+    display: flex;
+    flex-direction: column;
+}
+h2 {
+    font-size: 22px;
+    padding-bottom: 50px;
+    border-bottom: 1px solid rgb(192, 171, 143);
+}
+
+#Userdetailform div {
+    width: 450px;
+    margin: 0 auto;
+    
+}
+
 #Userintrestul {
-    width: 500px;
+    margin: 20px auto;
+    width: 700px;
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
 }
 
 #Userintrestul li {
-    margin: 8px 35px;
+    margin: 8px 85px;
     width: 180px;
     height: 40px;
     /* border: 1px solid rgb(209, 201, 198); */
@@ -367,23 +389,28 @@ textarea {
     background: linear-gradient(40deg, #ffe5b7, #ffcc6e);
     scale: 1.1;
 }
-/* 
-h1 {
-    margin-top: 20px;
-    font-size: 28px;
-    box-sizing: border-box;
-} */
+
+#userintrestdiv h1 {
+    width: 1000px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(192, 171, 143);
+}
+
 
 #Userintrestul button {
-    margin-top: 30px;
-    margin: 30px 50px;
+    margin: 50px 50px;
     width: 150px;
     height: 40px;
     border: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
     border-radius: 7px;
     cursor: pointer;
+}
+#Userintrestul div {
     
+    width: 700px;
+    display: flex;
+    justify-content: center;
 }
 
 #Userintrestul button:hover {
