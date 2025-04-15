@@ -54,6 +54,14 @@
                             <% if (!isMember) { %>
                                 <button class = "btn btn-join">가입 신청</button>
                             <% } %>
+                            <% if (String(loginUserId) === String(club.creator_id)) { %>
+                                <div class="club-manage-actions">
+                                    
+                                    <button type = "button" id = "edit_club" class="btn btn-manage">🛠️</button>
+                                    <button type="button"  id = "add_events"class="btn btn-event-add">➕</button>
+                                </div>
+                            <% } %>
+                            
                             <!-- <button class="btn btn-join">가입 신청</button> -->
                             <!-- <button class="btn btn-guest">게스트 참여</button> -->
                         </div>
@@ -64,7 +72,7 @@
                     <button class="tab-btn active" data-tab="schedule">일정</button>
                     <button class="tab-btn" data-tab="members">멤버</button>
                     <button class="tab-btn" data-tab="reviews">리뷰</button>
-                    <button class="tab-btn" data-tab="verifications">참여 인증</button>
+                    <!-- <button class="tab-btn" data-tab="verifications">참여 인증</button> -->
                 </div>
                 <div class="tab-content">
                     <!-- 일정 탭 -->
@@ -265,7 +273,7 @@
                     </div>
 
                     <!-- 참여 인증 탭 -->
-                    <div class="tab-pane" id="verifications">
+                    <!-- <div class="tab-pane" id="verifications">
                         <div class="verifications-header">
                             <h3>참여 인증</h3>
                             <div class="verification-actions">
@@ -274,9 +282,9 @@
                         </div>
                         
                         <!-- 참여 인증 설명 -->
-                        <div class="verification-info">
+                        <!-- <div class="verification-info">
                             <p>동호회 활동에 참여하신 후 인증 사진을 등록해주세요. 다른 회원들과 활동 모습을 공유해보세요!</p>
-                        </div>
+                        </div> -->
                         
                         <!-- 인증 사진 업로드 모달-->
                         <div class="verification-form" style="display: none;">
@@ -310,7 +318,7 @@
                         </div>
                         
                         <!-- 참여 인증 갤러리 -->
-                        <div class="verification-gallery">
+                        <!-- <div class="verification-gallery">
                             <h4>최근 참여 인증</h4>
                             
                             <div class="verification-filters">
@@ -323,7 +331,6 @@
                             </div>
                             
                             <div class="verification-grid">
-                                <!-- 인증 사진 항목(스크립트 처리) -->
                                 <div class="verification-item">
                                     <div class="verification-image">
                                         <img src="https://via.placeholder.com/400x300" alt="참여 인증 사진">
@@ -394,7 +401,7 @@
                             <div class="verification-load-more">
                                 <button class="btn btn-load-more">더 보기</button>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -441,6 +448,25 @@
                 regularContainer.insertAdjacentHTML("beforeend", card);
             }
         });
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const addBtn = document.getElementById("add_events");
+            const editBtn = document.getElementById("edit_club");
+
+            if (addBtn) {
+                addBtn.addEventListener("click", () => {
+                    console.log("이벤트 추가 버튼 눌렸어");
+                    location.href = `/clubs/detail/${clubId}/events`; 
+                });
+            }
+
+            if (editBtn) {
+                editBtn.addEventListener("click", () => {
+                    console.log("수정 버튼 눌렸어");
+                    location.href = `/clubs/detail/${clubId}/edit`;
+                });
+            }
+    });
 
     </script>
     

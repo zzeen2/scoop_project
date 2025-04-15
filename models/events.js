@@ -2,12 +2,12 @@ const {DataTypes, Model} = require('sequelize');
 class Event extends Model {
     static init(sequelize) {
         return super.init({
-            id : {type : DataTypes.STRING(20), primaryKey : true, allowNull : false},
+            id : {type : DataTypes.INTEGER(20), primaryKey : true, allowNull : false, autoIncrement:true},
             club_id : {type : DataTypes.STRING(20), allowNull : false},
             title : {type : DataTypes.STRING(20), allowNull : false},
             content : {type : DataTypes.STRING(20), allowNull : false},
-            start_date : {type : DataTypes.INTEGER(10)},
-            end_date : {type : DataTypes.INTEGER(10)},
+            start_date : {type : DataTypes.BIGINT},
+            end_date : {type : DataTypes.BIGINT},
             location : {type : DataTypes.STRING(200), allowNull : false},
             guest_allow : {type : DataTypes.INTEGER(20), allowNull : false},
             max_participants : {type : DataTypes.INTEGER(20), allowNull : false}

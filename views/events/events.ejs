@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-
     <link rel="stylesheet" href="/public/css/club/add_club.css">
-    <link rel="stylesheet" href="../../public/css/event/event.css">
+    <link rel="stylesheet" href="/public/css/event/event.css">
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </head>
 <body>
     <%- include("../common/header", {data}) %>
     <div class = "main-content"> 
-        <div class = "header">
+        <!-- <div class = "header">
             <div class = "page-title">
                 <h1> 동호회 관리 </h1>
             </div>
@@ -54,43 +54,55 @@
                     <button class="btn btn-ok" id = "ok_btn1">동호회 수정하기</button>
                 </div>
             </form>
-        </div>
+        </div> -->
+
         <div id="club-form2">
+            <input type="hidden" id="selected_start_date">
+            <input type="hidden" id="selected_end_date">
+            <input type="hidden" id="selected_event_date" name="selected_event_date">
             <form id="Form2">
-                <div>
+                <div id = "form-header">
                     <h2 class = "form-title">이벤트 등록하기</h2>
-                    <p class = "form-information">동호회를 이벤트 등록하여여 함께하세요! </p>
-                </div> <br><br>
+                    <p class = "form-information">동호회 이벤트를 등록하여 멤버들과 함께하세요! </p>
+                </div>
                 <div class = "addFrom-group">
                     <label class = "label required">이벤트 이름</label>
                     <input type="text" class = "form-input" id = "event_name1" placeholder="이벤트 이름을 알려주세요." required>
                 </div>
                 <div class = "addFrom-group">
                     <label class = "label required">이벤트 설명</label>
-                    <textarea class = "form-input-txtarea" id="event_information" placeholder="이벤트에 대한 설명을 해주세요."></textarea>
+                    <textarea class = "form-input-txtarea" id="event_information" placeholder="이벤트에 대한 설명을 해주세요(시간, 준비물, 모임장소 특징 등)."></textarea>
                 </div>
                 <div id="eventlocations">
-                    <label for="">활동 위치 : </label>
-                    <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="주소를 입력하세요" />
+                    <label for="">모임 위치 </label>
+                    <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="활동위치를 입력하세요" />
                 </div>
-                <div class = "addFrom-group">
-                    <label class = "label required">이벤트에 맞는 이미지 업로드해주세요 (4:3 비율)</label>
-                    <div class = "form-container">
-                        <div class = "image-upload" id="imagediv2">
-                            <div class = "upload-icon" id = "icon1">📷</div>
-                            <p class = "upload-info" id ="upload_info1">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
-                            <input type="file" id = "club_image2">
-                        </div>
+                <div class="addFrom-group">
+                    <label class = "label required">참석가능 최대 인원</label>
+                    <div class = "member-container">
+                        <input type="number" class="memeber-input" min="2" placeholder="최대 인원수를 입력하세요." required >
+                        <span style="color:#666">명</span>
+                    </div>
+                    <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
+                </div>
+                <div class="addFrom-group">
+                    <label class = "label required">게스트 참석 가능 여부</label> 
+                    <div>
+                        <label><input type="radio" name="guest_allow" value="yes" checked> 가능 </label>
+                        <label><input type="radio" name="guest_allow" value="no"> 불가능 </label>
                     </div>
                 </div>
-                <h3>날짜랑 시간을 선택해주세요</h3>
-                <div id='calendar'></div>
+                <div class="addFrom-group">
+                    <label class = "label required">모임 날짜 등록</label>
+                    <p class = "member-noti">캘린더에서 날짜를 선택해주세요! (마우스를 드래그하면 범위선택도 가능합니다!)</p>
+                    <div id='calendar'></div>
+                </div>
                 <div class="addForm-btn-container2">
                     <button class="btn btn-ok" id = "ok_btn2">이벤트 등록하기</button>
                 </div>
             </form>
         </div>
-        <div id="Managemember">
+        <!-- <div id="Managemember">
             <h2>멤버 관리하기</h2>
             <div class="Memberlist">
                 <h3>멤버 이름</h3><br>
@@ -106,8 +118,8 @@
                                
                 </ol>
             </div>
-        </div>
-        <div id="Memberverify">
+        </div> -->
+        <!-- <div id="Memberverify">
             <h2>잠여 인증하기</h2>
             <form action="">
                 <div class = "addFrom-group">
@@ -124,9 +136,12 @@
                     <button class="btn btn-ok" id = "ok_btn3">이벤트 잠여 인증하기</button>
                 </div>
             </form>
-        </div>
+        </div> -->
     </div>
 
 </body>
 <script src="/public/script/event/event.js"></script>
+<script>
+    const CLUB_ID = "<%= clubId %>";
+</script>
 </html>
