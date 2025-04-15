@@ -5,7 +5,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint} = require('../../controllers/mypage/mypage.controllers');
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate} = require('../../controllers/mypage/mypage.controllers');
 const { getSubCategories } = require('../../controllers/club/add_club.controllers');
 
 router.use(cookieParser())
@@ -66,18 +66,47 @@ router.get('/auth/kakao/callback', async(req, res) => {
 })
 router.get('/mypage', async (req, res) => {
     try{
+        const clubdata1 = []
+        const club_id = []
+
         const {login_access_token} = req.cookies;
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
         const {dataValues : Userdata} = await Finduser(id)
         const clubdata = await Findclub(id);
         const [pointdata] = await Checkpoint(id)
-        const Userlevel = Math.floor(pointdata.point/100)
-        console.log(Userlevel,'ffffffffffff')
+        const Userlevel = Math.floor(pointdata.point)
+        const Activitydata = await Findactivity(id) || null;
+        const Likedata = await Findlike(id) || null;
+        // const participantdate = await Getparticipantdate(id) || null;
+        console.log( 'likeee', Likedata)
+        for (let i = 0; i < Activitydata.length; i++) {
+            club_id.push(Activitydata[i])
+        }
+        for (let i = 0; i < Likedata.length; i++) {
+            console.log(club_id, Likedata, 'asdfsadfd')
+            console.log(club_id.indexOf(Likedata[i]))
+            if(!(club_id.indexOf(Likedata[i]))){
+                console.log('ddddd')
+            }else{
+                club_id.push(Likedata[i])
+            }
+            // else {
+            //     console.log('ddddd')
+            //     club_id.push(Likedata[i])
+            // }            
+        }
+        console.log(club_id, Activitydata, Likedata,'asdfasdfasd')
+        for (let i = 0; i < club_id.length; i++) {
+            const [data] = await Findclub_id(club_id[i]);
+    
+            clubdata1.push(data)
+        }
+        console.log(clubdata1)
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1})
         }
         else {
-            res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel})
+            res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1})
         }
     }
 

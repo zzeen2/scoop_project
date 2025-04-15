@@ -8,7 +8,7 @@ class Review extends Model {
             affiliation: {type: DataTypes.STRING(50), allowNull: false} // 멤버 or 게스트 구분을 위해 추가
         }, {
             sequelize,
-            timestamps : true ,
+            // timestamps : true ,
             modelName : 'Review',
             tableName : 'reviews',
             charset : 'utf8mb4',
