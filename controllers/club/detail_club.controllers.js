@@ -33,75 +33,82 @@ const isClubMember = async (userId, clubId) => {
 // -- 상세 페이지 렌더링
 const clubDetail = async (req, res) => {
     const clubId = req.params.clubId;
-    const userId = getUserIdFromToken(req);
-    const {login_access_token} = req.cookies;
-            const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
-    
-
+    let userId = null;
+    let properties = null;
+  
     try {
-    const club = await Clubs.findOne({
+      const { login_access_token } = req.cookies;
+      if (login_access_token) {
+        const decoded = jwt.verify(login_access_token, process.env.TOKEN);
+        userId = decoded.id;
+        properties = decoded.properties;
+      }
+    } catch (err) {
+      console.error("토큰 검증 실패:", err);
+    }
+  
+    try {
+      const club = await Clubs.findOne({
         where: { club_id: clubId },
         include: [
-        { model: Categorys, as: "Category", include: [{ model: Categorys, as: "Parent" }] },
-        { model: Tags },
-        { model: Locations },
-        { model: Reviews, include: { model: Users } },
-        { model: Events, include: { model: Verifications } },
-        { model: Members, include: [{ model: Users }] }
+          { model: Categorys, as: "Category", include: [{ model: Categorys, as: "Parent" }] },
+          { model: Tags },
+          { model: Locations },
+          { model: Reviews, include: { model: Users } },
+          { model: Events, include: { model: Verifications } },
+          { model: Members, include: [{ model: Users }] }
         ]
-    });
-
-    if (!club) {
+      });
+  
+      if (!club) {
         return res.json({ state: 400, message: "동호회가 존재하지 않습니다." });
-    }
-
-    // 상태별 참여자 정보 넣기
-    if (club.Events && club.Events.length > 0) {
+      }
+      if (club.Events?.length > 0) {
         for (const event of club.Events) {
-        const participants = await Participants.findAll({
+          const participants = await Participants.findAll({
             where: { participants_id_fk: event.id },
             include: [{ model: Users }]
-        });
-    
-        event.dataValues.attending = participants
+          });
+  
+          event.dataValues.attending = participants
             .filter(p => p.state === 'yes')
             .map(p => p.User?.kakao_name || '이름없음');
-    
-        event.dataValues.notAttending = participants
+  
+          event.dataValues.notAttending = participants
             .filter(p => p.state === 'no')
             .map(p => p.User?.kakao_name || '이름없음');
-    
-        event.dataValues.maybe = participants
+  
+          event.dataValues.maybe = participants
             .filter(p => p.state === 'maybe')
             .map(p => p.User?.kakao_name || '이름없음');
         }
-    }
-    
-
-    // 찜 상태
-    let liked = false;
-    if (userId) {
+      }
+  
+      // 찜 여부
+      let liked = false;
+      if (userId) {
         const heart = await Hearts.findOne({
-        where: { club_id_fk: clubId, user_id_fk: userId }
+          where: { club_id_fk: clubId, user_id_fk: userId }
         });
         liked = !!heart;
-    }
-
-    // 회원 여부
-    const isMember = userId ? await isClubMember(userId, clubId) : false;
-
-    return res.render("club/detail_club", {
+      }
+  
+      // 회원 여부
+      const isMember = userId ? await isClubMember(userId, clubId) : false;
+  
+      return res.render("club/detail_club", {
         club,
         liked,
         loginUserId: userId,
         isMember,
-        data : properties
-    });
+        data: properties // 로그인 사용자 정보 or null
+      });
     } catch (error) {
-    console.error("상세페이지 오류", error);
-    return res.json({ state: 401, message: "clubDetail, 상세페이지 서버 오류" });
+      console.error("상세페이지 오류", error);
+      return res.status(500).json({ state: 401, message: "clubDetail, 상세페이지 서버 오류" });
     }
-};
+  };
+  
 
 // -- 찜하기 버튼 동작
 const heart = async (req, res) => {
