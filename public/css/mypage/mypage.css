@@ -197,12 +197,12 @@ input {
 
 
 #Userinfo img {
-    width: 512px;
+    width: 272px;
     height: 272px;
-    border-radius: 10px;
+    border-radius: 272px;
     /* border: 20px solid white; */
     box-sizing: border-box;
-    margin: 20px 10px 0 10px;
+    margin: 20px 110px 0 110px;
     position: relative;
 }
 
@@ -264,7 +264,7 @@ input {
     box-sizing: border-box;
     margin-bottom: 20px;
     position: relative;
-    left: 610px;
+    left: 630px;
 }
 #Userul a:hover {
     background-color: rgb(255, 209, 111);
@@ -328,7 +328,7 @@ input {
     border: 1px solid;
 }
 #Userdetailform button:hover {
-    background-color: rgb(197, 197, 197);
+    background-color: rgb(255, 181, 21);
 }
 
 #Userdetailform div {
@@ -464,7 +464,7 @@ textarea {
 }
 
 #Userintrestul button:hover {
-    background-color: #dddddd;
+    background-color: rgb(255, 181, 21);
 }
 /* #Userintrestul button:hover {
     background-color: #3eb32e;
@@ -536,8 +536,8 @@ textarea {
     border-radius: 7px;
     
 }
-#Popup button:hover {
-    background-color: #dddddd;
+#Popup button:hover,#Popup1 button, #Popuperror1 button:hover {
+    background-color: rgb(255, 181, 21);
 }
 
 #contenttype {
@@ -670,7 +670,7 @@ textarea {
 
 #heartIcon {
     position: absolute;
-    margin-left: 80px;
+    margin-left: 150px;
     /* transform: translate(150%, 500%); */
     /* animation: pop 0.4s ease; */
 }
