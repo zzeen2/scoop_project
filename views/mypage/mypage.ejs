@@ -82,7 +82,10 @@
                 <% for(let i = 0; i < clubdata.length; i++) { %> 
                     <ul class="Contentul Active">
                         <li class="Contentli"> 
-                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            <div class="imagediv">
+                                
+                                <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            </div>
                             <ul class="">
                                 <li>동호회 이름 :  <%= clubdata[i].name %> </li>
                                 <li>내용 : 
@@ -106,7 +109,9 @@
                 <% for(let i = 0; i < clubdata1.length; i++) { %> 
                     <ul class="Contentul1">
                         <li class="Contentli"> 
-                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            <div class="imagediv1">
+                                <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            </div>
                             <ul class="">
                                 <li>동호회 이름 :  <%= clubdata1[i].name %> </li>
                                 <li>내용 : 
