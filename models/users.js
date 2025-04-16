@@ -8,7 +8,7 @@ class User extends Model {
             kakao_profile_image : {type : DataTypes.STRING(200), allowNull : false},
             age : {type : DataTypes.INTEGER(20)},
             gender : {type : DataTypes.STRING(20)},
-            introduction : {type : DataTypes.INTEGER(200)},
+            introduction : {type : DataTypes.STRING(200)},
             location : {type : DataTypes.STRING(200)},
             
   
@@ -22,12 +22,14 @@ class User extends Model {
         })
     }
     static associate(models) {
-        models.Users.hasMany(models.Points, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        models.Users.hasOne(models.Points, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Userintrests, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Clubs, {foreignkey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Reviews, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Hearts, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Events, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
+        models.Users.hasMany(models.Members, { foreignKey: 'user_id_fk', sourceKey: 'uid' });
+        models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
     }
 }
 
