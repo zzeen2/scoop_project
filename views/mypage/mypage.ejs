@@ -14,183 +14,152 @@
     <link rel="stylesheet" href="/public/css/common/header.css">
     <link rel="stylesheet" href="/public/css/mypage/mypage.css">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
-    <script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-      document.addEventListener('DOMContentLoaded', function() {
-        const calendarEl = document.getElementById('calendar')
-        const calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          events: [
-            {
-                title : '참여',
-                backgroundColor: '#9d2933',
-                date: '2025-04-05'
-            },{
-                title : '참여',
-                backgroundColor: '#9d2933',
-                date: '2025-03-30'
-            }
-        ]
-        })
-        calendar.render()
-      })
 
-    </script>
+
 </head>
 <body>
-    <header>
-        <div>
-            <img src="/public/images/logo.png" alt="로고">
-            <a href="/">동호회</a>
-        </div>
-        <ul>
-            <!-- <a href="/login" id="alogin">로그인</a> -->
-            <div>
-                <a href="/logout" id="alogout">로그아웃</a>
-            </div>
-        </ul>
-    </header>
+    <%- include("../common/header", {data}) %>
     <div id="Bodywrap">
         <div id="Bodycontent">
-
+            <h1><%= data.nickname %>님 환연합니다</h1>
+            <span class="line"></span>
             <div id="Userinfo">
                 <img src="<%= data.profile_image %>" alt="">
                 <ul id="Userul">
-                    <li>아이디 : <%= uuid %></li>
-                    <li>
-                        <span>이름 : <%= data.nickname %></span>                      
-                        <span>레벨 : 1</span>
-                    </li>
-                    <li>
-                        <span>나이 : <%= Userdata.age %> </span>
-                        <span>성별 : <%= Userdata.gender %></span>
-                        <div id="Edit">
-                            <a href="/Edituser" id="Edituser">정보 수정</a>
-                            <a href="/Userintrest" id="Userintrest">관심 분야</a>
-                        </div>
-                    </li>
-                
-                    <li>
-                        <!-- <span>동호회 멤버 : </span> -->
-                    </li>
+                    <div id="Edit">
+                        <a href="/Edituser" id="Edituser">정보 수정</a>
+                        <a href="/Userintrest" id="Userintrest">관심 분야 추가</a>
+                    </div>
+                    <div class="userulbody">
+
+                        <li>
+                            <span>아이디 : <%= uuid %></span>
+                            <span>현재 포인트 : <%= Userlevel %></span>
+                        </li>
+                        <li>
+                            <span>이름 : <%= data.nickname %></span>                      
+                        </li>
+                        <li>
+                            <span>나이 : <%= Userdata.age %> </span>
+                        </li>
+                        <li>
+
+                            <span>성별 : <%= Userdata.gender %></span>
+                        </li>
+                    </div>
+                  
                 </ul>
             </div>
-            <!-- <span id="line"></span> -->
+            <div class="addclubdiv">
+                <i class="fa-regular fa-heart beating-heart" id="heartIcon" onclick="toggleLike()" style="color: #e63946; font-size: 2rem;"></i>
+
+                <a href="/clubs/create" class="addclub">동호회 추가하기</a>
+            </div>
+            <span class="line"></span>
+
             <div id="Introduction">
-                자기소개 : 
+                    소개글 : 
                 <p>
                     <%= Userdata.introduction %>
                 </p>
             </div>
-            <span id="line"></span>
-            
-            
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
-                        </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
-                    </ul>
+            <span class="line"></span>
+            <div id="contenttype">
+                <button class="Active" id="myclub">나의 동호회</button>
+                <button id="myactivities">나의 활동</button>
+                <button id="mycalendar">나의 달력</button>
+            </div>
+            <span class="line"></span>
+            <div id="calendardiv">
 
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-            <% for(let i = 0; i < clubdata.length; i++) { %> 
-                <ul class="Contentul">
-                    
-                    
-                    <li class="Contentli"> 
-                        <a href="" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
-                        <ul class="">
-                            <li>동호회 이름 :  <%= clubdata[i].name %> </li>
-                            <li>내용 : 
-                                <%= clubdata[i].introduction %>
-                            </li>
-                            <li></li>
-                            <li class="clubinfo">
-                                <span>카태고리</span>
-                                <span>창소</span>
-                                <span>멤버</span>
-                            </li>
-                        </ul>
-                        
-                    </li>
-                    <!-- <li>2</li>
-                    <li>3</li>
-                    <li>4</li> -->
-                </ul>
+                <div id='calendar'></div> 
+            </div>
+     
+            <% if(clubdata) { %> 
+                <% for(let i = 0; i < clubdata.length; i++) { %> 
+                    <ul class="Contentul Active">
+                        <li class="Contentli"> 
+                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            <ul class="">
+                                <li>동호회 이름 :  <%= clubdata[i].name %> </li>
+                                <li>내용 : 
+                                    <%= clubdata[i].introduction %>
+                                </li>
+                             
+                                <li class="clubinfo">
+                                    <span><%= clubdata[i].club_category_name %></span>
+                                    <span>잉일체험 : <%= clubdata[i].allow_guest %></span>
+                                    <span>멤버 정원 : <%= clubdata[i].member_limit %></span>
+                                </li>
+                            </ul>
+                            
+                        </li>
+                        <!-- <li>2</li>
+                        <li>3</li>
+                        <li>4</li> -->
+                    </ul>
+                <% } %>
             <% } %>
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
+            <% if(clubdata1) { %> 
+                <% for(let i = 0; i < clubdata1.length; i++) { %> 
+                    <ul class="Contentul1">
+                        <li class="Contentli"> 
+                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            <ul class="">
+                                <li>동호회 이름 :  <%= clubdata1[i].name %> </li>
+                                <li>내용 : 
+                                    <%= clubdata1[i].introduction %>
+                                </li>
+                              
+                                <li class="clubinfo">
+                                    <span><%= clubdata1[i].club_category_name %></span>
+                                    <span>잉일체험 : <%= clubdata1[i].allow_guest %></span>
+                                    <span>멤버 정원 : <%= clubdata1[i].member_limit %></span>
+                                </li>
+                            </ul>
+                            
                         </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
+                        <!-- <li>2</li>
+                        <li>3</li>
+                        <li>4</li> -->
                     </ul>
-
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-            <ul class="Contentul">
-               
-                <li class="Contentli"> 
-                    <a href="" class="imagetag"><img src="/public/images/mypage.png" alt=""></a>
-                    <ul class="">
-                        <li>동호회 이름 : 3040😁동네찐친만들기🤗여성환영</li>
-                        <li>내용 : 
-                            🌸상큼!설램가득한!봄날🌸동네친구들과힐링!
-3040(평일!주말)동네친구랑!맛집!여행!힐링함께 맛집🍛여행🚅카페☕영화🎬문화🎭운동🎳레져 하고싶은거 함께 다하는 친목모임🤗
-혼술!혼밥!혼영!혼여no(모든지함께)
-                        </li>
-                        <li></li>
-                        <li class="clubinfo">
-                            <span>카태고리</span>
-                            <span>창소</span>
-                            <span>멤버</span>
-                        </li>
-                    </ul>
-
-                </li>
-                <!-- <li>2</li>
-                <li>3</li>
-                <li>4</li> -->
-            </ul>
-           
+                <% } %>
+            <% } %>                  
     
         </div>
-        <div id='calendar'></div>
-        
+        <div id="participantwrap">
+            <div class="participantbody">
+                <div class="participantdiv">
+
+                    <% for(let i = 0; i < participantdate.length; i++) { %> 
+                        <ul>
+                            <h3>이벤트 잠여 정보</h3><br>
+                            <li>잠여 아이디 : <%= participantdate[i].participant_id %></li>
+                            <li>참가자 유형 : <%= participantdate[i].state %></li>
+                            <li>잠여 날짜 : <%= new Date(participantdate[i].createdAt).toISOString().slice(0, 10) %></li>
+                        </ul>
+                        <% } %>
+                    </div>
+                <button id="Participantbtn">확인</button>
+            </div>
+        </div>
         
     </div>
 </body>
 <script>
-
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     const calendarEl = document.getElementById('calendar')
+        //     const calendar = new FullCalendar.Calendar(calendarEl, {
+        //       initialView: 'dayGridMonth'
+        //     })
+        //     calendar.render()
+        //   })
+    
+    // inject EJS data into the browser
+    window.mypageData = <%- JSON.stringify(participantdate) %>;
 </script>
+<script src="/public/script/mypage/mypage.js"></script>
 </html>

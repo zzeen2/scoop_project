@@ -7,7 +7,10 @@ const {upload} = require("../../lib/multer")
 //---------------------- 프론트
 // -- 추가페이지
 router.get("/", categoryController.checkUserPoint, (req,res)=> {
-    res.render("club/add_club")
+    const {login_access_token} = req.cookies;
+            const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
+
+    res.render("club/add_club", {data : properties})
 })
 //--------------------- 백엔드
 
