@@ -41,41 +41,54 @@ window.addEventListener("load", () => {
     
 })  
 
-const result = ["member","like", "review", "star"]
+const result = ["member", "like", "review", "star"];
 const filterBtn = document.querySelectorAll('.category-btn');
-const clubList = document.querySelector('.club-list')
+const clubList = document.querySelector('.club-list');
 
 for (let i = 0; i < filterBtn.length; i++) {
   filterBtn[i].onclick = async () => {
     try {
-     const filterData = await axios.get(`/filter?index=${result[i]}`)
-     console.log("filterdata" , filterData)
-     const clubs = filterData.data.data;
-    console.log("clubs",clubs )
-     clubList.innerHTML = '';
+      const filterData = await axios.get(`/filter?index=${result[i]}`);
+      const clubs = filterData.data.data;
+      console.log(clubs)
+      clubList.innerHTML = '';
 
-     if (clubs.length === 0) {
-       clubList.innerHTML = '조회된 동호회가 없습니다';
-       return;
-     }
+      if (clubs.length === 0) {
+        clubList.innerHTML = '조회된 동호회가 없습니다';
+        return;
+      }
 
-     clubs.forEach(club => {
-       const clubItem = document.createElement('div');
-       clubItem.classList.add('club-item');
-       clubItem.innerHTML = `
-         <img src="${club.image || '/images/default.png'}" alt="동호회 이미지" class="club-image" style="width: 100px; height: 100px; object-fit: cover;">
-         <h3>${club.name || '이름 없음'}</h3>
-         <p>${club.introduction || '설명이 없습니다.'}</p>
-         <h4>${club.view_count || '조회수 : 0'}</h4>
-       `;
-  
-       clubList.appendChild(clubItem);
-     });
-   } catch (error) {
-     console.log('필터링 중 오류 발생:', error);
-   }
- };
+      clubs.forEach(club => {
+        const clubItem = document.createElement('div');
+        clubItem.classList.add('club-item');
+
+        // 공통 출력 정보
+        let extraInfo = '';
+        if (result[i] === 'member') {
+          extraInfo = `<p>회원 수 : ${club.MemberCount || 0}</p>`;
+        } else if (result[i] === 'like') {
+          extraInfo = `<p>좋아요 : ${club.HeartCount || 0}</p>`;
+        } else if (result[i] === 'review') {
+          extraInfo = `<p>조회수 : ${club.view_count || 0}</p>`;
+        } else if (result[i] === 'star') {
+          extraInfo = `<p>평점 : ${club.ReviewCount || '0.0'}</p>`;
+        }
+
+        clubItem.innerHTML = `
+          <img src="${club.image || '/images/default.png'}" alt="동호회 이미지" class="club-image" style="width: 100px; height: 100px; object-fit: cover;">
+          <h3>${club.name || '이름 없음'}</h3>
+          <p>${club.introduction || '설명이 없습니다.'}</p>
+          ${extraInfo}
+        `;
+
+        clubList.appendChild(clubItem);
+      });
+    } catch (error) {
+      console.log('필터링 중 오류 발생:', error);
+    }
+  };
 }
+
 
 
 let MIN_ZOOM_LEVEL = 4;
