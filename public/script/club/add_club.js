@@ -348,6 +348,7 @@ ok_btn.onclick = async (e) => {
         form.append("wide_regions", JSON.stringify(wideRegions));
         form.append("local_station", "");// 지역범위는 빈문자열로 보내기
     }
+    
 
     // 태그들
     const tags = Array.from(document.querySelectorAll(".tag")).map(tag => tag.firstChild.textContent.trim());
@@ -355,6 +356,14 @@ ok_btn.onclick = async (e) => {
     console.log("태그확인 : ",tags  )
 
     try {
+        if (!name || !info || !limit || !mainId || !subId || !rangeType ||
+            (isLocal && !station) ||
+            (!isLocal && selectedDistricts.length === 0)
+        ) {
+            alert("모든 필드를 입력해주세요.");
+            return;
+        }
+    
         const res = await axios.post("/clubs/create/", form, {
             headers: {
                 "Content-Type": "multipart/form-data"
