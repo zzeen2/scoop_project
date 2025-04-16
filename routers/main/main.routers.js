@@ -75,7 +75,7 @@ router.get('/api/area', async (req, res) => {
 router.get('/area',  async (req, res) => {
   const {wide_regions} = req.query;
   console.log("뭐야야",wide_regions)
-  const data = await AreaFilter(wide_regions);
+  const data = await AreaAllFilter(wide_regions);
   res.json(data);
 })
 
