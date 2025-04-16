@@ -22,6 +22,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Members.member_uid')), 'MemberCount']
                         ],
                         where : {local_station},
@@ -40,6 +41,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Members.member_uid')), 'MemberCount']
                         ],
                         include: [{
@@ -64,18 +66,12 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
-                            'view_count',
-                            [Sequelize.fn('COUNT', Sequelize.col('Clubs.view_count')), 'ReviewCount']
+                            'view_count'
                         ],
-                        where : {local_station, view_count},
-                        include: [{
-                            model: Clubs,
-                            attributes: []
-                        }],
-                        group: ['club_id'],
-                        order: [[Sequelize.literal('ReviewCount'), 'DESC']]
+                        where : {local_station},
+                        order: [["view_count", 'DESC']]
                     });
-                    return { state: 200, message: "조회순순 정렬 성공", data };
+                    return { state: 200, message: "조회순 정렬 성공", data };
                 }else {
                     const data = await Clubs.findAll({
                         attributes: [
@@ -83,20 +79,14 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
-                            'view_count',
-                            [Sequelize.fn('COUNT', Sequelize.col('Clubs.view_count')), 'ReviewCount']
+                            'view_count'
                         ],
-                        include: [{
-                            model: Clubs,
-                            attributes: []
-                        }],
-                        group: ['club_id'],
-                        order: [[Sequelize.literal('ReviewCount'), 'DESC']]
+                        order: [["view_count", 'DESC']]
                     });
-                    return { state: 200, message: "조회순순 정렬 성공", data };
+                    return { state: 200, message: "조회순 정렬 성공", data };
                 }
             } catch (error) {
-                return { state: 404, message: "조회순순 정렬 실패", error };
+                return { state: 404, message: "조회순 정렬 실패", error };
             }
         }
         case STARORDER: {
@@ -108,6 +98,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Reviews.star')), 'ReviewCount']
                         ],
                         where : {local_station},
@@ -126,6 +117,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Reviews.star')), 'ReviewCount']
                         ],
                         include: [{
@@ -151,6 +143,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Hearts.like_id')), 'HeartCount']
                         ],
                         where : {local_station},
@@ -169,6 +162,7 @@ const FilteringSort = async (index, local_station) => {
                             'name',
                             'introduction',
                             'image',
+                            "view_count",
                             [Sequelize.fn('COUNT', Sequelize.col('Hearts.like_id')), 'HeartCount']
                         ],
                         include: [{
