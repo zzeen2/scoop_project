@@ -11,7 +11,6 @@ class Event extends Model {
             location : {type : DataTypes.STRING(200), allowNull : false},
             guest_allow : {type : DataTypes.INTEGER(20), allowNull : false},
             max_participants : {type : DataTypes.INTEGER(20), allowNull : false}
-
         }, {
             sequelize,
             timestamps : true ,
