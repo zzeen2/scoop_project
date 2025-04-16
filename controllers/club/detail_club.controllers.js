@@ -52,6 +52,12 @@ const clubDetail = async (req, res) => {
     }
   
     try {
+      // 조회수 증가
+      await Clubs.increment('view_count', {
+        by: 1,
+        where: { club_id: clubId }
+      });
+
       const club = await Clubs.findOne({
         where: { club_id: clubId },
         include: [
