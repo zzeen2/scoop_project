@@ -15,7 +15,7 @@ const Createuser = async ( id, name, image, user_age, user_gender, user_introduc
             return ({state : 200, message : '수정 완료료 1'})
         } else {
             console.log('hhhhhhhhhhh')            
-            const data = await Users.create({uid : id, kakao_id : kakao_id1, kakao_name : name, kakao_profile_image : image})
+            const data = await Users.create({uid : id, kakao_id : id, kakao_name : name, kakao_profile_image : image})
             
             return ({state : 200, message : '수정 완료료'})
         }
@@ -96,118 +96,7 @@ const seedCategories = async () => {
         process.exit(1);
     }
 };
-const clubs = [
-    {
-      club_id: 'club001',
-      name: 'Book Club',
-      introduction: 'A club for book lovers to share and discuss literature.',
-      image: 'https://example.com/images/book.jpg',
-      creator_id: 'user001',
-      member_limit: 50,
-      club_category_name: 'Literature',
-      allow_guest: 'yes',
-      view_count: 15
-    },
-    {
-      club_id: 'club002',
-      name: 'Fitness Freaks',
-      introduction: 'Stay fit, stay healthy. Join our workout sessions!',
-      image: 'https://example.com/images/fitness.jpg',
-      creator_id: 'user002',
-      member_limit: 100,
-      club_category_name: 'Health',
-      allow_guest: 'no',
-      view_count: 45
-    },
-    {
-      club_id: 'club003',
-      name: 'Movie Nights',
-      introduction: 'Weekly movie marathons and discussions.',
-      image: 'https://example.com/images/movie.jpg',
-      creator_id: 'user003',
-      member_limit: 30,
-      club_category_name: 'Entertainment',
-      allow_guest: 'yes',
-      view_count: 67
-    },
-    {
-      club_id: 'club004',
-      name: 'Gamers Unite',
-      introduction: 'Multiplayer game events and tournaments.',
-      image: 'https://example.com/images/gaming.jpg',
-      creator_id: 'user004',
-      member_limit: 70,
-      club_category_name: 'Gaming',
-      allow_guest: 'no',
-      view_count: 88
-    },
-    {
-      club_id: 'club005',
-      name: 'Art Lovers',
-      introduction: 'For those who appreciate and create art.',
-      image: 'https://example.com/images/art.jpg',
-      creator_id: 'user005',
-      member_limit: 40,
-      club_category_name: 'Art',
-      allow_guest: 'yes',
-      view_count: 20
-    },
-    {
-      club_id: 'club006',
-      name: 'Tech Talk',
-      introduction: 'Discuss the latest in technology and innovation.',
-      image: 'https://example.com/images/tech.jpg',
-      creator_id: 'user006',
-      member_limit: 60,
-      club_category_name: 'Technology',
-      allow_guest: 'yes',
-      view_count: 105
-    },
-    {
-      club_id: 'club007',
-      name: 'Cooking Masters',
-      introduction: 'Share and learn delicious recipes together.',
-      image: 'https://example.com/images/cooking.jpg',
-      creator_id: 'user007',
-      member_limit: 25,
-      club_category_name: 'Food',
-      allow_guest: 'yes',
-      view_count: 33
-    },
-    {
-      club_id: 'club008',
-      name: 'Photography Club',
-      introduction: 'Capture the world one click at a time.',
-      image: 'https://example.com/images/photo.jpg',
-      creator_id: 'user008',
-      member_limit: 45,
-      club_category_name: 'Photography',
-      allow_guest: 'no',
-      view_count: 59
-    },
-    {
-      club_id: 'club009',
-      name: 'Travel Buddies',
-      introduction: 'Plan trips and share travel stories.',
-      image: 'https://example.com/images/travel.jpg',
-      creator_id: 'user009',
-      member_limit: 35,
-      club_category_name: 'Travel',
-      allow_guest: 'yes',
-      view_count: 76
-    },
-    {
-      club_id: 'club010',
-      name: 'Startup Circle',
-      introduction: 'Network with entrepreneurs and innovators.',
-      image: 'https://example.com/images/startup.jpg',
-      creator_id: 'user010',
-      member_limit: 80,
-      club_category_name: 'Business',
-      allow_guest: 'no',
-      view_count: 91
-    }
-  ];
+
 const clubdata = async () => {
     await Clubs.create( 
       

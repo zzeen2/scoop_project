@@ -25,77 +25,76 @@
         </div>
         <div id="Userdetaildiv">
             <form action="" id="Userdetailform">
-                <label for="">나이 : </label>
-                <input type="text" name="age" placeholder="나이">
-                <label for="" id="gender">성별 : 
-                    <label for="male">남성 : </label>
-                    <input type="radio" name="gender" value="male"> 
-                    <label for="female" >여성 : </label>
-                    <input type="radio" name="gender" value="female" >
-                </label>
-                <!-- <label for="">활동 위치 : <button id="locationbtn" type="button" onclick="getLocation()">현재 위치 검색</button></label> -->
-                <label for="">활동 위치 : </label>
-                <!-- <input type="text" name="longitude" placeholder="longitude" id="Longitude">
-                <input type="text" name="latitude" placeholder="latitude" id="Latitude"> -->
-                <!-- <input type="text" name="location" placeholder="location" id="Location"> -->
-                <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="주소를 입력하세요" />
-                <label for="">자기소개 : </label>
-                <textarea name="content" ></textarea>
-                <div>
-                    <button>환료</button>
-                    <a href="/mypage"><button type="button">취소</button></a>
-                </div>
+                <ul>
+                    <li>
+
+                        <h2>나의 정보 수정하기</h2>
+                    </li>
+                    <li>
+                        <label for="">나이 : </label>
+                        <input type="text" name="age" placeholder="나이">
+                    </li>
+                    <li>
+                        <label for="" id="gender">성별 : 
+                            <label for="male">남성 : </label>
+                            <input type="radio" name="gender" value="male"> 
+                            <label for="female" >여성 : </label>
+                            <input type="radio" name="gender" value="female" >
+                        </label>
+                    </li>
+                    <li>
+
+                        <label for="">활동 위치 : </label>
+                        <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="주소를 입력하세요" />
+                    </li>
+                    <li>
+
+                        <label for="">자기소개 : </label>
+                        <textarea name="content" ></textarea>
+                    </li>
+                    <div>
+                        <button>환료</button>
+                        <a href="/mypage"><button type="button">취소</button></a>
+                    </div>
+                </ul>
             </form>
         </div>
     </div>
 </body>
-<script>
-    Userdetailform.onsubmit = async (e) => {
-        e.preventDefault();
-        const {age : {value : agevalue}, 
-        gender : {value : gendervalue},
-        location : {value :locationvalue},
-        // longitude : {value :longitudevalue},
-        // latitude : {value : latitudevalue},
-        content : {value : contentvalue}} = e.target;
-        console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
+<script src="/public/script/mypage/edituser.js">
+    // Userdetailform.onsubmit = async (e) => {
+    //     e.preventDefault();
+    //     const {age : {value : agevalue}, 
+    //     gender : {value : gendervalue},
+    //     location : {value :locationvalue},
+    //     // longitude : {value :longitudevalue},
+    //     // latitude : {value : latitudevalue},
+    //     content : {value : contentvalue}} = e.target;
+    //     console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
         
-        if(agevalue.trim() === '' || gendervalue.trim() === '' || locationvalue === '' || contentvalue === '') {
-            Userdetailwrap.classList.add('popup');
-            return
-        }
-        const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
-        console.log(data,'mypage')
-        if(data.state === 200) {
-            console.log(data.state)
-            location.href = '/mypage'
-        }
-        else {
-            location.href = '/error'
-        }
-
-        
-
-    }
-    function openPostcode() {
-        new daum.Postcode({
-        oncomplete: function(data) {
-            document.getElementById('addr').value = data.address;
-        }
-        }).open();
-    }
-    // function getLocation() {
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition(function(position) {
-    //         Latitude.value = position.coords.latitude;
-    //         Longitude.value = position.coords.longitude;
-    //     }, function(error) {
-    //         alert('Error getting location: ' + error.message);
-    //     });
-    //     } else {
-    //     alert("Geolocation is not supported by this browser.");
+    //     if(agevalue.trim() === '' || gendervalue.trim() === '' || locationvalue === '' || contentvalue === '') {
+    //         Userdetailwrap.classList.add('popup');
+    //         return
     //     }
+    //     const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
+    //     console.log(data,'mypage')
+    //     if(data.state === 200) {
+    //         console.log(data.state)
+    //         location.href = '/mypage'
+    //     }
+    //     else {
+    //         location.href = '/error'
+    //     }
+
     // }
+    // function openPostcode() {
+    //     new daum.Postcode({
+    //     oncomplete: function(data) {
+    //         document.getElementById('addr').value = data.address;
+    //     }
+    //     }).open();
+    // }
+
 </script>
 
 </html>
