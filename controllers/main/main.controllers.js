@@ -5,7 +5,7 @@ const path = require('path');
 
 const USERORDER = "member";
 const REVIEWORDER = "review";
-const LIKEORDER = "like";
+const LIKEORDER = "like"; 
 const STARORDER = "star";
 
 
@@ -298,4 +298,4 @@ AreaAllFilter();
 //     }
 // }
 // AreaFilter("남양주시")
-module.exports = { FilteringSort , SubwayFilter, subwayAllFilter, AreaAllFilter, AreaFilter};
+module.exports = { FilteringSort , SubwayFilter, subwayAllFilter, AreaAllFilter};
