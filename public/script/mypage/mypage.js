@@ -37,10 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
 //     calendar.render()
 // })
 document.addEventListener('DOMContentLoaded', () => {
-    const Participantdata = document.querySelector('.fc-event-title-container');
+    const Participantdata = document.querySelectorAll('.fc-event-title-container');
     if(Participantdata) {
-        Participantdata.onclick = (e) => {
-            participantwrap.classList.add('active1')
+        for (let i = 0; i < Participantdata.length; i++) {
+            
+            Participantdata[i].onclick = (e) => {
+                participantwrap.classList.add('active1')
+            }
         }
         Participantbtn.onclick = (e) => {
             participantwrap.classList.remove('active1')

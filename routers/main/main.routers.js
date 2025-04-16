@@ -6,10 +6,9 @@ const {Createuser, Createpoint} = require('../../controllers/mypage/mypage.contr
 
 router.get('/', async (req, res) => {
     try{
-        
         const {login_access_token} = req.cookies;
+        console.log('main/', login_access_token)
         const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
-        console.log('done', id, properties.nickname, properties.profile_image)
         await Createuser(id, properties.nickname, properties.profile_image)
         if(login_access_token) {
             await Createpoint(id)

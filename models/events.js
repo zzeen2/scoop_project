@@ -22,7 +22,7 @@ class Event extends Model {
         })
     }
     static associate(models) {
-        // models.Events.hasMany(models.Participants, {foreignKey : 'participants_id_fk', sourceKey : 'id'})
+        models.Events.hasMany(models.Participants, {foreignKey : 'participants_id_fk', sourceKey : 'id'})
         models.Events.hasMany(models.Verifications, {foreignKey : 'verifications_id_fk', sourceKey : 'id'})
         models.Events.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', target : 'club_id', onDelete : 'CASCADE'})
     }

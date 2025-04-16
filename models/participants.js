@@ -15,8 +15,8 @@ class Participant extends Model {
         })
     }
     static associate(models) {
-        // models.Participants.belongsTo(models.Events, {foreignKey : 'participants_id_fk', target : 'id', onDelete : 'CASCADE'})
-        // models.Participants.belongsTo(models.Users, {foreignKey : 'user_id_fk', target : 'uid', onDelete : 'CASCADE'})
+        models.Participants.belongsTo(models.Events, {foreignKey : 'participants_id_fk', target : 'id', onDelete : 'CASCADE'})
+        models.Participants.belongsTo(models.Users, {foreignKey : 'user_id_fk', target : 'uid', onDelete : 'CASCADE'})
     }
 }
 

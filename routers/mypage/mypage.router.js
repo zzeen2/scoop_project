@@ -10,17 +10,14 @@ const { getSubCategories } = require('../../controllers/club/add_club.controller
 
 router.use(cookieParser())
 
-router.get('/login', async (req, res) => {
+router.get('/login', async (req, res) => { 
     try{
         const {login_access_token} = req.cookies;
         const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
-        console.log('done', id, properties.nickname, properties.profile_image)
-        console.log('done')
-        res.render('mypage/login', {data : properties})
+        res.render('mypage/login',{data : properties})
     }
     catch(error) {
-        console.log('error')
-        res.render('mypage/login', {data : null})
+        res.render('mypage/login',{data : null})
     }
 })
 router.get('/kakao/login', (req, res) => {
@@ -29,7 +26,6 @@ router.get('/kakao/login', (req, res) => {
 })
 router.get('/auth/kakao/callback', async(req, res) => {
     const {code} = req.query;
-    // console.log(code)
     const tokenUrl = `https://kauth.kakao.com/oauth/token`
     const data = new URLSearchParams({
         grant_type : 'authorization_code',
@@ -44,23 +40,19 @@ router.get('/auth/kakao/callback', async(req, res) => {
                 'Content-type' : 'application/x-www-form-urlencoded'
             }
         })
-        // console.log(response)
         const {access_token} = response.data;
-        // console.log(access_token)
         const {data : userData} = await axios.get('https://kapi.kakao.com/v2/user/me', {
             headers : {
                 Authorization: `Bearer ${access_token}`
             }
         })
         const {id, properties} = userData;
-        const token = jwt.sign({id, properties}, process.env.TOKEN, {expiresIn : '1h'});
-        // console.log(userData, token, access_token)
-
+        const token = jwt.sign({id, properties}, process.env.TOKEN, {expiresIn : '2h'});
         res.cookie('login_access_token', token, {httpOnly : true, maxAge : 10 * 60 * 60 * 1000})
         res.cookie('kakao_access_token', access_token, {httpOnly : true, maxAge : 10 * 60 * 60 * 1000})
         res.redirect('/')
     } catch (error) {
-        console.log(error)
+        res.json(error)
     }
 
 })
@@ -78,26 +70,18 @@ router.get('/mypage', async (req, res) => {
         const Likedata = await Findlike(id) || null;
         const participantdate = await Getparticipantdate(id) || null;
 
-    
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
         }
         for (let i = 0; i < Likedata.length; i++) {
-            console.log(club_id, Likedata, 'asdfsadfd')
-            console.log(club_id.indexOf(Likedata[i]))
             if(!(club_id.indexOf(Likedata[i]))){
+                return;
             }else{
                 club_id.push(Likedata[i])
-            }
-            // else {
-            //     console.log('ddddd')
-            //     club_id.push(Likedata[i])
-            // }            
+            }           
         }
-        console.log(club_id, Activitydata, Likedata,'asdfasdfasd')
         for (let i = 0; i < club_id.length; i++) {
             const [data] = await Findclub_id(club_id[i]);
-    
             clubdata1.push(data)
         }
         if(Userdata) {
@@ -107,9 +91,8 @@ router.get('/mypage', async (req, res) => {
             res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1, participantdate})
         }
     }
-
     catch(error) {
-        console.log('error', error)
+        // console.log('error', error)
         res.render('main/main', {data : null})
     }
 })
@@ -133,6 +116,7 @@ router.get('/Edituser', async (req, res) => {
     }
     catch(error) {
         console.log('error')
+
         res.render('mypage/edituser', {data : null})
     }
 })
@@ -141,7 +125,6 @@ const {login_access_token} = req.cookies;
     const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
     const {nickname, profile_image} = properties;
     const { agevalue, gendervalue, locationvalue, contentvalue} = req.body;
-    console.log(id, nickname, profile_image, agevalue, gendervalue, locationvalue, contentvalue)
     const data = await Createuser(id, nickname, profile_image, agevalue, gendervalue, contentvalue, locationvalue );
     res.json({state : 200 , message : '관심분야 수정 완료'})
     
@@ -162,20 +145,16 @@ router.post('/Userintrest', async (req, res) => {
     const {id} = jwt.verify(login_access_token, process.env.TOKEN)
     const {userdata} = req.body;
     const [finddata] = await Finduserintrest(id)
-    console.log(finddata,'finddata')
     try {
         if(finddata) {
-            console.log( 'finduser')
             await Deleteuserintrest(id)
             for (let i = 0; i < userdata.length; i++) {
                 const data = await Updatecategory(id, userdata[i])
-                console.log('if')
             }
         }
         else {     
             for (let i = 0; i < userdata.length; i++) {
                 const data = await Updatecategory(id, userdata[i])
-                console.log(data, 'for')
             }
         }
         res.json({state : 200, message : '추가 완료'})
@@ -187,15 +166,14 @@ router.get('/checkcookie', (req, res) => {
     try {
         const {login_access_token} = req.cookies;
         if(login_access_token) {
-
-            res.json({state : 200})
+            res.json({state : 200, message : 'checkcookie found'})
+        }else {
+            res.json({state : 400, message : 'checkcookie not found'})
         }
-        
     } catch (error) {
-        res.json({state : 400})
+        res.json({state : 400, message : error})
     }
 })
 
-console.log('s')
 
 module.exports = router
