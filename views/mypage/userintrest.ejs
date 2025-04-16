@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/public/css/mypage/mypage.css">
 </head>
 <body>
-    <%- include('../common/header') %>
+    <%- include('../common/header', {data}) %>
     <div id="Userintrestwrap">
         <div id="Popupwrap1">
             <div id="Popup1">           
@@ -48,9 +48,11 @@
                 <li class="Userintrestli">투자/금융</li>
                 <li class="Userintrestli">창업/사업</li>
                 
+                <div>
 
-                <button onclick="Updatecategory()">저장</button>
-                <a href="/mypage"><button>취소</button></a>
+                    <button onclick="Updatecategory()">저장</button>
+                    <a href="/mypage"><button>취소</button></a>
+                </div>
             </div>
         </ul>
     </div>  
@@ -78,7 +80,6 @@
 
     const Updatecategory = async (e) => {
         if(userdata.length > 0) {
-            
             const {data} =  await axios.post('/Userintrest', {userdata})
             console.log(data)
             if(data.state === 200) {

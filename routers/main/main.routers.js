@@ -3,11 +3,26 @@ const jwt = require('jsonwebtoken');
 const {FilteringSort, SubwayFilter, subwayAllFilter, AreaFilter, AreaAllFilter} = require('../../controllers/main/main.controllers')
 const path = require('path');
 const fs = require('fs');
+const {Createuser, Createpoint} = require('../../controllers/mypage/mypage.controllers')
 
-router.get('/',  async(req, res) => {
-  res.render('main/main')
-});
 
+router.get('/', async (req, res) => {
+    try{
+        const {login_access_token} = req.cookies;
+        console.log('main/', login_access_token)
+        const {id, properties} = jwt.verify(login_access_token, process.env.TOKEN)
+        await Createuser(id, properties.nickname, properties.profile_image)
+        if(login_access_token) {
+            await Createpoint(id)
+        }
+        console.log('done')
+        res.render('main/main', {data : properties})
+    }
+    catch(error) {
+        console.log('error')
+        res.render('main/main', {data : null})
+    }
+})
 
 
 router.get('/filter', async (req, res) => { 
@@ -60,7 +75,7 @@ router.get('/api/area', async (req, res) => {
 router.get('/area',  async (req, res) => {
   const {wide_regions} = req.query;
   console.log("뭐야야",wide_regions)
-  const data = await AreaAllFilter(wide_regions);
+  const data = await AreaFilter(wide_regions);
   res.json(data);
 })
 

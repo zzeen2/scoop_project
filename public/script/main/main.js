@@ -255,7 +255,7 @@ function loadAreaPoligon() {
             const selectedRegionName = regionFeature.properties.SIG_KOR_NM;
   
             const path = coordinates.map(coord => new kakao.maps.LatLng(coord[1], coord[0]));
-            console.log("path : ",path)
+            // console.log("path : ",path)
 
             const polygon = new kakao.maps.Polygon({
               path: path,

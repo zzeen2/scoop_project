@@ -3,10 +3,8 @@ class Participant extends Model {
     static init(sequelize) {
         return super.init({
             participant_id : {type : DataTypes.STRING(20), allowNull : false, primaryKey : true},
-            state: {
-                type: DataTypes.STRING(10),allowNull: false,defaultValue: 'maybe'}, // yes,no,maybe
-            user_id_fk: { type: DataTypes.STRING(20), allowNull: false
-                  }
+            state: {type: DataTypes.STRING(10),allowNull: false,defaultValue: 'maybe'}, // yes,no,maybe
+            user_id_fk: { type: DataTypes.STRING(20), allowNull: false}
         }, {
             sequelize,
             timestamps : true ,

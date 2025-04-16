@@ -6,9 +6,9 @@ class User extends Model {
             kakao_id : {type : DataTypes.STRING(20), allowNull : false},
             kakao_name : {type : DataTypes.STRING(20), allowNull : false},
             kakao_profile_image : {type : DataTypes.STRING(200), allowNull : false},
-            age : {type : DataTypes.INTEGER(20)},
+            age : {type : DataTypes.STRING(20)},
             gender : {type : DataTypes.STRING(20)},
-            introduction : {type : DataTypes.STRING(200)},
+            introduction : {type : DataTypes.STRING(1020)},
             location : {type : DataTypes.STRING(200)},
             
   
