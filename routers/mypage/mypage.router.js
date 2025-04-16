@@ -5,7 +5,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate} = require('../../controllers/mypage/mypage.controllers');
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate, Geteventtitle} = require('../../controllers/mypage/mypage.controllers');
 const { getSubCategories } = require('../../controllers/club/add_club.controllers');
 
 router.use(cookieParser())
@@ -68,7 +68,9 @@ router.get('/mypage', async (req, res) => {
         const Userlevel = Math.floor(pointdata.point)
         const Activitydata = await Findactivity(id) || null;
         const Likedata = await Findlike(id) || null;
-        const participantdate = await Getparticipantdate(id) || null;
+        const Participantdate = await Getparticipantdate(id) || null;
+        // const eventtitle = await Geteventtitle(participantdate.participant_id_fk) || null;
+        console.log(Participantdate.arraydate, 'fffff')
 
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
@@ -85,7 +87,7 @@ router.get('/mypage', async (req, res) => {
             clubdata1.push(data)
         }
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1, participantdate})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1, participantdate : Participantdate.arraydate, participanttitle : Participantdate.arraytitle})
         }
         else {
             res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1, participantdate})

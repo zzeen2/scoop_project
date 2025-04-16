@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const {FilteringSort, SubwayFilter, subwayAllFilter, AreaFilter, AreaAllFilter} = require('../../controllers/main/main.controllers')
 const path = require('path');
 const fs = require('fs');
-const {FilteringSort} = require('../../controllers/main/main.controllers')
 const {Createuser, Createpoint} = require('../../controllers/mypage/mypage.controllers')
 
 
