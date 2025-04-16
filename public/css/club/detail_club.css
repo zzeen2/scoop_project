@@ -839,3 +839,90 @@
 .btn-load-more:hover {
     background-color: #e0e0e0;
 }
+
+.club-manage-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn-manage, .btn-event-add {
+    padding: 9px 12px;
+    /* background-color: #4A90E2; */
+    color: white;
+    border: none;
+    border-radius: 19px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.95em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-manage:hover, .btn-event-add:hover {
+    scale: 1.2;
+}
+.fc .fc-toolbar-title {
+    color: #ffb402;
+    font-weight: bold;
+}
+
+.fc .fc-button-primary {
+background-color: #ffb402;
+border-color: #ffb402;
+}
+
+.fc .fc-button-primary:not(:disabled):hover {
+background-color: #e2a300;
+border-color: #e2a300;
+}
+
+.fc .fc-day-today {
+background-color: #fff6dd !important; /* 부드러운 배경 */
+}
+
+.fc-event {
+color: #000; 
+font-weight: 500;
+}
+/* 오늘 버튼 */
+.fc .fc-button.fc-today-button {
+    display: none;
+  background-color: #ffb402;
+  border-color: #ffb402;
+  color: white;
+}
+
+.fc .fc-button.fc-today-button:hover {
+  background-color: #e2a300;
+}
+
+/* 좌우 화살표 버튼 */
+.fc .fc-button.fc-prev-button,
+.fc .fc-button.fc-next-button {
+  background-color: #ffb402;
+  border-color: #ffb402;
+  color: white;
+}
+
+.fc .fc-button.fc-prev-button:hover,
+.fc .fc-button.fc-next-button:hover {
+  background-color: #e2a300;
+}
+/* 요일 헤더(일~토) 배경색 */
+.fc-col-header-cell {
+    background-color: #fff4dc; /* 연한 오렌지톤 */
+  }
+  
+  /* 요일 텍스트 진하게 */
+  .fc-col-header-cell-cushion {
+    font-weight: 600;
+    color: #333;
+  }
+
+  .fc .fc-day-today {
+    background-color: #f4f4f4 !important;
+    border: 1px solid #ddd;
+  }

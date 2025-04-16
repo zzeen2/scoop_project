@@ -2,7 +2,7 @@ const {DataTypes, Model} = require('sequelize');
 class Member extends Model {
     static init(sequelize) {
         return super.init({
-            member_uid : {type : DataTypes.STRING(20),primaryKey : true, allowNull : false},
+            member_uid : {type : DataTypes.STRING(20), allowNull : false},
             signup_date : {type : DataTypes.STRING(20), allowNull : false},
             user_id_fk : { type :DataTypes.STRING(20), allowNull : false}
 

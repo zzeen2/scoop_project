@@ -7,101 +7,178 @@
     <link rel="stylesheet" href="/public/css/club/manage_club.css">
 </head>
 <body>
-    <%- include("../common/header") %> 
+    <%- include("../common/header", {data}) %>
     <div class = "main-content"> 
-        <div class = "header">
-            <div class = "page-title">
-                <h1> 동호회 수정 </h1>
-            </div>
-        </div>
         <div id = "club-form">
             <div class = "form-header">
-                <h2 class = "form-title">새 동호회 정보 입력</h2>
-                <p class = "form-information"> 새로운 동호회를 생성하여 같은 관심사를 가진 사람들과 함께하세요! </p>
+                <h2 class = "form-title"> 동호회 수정 정보 입력</h2>
             </div>
             
             <form>
                 <div class = "addFrom-group">
                     <label class = "label required">동호회 이름</label>
-                    <input type="text" class = "form-input" id = "club_name" placeholder="동호회 이름을 알려주세요." required>
+                    <input type="text" class = "form-input" id = "club_name" value="<%= club.name %>" required>
                 </div>
                 <div class = "addFrom-group">
                     <label class = "label required">동호회 설명</label>
-                    <textarea class = "form-input-txtarea" id="club_information" placeholder="동호회에 대한 설명을 해주세요."></textarea>
+                    <textarea class = "form-input-txtarea" id="club_information"><%= club.introduction %></textarea>
                 </div>
                 <div class = "addFrom-group">
                     <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
                     <div class = "form-container">
                         <div class = "image-upload">
                             <div class = "upload-icon">📷</div>
-                            <p class = "upload-info">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
+                            <p class = "upload-info">이미지를 클릭하여 업로드하세요.(미선택시 이미지는 수정되지 않습니다.)</p>
                             <input type="file" id = "club-image">
                         </div>
                     </div>
                 </div>
                 <div class = "addFrom-group">
                     <label class="label">태그</label>
-                    <div class = "add-tag">
-                        <span class="tag">
-                            축구 <span class="tag-remove">×</span>
-                        </span>
-                        <span class="tag">
-                            축구모임 <span class="tag-remove">×</span>
-                        </span>
-                        
-                        <input type="text" class = "tag-input" placeholder="태그를 입력하고 Enter를 누르세요">
-                    </div>
-                </div>
-                <div class = "addFrom-group">
-                    <label class = "label required">카테고리 선택</label>
-                    <div class ="category-container">
-                        <div class = "main-category">
-                            <label class = "main-category-text">대표 카테고리</label>
-                        </div>
-                        <select class = "category-select" id="" required>
-                            <option value="" >대표 카테고리를 선택하세요</option>
-                            <!-- 스크립트에서 처리 -->
-                            <option value="sports">스포츠</option>
-                        </select>
-                        <div class = "sub-category">
-                            <label class = "sub-category-text">세부카테고리</label>
-                            <div class = "sub-category-box">
-                                <div class = "sub-category-cardBox">
-                                <!-- 스크립트에서 처리 -->
-                                    <span class="sub-category-card">축구</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class = "selected-categories">
-                            <label class = "selected-categories-text">선택된 카테고리</label>
-                        </div>
-                        <div class = "selected-categories-container">
-                            <!-- 스크립트에서 처리 -->
-                            <span class = "selected-main-category">스포츠</span>
-                            <span style="font-size: 1.2em;">›</span>
-                            <span class = "selected-sub-category">축구</span>
-                        </div>
-                    </div>
+                    <div class="add-tag">
+                        <% club.Tags.forEach(tag => { %>
+                            <span class="tag">
+                                <%= tag.tag %> <span class="tag-remove">×</span>
+                            </span>
+                            <% }) %>
+                        <input type="text" class="tag-input" id="club_tags" placeholder="태그를 입력하고 Enter를 누르세요">
+                      </div>
                 </div>
                 <div class = "addFrom-group">
                     <label class = "label required">멤버 정원</label>
                     <div class = "member-container">
-                        <input type="number" class="memeber-input" min="2" placeholder="최대 인원수를 입력하세요." required >
+                        <input type="number" class="memeber-input" min="2" value="<%= club.member_limit %>">
                         <span style="color:#666">명</span>
                     </div>
                     <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
                 </div>
-                <!-- 가입조건 내용은 없어도됨 -->
-                <div class = "addFrom-group">
-                    <label class = "label">가입조건</label>
-                    <textarea class = "form-input-txtarea2" id="" placeholder="가입 조건이 있다면 간단히 작성해주세요."></textarea>
-                </div>
                 <div class="addForm-btn-container">
                     <button type="button" class="btn btn-cancel">취소</button>
-                    <button type="button" class="btn btn-ok">동호회 생성하기</button>
+                    <button type="button" class="btn btn-ok">동호회 수정하기</button>
                 </div>
             </form>
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const tagInput = document.getElementById("club_tags");
+        const tagContainer = tagInput.parentElement;
+
+        tagContainer.querySelectorAll(".tag-remove").forEach(removeBtn => {
+            removeBtn.addEventListener("click", () => {
+            removeBtn.parentElement.remove();
+            });
+        });
+        tagInput.addEventListener("keydown", (e) => {
+            if (e.key === "Enter") {
+            e.preventDefault();
+            setTimeout(() => {
+                const tagText = tagInput.value.trim();
+                if (!tagText) return;
+
+                const existingTags = tagContainer.querySelectorAll(".tag");
+                const duplicate = Array.from(existingTags).some(tag =>
+                    tag.firstChild.textContent.trim() === tagText
+                );
+                if (duplicate) {
+                    tagInput.value = "";
+                return;
+                }
+                const tag = document.createElement("span");
+                tag.className = "tag";
+                tag.innerHTML = `${tagText} <span class="tag-remove">×</span>`;
+                tag.querySelector(".tag-remove").addEventListener("click", () => {
+                    tag.remove();
+                });
+
+                tagContainer.insertBefore(tag, tagInput);
+                tagInput.value = "";
+            }, 0);
+            }
+        });
+});
+
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const club_image = document.getElementById("club-image");
+        const imageUploadBox = document.querySelector(".image-upload");
+        const icon = document.querySelector(".upload-icon");
+        const upload_info = document.querySelector(".upload-info");
+    
+        imageUploadBox.addEventListener("click", () => {
+        club_image.click();
+        });
+    
+      // 이미지 미리보기
+      club_image.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+    
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            const existingImg = imageUploadBox.querySelector("img");
+            if (existingImg) existingImg.remove();
+        
+            const previewImg = document.createElement("img");
+            previewImg.src = event.target.result;
+            previewImg.alt = "동호회 이미지 미리보기";
+            previewImg.style.width = "80%";
+            previewImg.style.aspectRatio = "4 / 3";
+            previewImg.style.objectFit = "cover";
+            previewImg.style.borderRadius = "8px";
+    
+            icon.style.display = "none";
+            upload_info.style.display = "none";
+    
+            imageUploadBox.appendChild(previewImg);
+        };
+        reader.readAsDataURL(file);
+    });
+    
+      // 동호회 수정 버튼 클릭
+        document.querySelector(".btn-ok").addEventListener("click", async () => {
+        const name = document.getElementById("club_name").value.trim();
+        const info = document.getElementById("club_information").value.trim();
+        const limit = document.querySelector(".memeber-input").value.trim();
+        const tags = Array.from(document.querySelectorAll(".tag")).map(tag =>
+        tag.firstChild.textContent.trim()
+        );
+        const file = club_image.files[0];
+    
+        if (!name || !info || !limit) {
+            alert("모든 필드를 입력해주세요.");
+            return;
+        }
+    
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("introduction", info);
+        formData.append("member_limit", limit);
+        formData.append("tags", JSON.stringify(tags));
+        if (file) {
+            formData.append("image", file); // 이미지 있는 경우만 
+        }
+    
+        try {
+            const res = await axios.post(`/clubs/detail/<%= club.club_id %>/manage`, formData, {
+                headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+    
+            if (res.data.state === 200) {
+                alert("수정 완료!");
+                window.location.assign(`/clubs/detail/<%= club.club_id %>`);
+            } else {
+                alert(res.data.message || "수정 실패");
+            }
+        } catch (err) {
+          console.error("수정 오류", err);
+          alert("수정 중 오류가 발생했습니다.");
+        }
+      });
+    });
+    </script>
+    
 </html>

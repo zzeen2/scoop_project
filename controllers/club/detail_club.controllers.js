@@ -5,17 +5,21 @@ const {
   Reviews, Users, Events, Verifications,
   Members, Hearts, Participants, Points
 } = require('../../models/configs');
+const { ValidationErrorItemOrigin } = require('sequelize');
 
 // -- 토큰에서 유저 ID 추출 함수
-const getUserIdFromToken = (req) => {
+const getUserIdFromToken = (req, res) => {
     const token = req.cookies.login_access_token;
-    if (!token) return null;
-
+    console.log("token", token)
+    if (token === undefined ) {
+      console.log("안녕")
+      res.json({state : 401, message : "로그인이 필요합니다."});
+    }
     try {
-    const decoded = jwt.verify(token, process.env.TOKEN);
-    return decoded.id;
+      const decoded = jwt.verify(token, process.env.TOKEN);
+      return decoded.id;
     } catch (e) {
-    return null;
+      return null;
     }
 };
 
@@ -33,78 +37,87 @@ const isClubMember = async (userId, clubId) => {
 // -- 상세 페이지 렌더링
 const clubDetail = async (req, res) => {
     const clubId = req.params.clubId;
-    const userId = getUserIdFromToken(req);
-    const {login_access_token} = req.cookies;
-    const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
-
+    let userId = null;
+    let properties = null;
+  
     try {
-    const club = await Clubs.findOne({
+      const { login_access_token } = req.cookies;
+      if (login_access_token) {
+        const decoded = jwt.verify(login_access_token, process.env.TOKEN);
+        userId = decoded.id;
+        properties = decoded.properties;
+      }
+    } catch (err) {
+      console.error("토큰 검증 실패:", err);
+    }
+  
+    try {
+      const club = await Clubs.findOne({
         where: { club_id: clubId },
         include: [
-        { model: Categorys, as: "Category", include: [{ model: Categorys, as: "Parent" }] },
-        { model: Tags },
-        { model: Locations },
-        { model: Reviews, include: { model: Users } },
-        { model: Events, include: { model: Verifications } },
-        { model: Members, include: [{ model: Users }] }
+          { model: Categorys, as: "Category", include: [{ model: Categorys, as: "Parent" }] },
+          { model: Tags },
+          { model: Locations },
+          { model: Reviews, include: { model: Users } },
+          { model: Events, include: { model: Verifications } },
+          { model: Members, include: [{ model: Users }] }
         ]
-    });
-
-    if (!club) {
+      });
+  
+      if (!club) {
         return res.json({ state: 400, message: "동호회가 존재하지 않습니다." });
-    }
-
-    // 상태별 참여자 정보 넣기
-    if (club.Events && club.Events.length > 0) {
+      }
+      if (club.Events?.length > 0) {
         for (const event of club.Events) {
-        const participants = await Participants.findAll({
+          const participants = await Participants.findAll({
             where: { participants_id_fk: event.id },
             include: [{ model: Users }]
-        });
-    
-        event.dataValues.attending = participants
+          });
+  
+          event.dataValues.attending = participants
             .filter(p => p.state === 'yes')
             .map(p => p.User?.kakao_name || '이름없음');
-    
-        event.dataValues.notAttending = participants
+  
+          event.dataValues.notAttending = participants
             .filter(p => p.state === 'no')
             .map(p => p.User?.kakao_name || '이름없음');
-    
-        event.dataValues.maybe = participants
+  
+          event.dataValues.maybe = participants
             .filter(p => p.state === 'maybe')
             .map(p => p.User?.kakao_name || '이름없음');
         }
-    }
-    
-
-    // 찜 상태
-    let liked = false;
-    if (userId) {
+      }
+  
+      // 찜 여부
+      let liked = false;
+      if (userId) {
         const heart = await Hearts.findOne({
-        where: { club_id_fk: clubId, user_id_fk: userId }
+          where: { club_id_fk: clubId, user_id_fk: userId }
         });
         liked = !!heart;
-    }
-
-    // 회원 여부
-    const isMember = userId ? await isClubMember(userId, clubId) : false;
-
-    return res.render("club/detail_club", {
+      }
+  
+      // 회원 여부
+      const isMember = userId ? await isClubMember(userId, clubId) : false;
+  
+      return res.render("club/detail_club", {
         club,
         liked,
         loginUserId: userId,
         isMember,
-        data : properties
-    });
+        data: properties // 로그인 사용자 정보 or null
+      });
     } catch (error) {
-    console.error("상세페이지 오류", error);
-    return res.json({ state: 401, message: "clubDetail, 상세페이지 서버 오류" });
+      console.error("상세페이지 오류", error);
+      return res.status(500).json({ state: 401, message: "clubDetail, 상세페이지 서버 오류" });
     }
-};
+  };
+  
 
 // -- 찜하기 버튼 동작
 const heart = async (req, res) => {
     const token = req.cookies.login_access_token;
+    //console.log("찜하기 token", token)
     if (!token) return res.json({ state: 402, message: "로그인이 필요합니다." });
 
     const { id: userId } = jwt.verify(token, process.env.TOKEN);
@@ -130,35 +143,37 @@ const heart = async (req, res) => {
 
 // -- 참여자 등록
 const participateInEvent = async (req, res) => {
-    const { userId, clubId, state } = req.body;
-    const { eventId } = req.params;
-
-    try {
-        const existing = await Participants.findOne({
+  const { userId, clubId, state } = req.body;
+  const { eventId } = req.params;
+  try {
+    if (!userId) {return res.status(400).json({state: 402, message: "로그인이 필요합니다."});}
+    const existing = await Participants.findOne({
         where: {
             participants_id_fk: eventId,
             user_id_fk: userId
         }
-        });
+    });
 
-        if (existing) {
+    if (existing) {
+        // 이미 참여 정보가 있으면 상태만 업데이트
         await existing.update({ state });
         console.log(`상태 업데이트: ${userId} > ${state}`);
-        } else {
+    } else {
+        // 없으면 새로 생성
         await Participants.create({
-            participant_id: userId,
+            participant_id: uuidv4().slice(0, 20),
             participants_id_fk: eventId,
             user_id_fk: userId,
             state
         });
         console.log(`새 참가자 등록: ${userId} > ${state}`);
-        }
-
-        return res.json({ success: true });
-    } catch (err) {
-        console.error('참여 등록 실패', err);
-        return res.status(500).json({ success: false, message: '서버 에러' });
     }
+
+    return res.json({ success: true });
+  } catch (err) {
+      console.error('참여 등록 실패', err);
+      return res.status(500).json({ success: false, message: '서버 에러' });
+  }
 };
 //-- 리뷰등록
 const postReview = async (req, res) => {
@@ -210,6 +225,44 @@ const postReview = async (req, res) => {
     }
 };
 
+// -- 가입 신청
+const addMember = async (req,res) => {
+  const {clubId} = req.params;
+
+  try {
+    const token = req.cookies.login_access_token;
+    if(!token) return res.json({state : 400, message : "로그인이 필요합니다."})
+    
+    const decoded = jwt.verify(token, process.env.TOKEN);
+    const userId = decoded.id
+    
+    const existing = await Members.findOne({
+      where : {
+        user_id_fk : userId,
+        club_id_fk : clubId
+      }
+    });
+
+    if(existing) {
+      return res.json({state : 401, message : "이미 존재하는 회원입니다"});
+    }
+
+    const today = newDate();
+    const signupDate = today.toISOString().split("T")[0];
+
+    await Members.create({
+      member_uid: uuidv4().slice(0,20),
+      signupDate:signupDate,
+      user_id_fk:userId,
+      club_id_fk: clubId
+    });
+    return res.json({ state : 200, message : "회원추가가 완료되었습니다."})
+  } catch (error) {
+    console.log("가입실패", error);
+    return res.json({state : 401, message : "가입실패"})
+  }
+}
+
 
 module.exports = {
     clubDetail,
@@ -217,5 +270,6 @@ module.exports = {
     isClubMember,
     participateInEvent,
     getUserIdFromToken,
-    postReview
+    postReview,
+    addMember
 };
