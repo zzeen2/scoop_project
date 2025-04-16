@@ -94,6 +94,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 let MIN_ZOOM_LEVEL = 4;
 let MAX_ZOOM_LEVEL = 7;
 let currentViewType = '지역단위';
+let userLocation = null;
 
 const mapContainer = document.getElementById('map');
 const defaultLat = 37.5443765;
@@ -114,12 +115,15 @@ function setDraggable(draggable) {
 
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 
-// 위치 정보 가져오기
+
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const currentLoc = new kakao.maps.LatLng(lat, lng);
+        
+        userLocation = currentLoc; // 위치 저장
+
         map.setCenter(currentLoc);
 
         const imageSrc = '/public/images/usericon.png';
@@ -134,14 +138,13 @@ if (navigator.geolocation) {
             image: markerImage
         });
 
-        loadStationMarkers(); // 초기 로드시 지역단위로 지하철 마커 표시
+        loadStationMarkers(); // 초기 로드시 지하철 마커 표시
     }, function(error) {
         console.log("위치 정보를 가져올 수 없습니다. 기본 위치를 사용합니다.", error);
     });
 } else {
     alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
 }
-
 // 광역단위 버튼
 const wideAreaButton = document.createElement('button');
 wideAreaButton.textContent = '광역단위 동호회';
@@ -171,6 +174,31 @@ regionAreaButton.style.border = 'none';
 regionAreaButton.style.borderRadius = '5px';
 regionAreaButton.style.cursor = 'pointer';
 mapContainer.appendChild(regionAreaButton);
+
+// 현재 위치로 이동 버튼
+const currentLocationButton = document.createElement('button');
+currentLocationButton.textContent = '현재 위치로 이동';
+currentLocationButton.style.position = 'absolute';
+currentLocationButton.style.top = '90px';
+currentLocationButton.style.right = '10px';
+currentLocationButton.style.zIndex = 1000;
+currentLocationButton.style.padding = '10px 20px';
+currentLocationButton.style.backgroundColor = '#34C759';
+currentLocationButton.style.color = 'white';
+currentLocationButton.style.border = 'none';
+currentLocationButton.style.borderRadius = '5px';
+currentLocationButton.style.cursor = 'pointer';
+mapContainer.appendChild(currentLocationButton);
+
+// 버튼 클릭 시 사용자 위치로 이동
+currentLocationButton.addEventListener('click', function () {
+    if (userLocation) {
+        map.setCenter(userLocation);
+    } else {
+        alert('위치 정보가 아직 준비되지 않았습니다.');
+    }
+});
+
 
 
 // 지역단위 클릭 이벤트
@@ -213,47 +241,55 @@ kakao.maps.event.addListener(map, 'zoom_changed', function () {
 function loadAreaPoligon() {
     axios.get('/api/area')  // 동호회 있는 시/군구만 필터링된 JSON 데이터
       .then(response => {
-        const features = response.data.features; 
-        console.log("응답 데이터:", response.data.features);  
-        features.forEach(feature => {
-          const coordinates = feature.geometry.coordinates[0];
-          const regionName = feature.properties.SIG_KOR_NM;
+        const features = response.data.features;
+        console.log("응답 데이터:", features);
+  
+        features.forEach(regionFeature => {
+            console.log("제발 !!!",regionFeature)
+  
+          // geoJsonData에서 해당 지역 이름에 맞는 Feature 찾기
+          
+  
+          if (regionFeature) {
+            const coordinates = regionFeature.geometry.coordinates[0]; 
+            const selectedRegionName = regionFeature.properties.SIG_KOR_NM;
+  
+            const path = coordinates.map(coord => new kakao.maps.LatLng(coord[1], coord[0]));
+            console.log("path : ",path)
 
-          const path = coordinates.map(coord =>
-            new kakao.maps.LatLng(coord[1], coord[0])
-          );
-
-          const polygon = new kakao.maps.Polygon({
-            path: path,
-            strokeWeight: 2,
-            strokeColor: '#004c80',
-            strokeOpacity: 0.8,
-            fillColor: '#00a0e9',
-            fillOpacity: 0.5
-          });
-
-          polygon.setMap(map);
-          polygons.push(polygon);  // 폴리곤 배열에 추가
-
-          // 해당 폴리곤 영역 클릭 시 동호회 나타남
-          kakao.maps.event.addListener(polygon, 'click', async function () {
-            console.log("클릭된 시/군구 이름:", regionName);  // 클릭된 지역 이름 확인
-            try {
-              const res = await axios.get(`/area?wide_regions=${encodeURIComponent(regionName)}`);
-              console.log("동호회 목록 응답 데이터:", res.data);
-
-              const clubs = res.data.data;  // 응답 구조 확인
-              updateClubList(clubs);
-            } catch (error) {
-              console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
-            }
-          });
+            const polygon = new kakao.maps.Polygon({
+              path: path,
+              strokeWeight: 2,
+              strokeColor: '#004c80',
+              strokeOpacity: 0.8,
+              fillColor: '#00a0e9',
+              fillOpacity: 0.5
+            });
+  
+            polygon.setMap(map);
+            polygons.push(polygon);
+  
+            kakao.maps.event.addListener(polygon, 'click', async function () {
+              console.log("클릭된 시/군구 이름:", selectedRegionName);
+              try {
+                const res = await axios.get(`/area?wide_regions=${encodeURIComponent(selectedRegionName)}`);
+                console.log("동호회 목록 응답 데이터:", res.data);
+                updateClubList(res.data);
+              } catch (error) {
+                console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
+              }
+            });
+          } else {
+            console.log("해당 시/군구가 geoJsonData에 없음:", regionName);
+          }
         });
       })
       .catch(error => {
         console.log('GeoJSON 요청 실패:', error);
       });
   }
+  
+
 
   // 동호회 목록 초기화 함수
 function clearClubList() {
@@ -268,7 +304,7 @@ function clearClubList() {
       clubList.innerHTML = '조회된 동호회가 없습니다';
       return;
     }
-
+    console.log("야야",clubs)
     clubs.forEach(club => {
       const clubItem = document.createElement('div');
       clubItem.classList.add('club-item');
