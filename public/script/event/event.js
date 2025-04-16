@@ -1,99 +1,94 @@
+document.addEventListener("DOMContentLoaded", function () {
 
-
-
-
-
-console.log('dddddddddddddddddddddddd')
-        
-function formatWithOffset(date, offset = '+09:00') {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-indexed
-    const day = String(date.getDate()).padStart(2, '0');
-
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const seconds = String(date.getSeconds()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}${offset}`;
-    }
-    const data = [];
-    document.addEventListener('DOMContentLoaded', function () {
-    const calendarEl = document.getElementById('calendar');
+    const calendarEl = document.getElementById("calendar");
+    let selectedRange = null;
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'timeGridWeek',
-      selectable: true,
-      editable: true,
+        initialView: 'dayGridMonth',
+        locale: 'ko',
+        timeZone: 'local',
+        selectable: true,
+        select: function (info) {
+            // 이전 선택 제거
+            if (selectedRange) {
+                selectedRange.remove();
+            }
 
-      // Trigger when user selects a time slot
-      select: function (info) {
-        const title = prompt("Enter event title:");
-        console.log(info.startStr)
-        if (title) {
-            data.push({title : title, start : info.startStr, end : info.endStr})
-            const newEvent = {
-                title: title,
+            // 선택 범위 표시
+            selectedRange = calendar.addEvent({
+                title: "선택됨",
                 start: info.startStr,
                 end: info.endStr,
-            };
-            console.log(data)
-            
-            calendar.addEvent(newEvent);
-            
-            // 🔄 Send to backend API
-          fetch("/api/schedule", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(newEvent),
-          })
-          .then(res => res.json())
-          .then(data => console.log("Event scheduled:", data));
-        }
-      },
-      eventClick: function(info) {
-        if (confirm(`Delete event "${info.event.title}"?`)) {
-            // Remove from calendar
-            const Title = info.event.title;
-            const formattedStart = formatWithOffset(info.event.start, '+09:00');
-            console.log('Formatted Start:', formattedStart);
-            const formattedEnd = formatWithOffset(info.event.end, '+09:00');
-            info.event.remove();
-            // data.filter(({eventTitle,eventStart,eventEnd}, index) => {
-            //     data.splice(index, 1)
-                console.log(Title, formattedStart, formattedEnd)
-            // })
-            data.forEach((el, index) => {
-                if (el.title === Title && el.start === formattedStart && el.end === formattedEnd) {
-                    data.splice(index, 1)
-                    console.log(data, index)
-                } 
-            })
-            // Also send delete request to backend if needed
-            fetch(`/api/delete-event`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id: info.event.id }) // You'll need to assign an id when adding events
+                allDay: true,
+                display: 'background',
+                backgroundColor: '#ffd700'
             });
+
+            // 시작,종료일 저장 > html에 숨겨진 필드
+            document.getElementById('selected_start_date').value = info.startStr;
+            document.getElementById('selected_end_date').value = info.endStr;
         }
-    }
     });
 
     calendar.render();
+
+    // 등록 버튼 클릭 이벤트
+    document.getElementById("ok_btn2").addEventListener("click", async function (e) {
+        e.preventDefault();
+
+        const eventName = document.getElementById("event_name1").value.trim();
+        const eventInfo = document.getElementById("event_information").value.trim();
+        const location = document.getElementById("addr").value.trim();
+        const maxParticipants = document.querySelector(".memeber-input").value.trim();
+        const guestAllow = document.querySelector("input[name='guest_allow']:checked").value;
+
+        const startDate = document.getElementById("selected_start_date").value;
+        const endDate = document.getElementById("selected_end_date").value;
+
+        if (!startDate || !endDate) {
+            alert("이벤트 날짜 범위를 선택해주세요.");
+            return;
+        }
+
+        if (!eventName || !eventInfo || !location || !maxParticipants) {
+            alert("모든 필드를 입력해주세요.");
+            return;
+        }
+
+        const eventData = {
+            name: eventName,
+            description: eventInfo,
+            location: location,
+            max_participants: parseInt(maxParticipants),
+            guest_allow: guestAllow === "yes" ? 1 : 0,
+            start_date: startDate,
+            end_date: endDate,
+            club_id: CLUB_ID
+        };
+
+        console.log("event data", eventData);
+
+        try {
+            console.log('dfsdfas')
+            console.log("CLUB_ID:", CLUB_ID);
+            const response = await axios.post(`/clubs/detail/${CLUB_ID}/events`, eventData);
+            console.log("리스폰스", response)
+            alert("이벤트가 등록되었습니다!");
+            console.log(" 리다이렉트", response.status);
+            if (response.status === 200) {
+                const redirectURL = `/clubs/detail/${CLUB_ID}`;
+                console.log("이동할 주소:", redirectURL);
+
+                setTimeout(() => {
+                    window.location.assign(redirectURL);
+                }, 0);
+            }
+        } catch (error) {
+            console.error("이벤트 등록 오류:", error);
+            alert("이벤트 등록 중 오류가 발생했습니다.");
+        }
+    });
 });
-    
-
-
-if(data) {
-    console.log(data)
-}
-imagediv2.onclick = (e) => {
-    club_image2.click();
-}
-imagediv1.onclick = (e) => {
-    club_image1.click();
-}
-imagediv3.onclick = (e) => {
-    club_image3.click();
-}
 
 function openPostcode() {
     new daum.Postcode({
@@ -101,63 +96,4 @@ function openPostcode() {
         document.getElementById('addr').value = data.address;
     }
     }).open();
-}
-
-document.addEventListener("DOMContentLoaded", ()=> {
-    const tagInput = document.getElementById("club_tags1");
-    const tagContainer = tagInput.parentElement;
-
-    tagInput.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            setTimeout(() => {
-                const tagText = tagInput.value.trim();
-                if (!tagText) return;
-    
-                const existingTags = tagContainer.querySelectorAll(".tag1");
-                const duplicate = Array.from(existingTags).some(tag =>
-                    tag.firstChild.textContent.trim() === tagText
-                );
-                if (duplicate) {
-                    tagInput.value = "";
-                    return;
-                }
-    
-                const tag = document.createElement("span");
-                tag.className = "tag1";
-                tag.innerHTML = `${tagText} <span class="tag-remove">×</span>`;
-    
-                tag.querySelector(".tag-remove").addEventListener("click", () => {
-                    tag.remove();
-                });
-    
-                tagContainer.insertBefore(tag, tagInput);
-                tagInput.value = "";
-            }, 0); 
-        }
-        //console.log(tagContainer);
-    });    
-})
-
-club_image1.addEventListener('change', (e) => {
-    const filename = e.target.files[0]
-    console.log(filename.name)
-    imagename.innerHTML = filename.name;
-})
-
-
-
-ok_btn1.onclick = (e) => {
-    e.preventDefault();
-  
-    const Imgpath = club_image1.files[0]
-    const tags = Array.from(document.querySelectorAll(".tag1")).map(tag => tag.firstChild.textContent.trim());
-    // form.append("tags", JSON.stringify(tags));
-    console.log("태그확인 : ",tags,Imgpath )
-
-    const form = new FormData();
-
-    form.append('clubname', club_name1.value.trim());
-    form.append('tags', tags);
-    form.append('content', club_information1.value.trim())
 }
