@@ -8,7 +8,7 @@ class User extends Model {
             kakao_profile_image : {type : DataTypes.STRING(200), allowNull : false},
             age : {type : DataTypes.STRING(20)},
             gender : {type : DataTypes.STRING(20)},
-            introduction : {type : DataTypes.STRING(20)},
+            introduction : {type : DataTypes.STRING(1020)},
             location : {type : DataTypes.STRING(200)},
             
   
@@ -29,7 +29,7 @@ class User extends Model {
         models.Users.hasMany(models.Hearts, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Events, {foreignKey : 'user_id_fk', sourceKey : 'uid'})
         models.Users.hasMany(models.Members, { foreignKey: 'user_id_fk', sourceKey: 'uid' });
-        // models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
+        models.Users.hasMany(models.Participants, {foreignKey: 'user_id_fk',sourceKey: 'uid'});
     }
 }
 
