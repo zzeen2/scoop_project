@@ -1,4 +1,3 @@
-
 window.addEventListener("load", () => {
     setTimeout(() => {
         const loading = document.getElementById("loading");
@@ -42,7 +41,7 @@ window.addEventListener("load", () => {
     
 })  
 
-const result = ["member","like", "review"]
+const result = ["member","like", "review", "star"]
 const filterBtn = document.querySelectorAll('.category-btn');
 const clubList = document.querySelector('.club-list')
 
@@ -67,6 +66,7 @@ for (let i = 0; i < filterBtn.length; i++) {
          <img src="${club.image || '/images/default.png'}" alt="동호회 이미지" class="club-image" style="width: 100px; height: 100px; object-fit: cover;">
          <h3>${club.name || '이름 없음'}</h3>
          <p>${club.introduction || '설명이 없습니다.'}</p>
+         <h4>${club.view_count || '조회수 : 0'}</h4>
        `;
   
        clubList.appendChild(clubItem);
@@ -78,44 +78,50 @@ for (let i = 0; i < filterBtn.length; i++) {
 }
 
 
-const mapContainer = document.getElementById('map'); // 지도 컨테이너
-const defaultLat = 37.5443765; // 기본 위도
-const defaultLng = 127.1276202; // 기본 경도
-var polygons = []; // 지도에 그린 폴리곤을 저장할 배열
-var currentZoomLevel = 4; // 기본 줌 레벨
+let MIN_ZOOM_LEVEL = 4;
+let MAX_ZOOM_LEVEL = 7;
+let currentViewType = '지역단위';
 
-// 지도 옵션 설정 (초기 위치 및 줌 레벨)
+const mapContainer = document.getElementById('map');
+const defaultLat = 37.5443765;
+const defaultLng = 127.1276202;
+let polygons = [];
+const currentZoomLevel = 4;
+let stationMarkers = [];
+
 const mapOptions = {
-    center: new kakao.maps.LatLng(defaultLat, defaultLng), // 기본 중심
-    level: currentZoomLevel // 초기 줌 레벨
+    center: new kakao.maps.LatLng(defaultLat, defaultLng),
+    level: currentZoomLevel,
+    draggable: true
 };
 
-// 지도 객체 생성
+function setDraggable(draggable) {
+    map.setDraggable(draggable);    
+}
+
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 
 // 위치 정보 가져오기
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-        // 줌 레벨이 변경될 때마다 지역 단위 또는 광역 단위 데이터를 로드
-        kakao.maps.event.addListener(map, 'zoom_changed', function () {
-            const zoomLevel = map.getLevel();
-            const zoomLabel = document.getElementById('zoomLabel'); // 줌 레벨 표시
-
-            if (zoomLevel <= 9) {
-                zoomLabel.textContent = '지역단위';
-                loadGeoJSONData('/api/area', '지역단위'); 
-            } else {
-                zoomLabel.textContent = '광역단위';
-                loadGeoJSONData('/api/widearea', '광역단위');
-            }
-        });
-
-        // 현재 위치를 기반으로 지도 중심을 이동
         const lat = position.coords.latitude;
         const lng = position.coords.longitude;
         const currentLoc = new kakao.maps.LatLng(lat, lng);
-        map.setCenter(currentLoc); // 지도의 중심을 현재 위치로 설정
+        map.setCenter(currentLoc);
 
+        const imageSrc = '/public/images/usericon.png';
+        const imageSize = new kakao.maps.Size(40, 40);
+        const imageOption = { offset: new kakao.maps.Point(20, 40) };
+        const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+
+        const marker = new kakao.maps.Marker({
+            position: currentLoc,
+            map: map,
+            title: "현재 위치",
+            image: markerImage
+        });
+
+        loadStationMarkers(); // 초기 로드시 지역단위로 지하철 마커 표시
     }, function(error) {
         console.log("위치 정보를 가져올 수 없습니다. 기본 위치를 사용합니다.", error);
     });
@@ -123,64 +129,253 @@ if (navigator.geolocation) {
     alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
 }
 
-function loadGeoJSONData(url, type) {
-  fetch(url)
-    .then(response => response.json())
-    .then(geoJsonData => {
-      clearPolygons();
+// 광역단위 버튼
+const wideAreaButton = document.createElement('button');
+wideAreaButton.textContent = '광역단위 동호회';
+wideAreaButton.style.position = 'absolute';
+wideAreaButton.style.top = '10px';
+wideAreaButton.style.right = '10px';
+wideAreaButton.style.zIndex = 1000;
+wideAreaButton.style.padding = '10px 20px';
+wideAreaButton.style.backgroundColor = '#FF3B30';
+wideAreaButton.style.color = 'white';
+wideAreaButton.style.border = 'none';
+wideAreaButton.style.borderRadius = '5px';
+wideAreaButton.style.cursor = 'pointer';
+mapContainer.appendChild(wideAreaButton);
 
-      if (type === '지역단위') {
-          geoJsonData.features = geoJsonData.features.filter(feature => {
-              const name = feature.properties && feature.properties.SIG_KOR_NM;
-              return name && (name.includes('시') || name.includes('군') || name.includes('구'));
+// 지역단위 버튼
+const regionAreaButton = document.createElement('button');
+regionAreaButton.textContent = '지역단위 동호회';
+regionAreaButton.style.position = 'absolute';
+regionAreaButton.style.top = '50px';
+regionAreaButton.style.right = '10px';
+regionAreaButton.style.zIndex = 1000;
+regionAreaButton.style.padding = '10px 20px';
+regionAreaButton.style.backgroundColor = '#007AFF';
+regionAreaButton.style.color = 'white';
+regionAreaButton.style.border = 'none';
+regionAreaButton.style.borderRadius = '5px';
+regionAreaButton.style.cursor = 'pointer';
+mapContainer.appendChild(regionAreaButton);
+
+
+// 지역단위 클릭 이벤트
+regionAreaButton.addEventListener('click', function () {
+    map.setLevel(4); // 지역단위로 확대
+    MIN_ZOOM_LEVEL = 2;
+    MAX_ZOOM_LEVEL = 6;
+    currentViewType = '지역단위';
+
+    zoomLabel.textContent = '지역단위';
+    clearPolygons(); // 기존 폴리곤 삭제
+    clearStationMarkers(); // 기존 마커 삭제
+    clearClubList(); // 동호회 목록 초기화
+    loadStationMarkers(); // 지하철역 마커 로드
+});
+
+// 광역단위 클릭 이벤트
+wideAreaButton.addEventListener('click', function () {
+    map.setLevel(9); // 광역단위로 확대
+    MIN_ZOOM_LEVEL = 9;
+    MAX_ZOOM_LEVEL = 13;
+    currentViewType = '광역단위';
+
+    zoomLabel.textContent = '광역단위';
+    clearPolygons(); // 기존 폴리곤 삭제
+    clearStationMarkers(); // 기존 마커 삭제
+    clearClubList(); // 동호회 목록 초기화
+    loadAreaPoligon('/api/area'); // 시/군구 폴리곤 로드
+});
+
+kakao.maps.event.addListener(map, 'zoom_changed', function () {
+    const currentZoom = map.getLevel();
+    if (currentZoom < MIN_ZOOM_LEVEL) {
+        map.setLevel(MIN_ZOOM_LEVEL);
+    } else if (currentZoom > MAX_ZOOM_LEVEL) {
+        map.setLevel(MAX_ZOOM_LEVEL);
+    }
+});
+
+function loadAreaPoligon() {
+    axios.get('/api/area')  // 동호회 있는 시/군구만 필터링된 JSON 데이터
+      .then(response => {
+        const features = response.data.features; 
+        console.log("응답 데이터:", response.data.features);  
+        features.forEach(feature => {
+          const coordinates = feature.geometry.coordinates[0];
+          const regionName = feature.properties.SIG_KOR_NM;
+
+          const path = coordinates.map(coord =>
+            new kakao.maps.LatLng(coord[1], coord[0])
+          );
+
+          const polygon = new kakao.maps.Polygon({
+            path: path,
+            strokeWeight: 2,
+            strokeColor: '#004c80',
+            strokeOpacity: 0.8,
+            fillColor: '#00a0e9',
+            fillOpacity: 0.5
           });
-      }
 
-      geoJsonData.features.forEach(function(feature) {
-          const geometry = feature.geometry;
-          if (geometry.type === "Polygon") {
-              drawPolygon(geometry.coordinates, type);
-          } else if (geometry.type === "MultiPolygon") {
-              geometry.coordinates.forEach(function(polygonCoords) {
-                  drawPolygon(polygonCoords, type);
-              });
-          }
-      });
-    })
-    .catch(error => console.error("GeoJSON 데이터를 불러오는 데 실패했습니다.", error));
-}
+          polygon.setMap(map);
+          polygons.push(polygon);  // 폴리곤 배열에 추가
 
+          // 해당 폴리곤 영역 클릭 시 동호회 나타남
+          kakao.maps.event.addListener(polygon, 'click', async function () {
+            console.log("클릭된 시/군구 이름:", regionName);  // 클릭된 지역 이름 확인
+            try {
+              const res = await axios.get(`/area?wide_regions=${encodeURIComponent(regionName)}`);
+              console.log("동호회 목록 응답 데이터:", res.data);
 
-// 기존에 그린 폴리곤을 모두 제거하는 함수
-function clearPolygons() {
-    polygons.forEach(function(polygon) {
-        polygon.setMap(null); // 지도에서 폴리곤 제거
-    });
-    polygons = []; // 폴리곤 배열 초기화
-}
-
-// 폴리곤을 지도에 그리는 함수
-function drawPolygon(coords, type) {
-    // 삼항 연산자로 지역단위일 경우 파란색, 광역단위일 경우 빨간색
-    const color = type === '지역단위' ? '#007AFF' : '#FF3B30';
-
-    // 각 폴리곤의 좌표를 KakaoMap LatLng 객체로 변환하여 경로 설정
-    coords.forEach(function(ring) {
-        const path = ring.map(function(coord) {
-            return new kakao.maps.LatLng(coord[1], coord[0]); // [lat, lng] 순서
+              const clubs = res.data.data;  // 응답 구조 확인
+              updateClubList(clubs);
+            } catch (error) {
+              console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
+            }
+          });
         });
+      })
+      .catch(error => {
+        console.log('GeoJSON 요청 실패:', error);
+      });
+  }
 
-        // 폴리곤 객체 생성 및 지도에 그리기
+  // 동호회 목록 초기화 함수
+function clearClubList() {
+    clubList.innerHTML = '';  // 동호회 목록을 비워줌
+}
+
+  // 동호회 목록 업데이트 함수
+  function updateClubList(clubs) {
+    clubList.innerHTML = '';  // 기존 동호회 목록 초기화
+
+    if (clubs.length === 0) {
+      clubList.innerHTML = '조회된 동호회가 없습니다';
+      return;
+    }
+
+    clubs.forEach(club => {
+      const clubItem = document.createElement('div');
+      clubItem.classList.add('club-item');
+      clubItem.innerHTML = `
+        <img src="${club.image || '/images/default.png'}" alt="동호회 이미지" class="club-image" style="width: 100px; height: 100px; object-fit: cover;">
+        <h3>${club.name || '이름 없음'}</h3>
+        <p>${club.introduction || '설명이 없습니다.'}</p>
+      `;
+      clubList.appendChild(clubItem);
+    });
+  }
+
+
+
+// 지하철역 마커를 보여주는 함수수
+async function loadStationMarkers() {
+    try {
+      const response = await axios.get('/api/station');
+      const stationsData = response.data;
+      console.log(stationsData);
+  
+      if (stationsData.DATA) {
+        stationsData.DATA.forEach(function (station) {
+          const lat = parseFloat(station.lat);
+          const lot = parseFloat(station.lot);
+  
+
+          const latLng = new kakao.maps.LatLng(lat, lot);
+  
+          // 마커 이미지 설정
+          const imageSrc = '/public/images/subway.jpg';
+          const imageSize = new kakao.maps.Size(30, 30);
+          const imageOption = { offset: new kakao.maps.Point(15, 30) };
+          const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
+  
+          // 마커 생성
+          const marker = new kakao.maps.Marker({
+            position: latLng,
+            map: map,
+            title: station.bldn_nm,
+            image: markerImage
+          });
+  
+          // 지하철역 마커 클릭 시 동호회 데이터 호출
+          kakao.maps.event.addListener(marker, 'click', async function () {
+            const local_station = station.bldn_nm;
+            const index = result[0];
+  
+            try {
+              const res = await axios.get(`/station?index=${index}&local_station=${encodeURIComponent(local_station)}`);
+              console.log("서버 응답 데이터:", res.data.data);
+  
+              const clubs = res.data.data;
+              updateClubList(clubs);
+            } catch (error) {
+              console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
+            }
+          });
+  
+          // 마커 저장
+          stationMarkers.push(marker);
+        });
+      } else {
+        console.log("지하철역 데이터가 없습니다.");
+      }
+    } catch (error) {
+      console.log("지하철역 데이터를 불러오는 데 실패했습니다.", error);
+    }
+  
+    // 동호회 목록 업데이트 함수
+    function updateClubList(clubs) {
+      clubList.innerHTML = '';
+  
+      if (clubs.length === 0) {
+        clubList.innerHTML = '조회된 동호회가 없습니다';
+        return;
+      }
+  
+      clubs.forEach(club => {
+        const clubItem = document.createElement('div');
+        clubItem.classList.add('club-item');
+        clubItem.innerHTML = `
+          <img src="${club.image || '/images/default.png'}" alt="동호회 이미지" class="club-image" style="width: 100px; height: 100px; object-fit: cover;">
+          <h3>${club.name || '이름 없음'}</h3>
+          <p>${club.introduction || '설명이 없습니다.'}</p>
+        `;
+        clubList.appendChild(clubItem);
+      });
+    }
+  }
+  
+function clearStationMarkers() {
+    stationMarkers.forEach(function (marker) {
+        marker.setMap(null);
+    });
+    stationMarkers = [];
+}
+
+function clearPolygons() {
+    polygons.forEach(function (polygon) {
+        polygon.setMap(null);
+    });
+    polygons = [];
+}
+
+function drawPolygon(coords) {
+    const color = '#FF3B30';
+    coords.forEach(function (ring) {
+        const path = ring.map(function (coord) {
+            return new kakao.maps.LatLng(coord[1], coord[0]);
+        });
         const polygon = new kakao.maps.Polygon({
             map: map,
             path: path,
-            strokeWeight: 2, 
+            strokeWeight: 2,
             strokeColor: color,
             strokeOpacity: 0.8,
-            fillColor: color, 
-            fillOpacity: 0.5 
+            fillColor: color,
+            fillOpacity: 0.5
         });
-
         polygons.push(polygon);
     });
 }

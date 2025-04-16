@@ -8,7 +8,7 @@ class User extends Model {
             kakao_profile_image : {type : DataTypes.STRING(200), allowNull : false},
             age : {type : DataTypes.INTEGER(20)},
             gender : {type : DataTypes.STRING(20)},
-            introduction : {type : DataTypes.INTEGER(200)},
+            introduction : {type : DataTypes.STRING(200)},
             location : {type : DataTypes.STRING(200)},
             
   
