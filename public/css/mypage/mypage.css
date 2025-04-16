@@ -4,8 +4,8 @@
     padding: 0;
     margin: 0;
     text-decoration: none;
-    font-size: 16px;
-
+    font-size: 18px;
+    font-weight: 500;
 }
 
 a {
@@ -13,12 +13,11 @@ a {
 }
 input { 
     height: 35px;
-    border-radius: 4px;
+    /* border-radius: 4px; */
     outline: none;
     padding: 5px 10px ;
     box-sizing: border-box;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
     
 }
 #gender input {
@@ -72,39 +71,44 @@ input {
 #Bodywrap {
     /* background-color: rgb(221, 231, 231); */
     width: 100%;
-    /* height: calc(100vh - 75px); */
-    min-height: calc(100vh - 75px);
+    height: 100%;
+    min-height: 100vh;
     margin-top: 75px;
     display: flex;
     justify-content: center;
     position: relative;
-}
-#calendar {
-    position: fixed;
-    padding-left: 10px;
-    height: 500px;
-    width: 340px;
-    box-sizing: border-box;
-    right: 0px;
-    margin: 10px 10px;
-}
-#Bodycontent {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    min-height: calc(100vh - 75px);
-    width: 1200px;
-    /* background-color: rgb(247, 247, 247); */
+    padding-bottom: 100px;
 }
 
+#Bodycontent {
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); */
+    min-height: calc(100vh - 75px);
+    width: 1200px;
+    margin-bottom: 100px;
+    
+    /* background-color: rgb(247, 247, 247); */
+}
+#Bodycontent h1 {
+    width: 1200px;
+
+    padding: 32px 50px 32px 50px; 
+}
+body {
+    font-family: 'Pretendard', sans-serif;
+  }
 #Userinfo {
     width: 1200px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    height: 200px;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); */
+    height: 300px;
     /* background-color: #f1efe6; */
-    padding: 10px 50px;
+    padding: 0 50px;
+    margin: 20px 0;
     display: flex;
     align-items: center;
     box-sizing: border-box;
     border-radius: 5px;
+    margin-bottom: 10px;
+
     
 }
 
@@ -112,18 +116,19 @@ input {
     width: 1200px;
     min-height: 100px;
     /* background-color: #f1efe6; */
-    padding: 15px 50px;
+    padding: 15px 70px;
     
     box-sizing: border-box;
 }
 
 #Introduction p {
-    width: 930px;
+    width: 910px;
     margin: auto;
 }
 .Contentul, .Contentul1  {
+    margin-top: 30px;
     width: 1200px;
-    min-height: 200px;
+    /* min-height: 700px; */
     /* background-color: rgb(247, 247, 247); */
     padding: 10px 50px;
     box-sizing: border-box;
@@ -136,8 +141,8 @@ input {
     border-radius: 7px;
     border: none;
     margin-right: 30px;
-    width: 300px;
-    height: 150px;
+    width: 400px;
+    height: 175px;
 }
 #Contentul li {
     width: 400px;
@@ -153,6 +158,11 @@ input {
 .Contentli ul {
     width: 600px;
     padding: 10px 0 ;
+    height: 159px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
 }
 .Contentli li {
     /* display: inline-block; */
@@ -173,58 +183,89 @@ input {
 .clubinfo span {
     background-color: #ffd17a;
     width: max-content;
-    height: 24px;
-    padding: 0 10px;
+    height: 40px;
+    padding: 0 30px;
     margin-right: 20px;
-    border-radius: 20px;
+    border-radius: 30px;
     box-sizing: border-box;
     display: flex;
     align-items: center;
 
 }
 
+
 #Userinfo img {
-    width: 100px;
-    height: 100px;
-    border-radius: 100px;
+    width: 512px;
+    height: 272px;
+    border-radius: 10px;
+    /* border: 20px solid white; */
+    box-sizing: border-box;
+    margin: 20px 10px 0 10px;
+    position: relative;
 }
+
 
 #Userul {
+    width: 568px;
+    height: 291px;
     padding: 20px 20px;
     box-sizing: border-box;
+    /* background-color: #002a54;
+    color: white; */
+    border-radius: 10px;
+    margin: 0 30px;
+    padding-bottom: 0;
 }
-
-#Userul li {
-    width: 960px;
-    padding: 3px 8px;
+.userulbody {
+    width: 528px;
+    padding: 20px 20px;
+    height: 211px;
     box-sizing: border-box;
-    /* font-size: 24px; */
+    background-color: #002a54;
+    color: white;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 60px 0 15px 0 ;
 }
 
-#Userul li:nth-child(2) span:nth-child(1){
+.userulbody li:nth-child(1) span:nth-child(1) {
     display: inline-block;
-    width: 350px;
+    width: 300px;
+    bottom: 20px;
+}
+.userulbody li {
+    margin: 15px 0;
+}
+#Edit a {
+    width: 125px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    /* border: 1px solid rgb(170, 149, 79); */
+    border-radius: 5px;
+    background-color: rgb(254, 254, 254);
+    align-items: center;
     box-sizing: border-box;
 }
 
-#Userul li:nth-child(3) span:nth-child(1){
-    display: inline-block;
-    width: 350px;
-    box-sizing: border-box;
-}
-#Userul a {
-    width: 80px;
-    height: 35px;
+
+.addclub {
+    right: 0;
+    width: 450px;
+    height: 60px;
     display: flex;
     justify-content: center;
     border: 1px solid rgb(170, 149, 79);
-    border-radius: 5px;
-    background-color: rgb(255, 199, 79);
+    border-radius: 10px;
+    background-color: rgb(255, 221, 0);
     align-items: center;
     box-sizing: border-box;
+    margin-bottom: 20px;
+    position: relative;
+    left: 610px;
 }
 #Userul a:hover {
-    background-color: rgb(255, 215, 128);
+    background-color: rgb(255, 209, 111);
 }
 
 
@@ -306,8 +347,7 @@ textarea {
     box-sizing: border-box;
     outline: none;
     border-radius: 10px;
-    border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);;
+    /* box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);; */
 }
 
 #gender {
@@ -348,7 +388,12 @@ textarea {
     display: flex;
     flex-direction: column;
 }
-h2 {
+#Userdetailform h2 {
+    font-size: 22px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgb(143, 143, 143);
+}
+#Userintrestwrap h2 {
     font-size: 22px;
     padding-bottom: 50px;
     border-bottom: 1px solid rgb(192, 171, 143);
@@ -521,13 +566,38 @@ h2 {
 }
 .Contentul.Active , .Contentul1.Active{
     display: flex;
+    /* border-bottom: 3px solid #e99700; */
+}
+#calendardiv {
+    visibility: hidden;
+    width: 1100px;
+    /* min-height: 500px; */
+    height: 0;
+    padding: 10px;
+    margin: 0 auto;
+}
+#calendardiv.Active {
+    visibility: visible;
+    height: initial;
+    display: flex;
+    flex-direction: column;
+    
+}
+#calendar{
+    height: 700px;
+    width: 100%;
+    /* box-sizing: border-box; */
+    margin: 30px auto;
 }
 
 #myactivities.Active {
     border-bottom: 3px solid #e99700;
 }
+#mycalendar.Active {
+    border-bottom: 3px solid #e99700;
+}
 
-.fc-event-title {
+.fc-event-title-container {
     cursor: pointer;
 }
 
@@ -536,8 +606,9 @@ h2 {
 }
 
 #participantwrap.active1 {
+    z-index: 2;
     width: 100%;
-    height: calc(100vh - 75px);
+    height: 100%;
     position: absolute;
     display: flex;
     justify-content: center;
@@ -573,6 +644,10 @@ h2 {
     height: 100px;
     padding: 20px;
 }
+#participantwrap ul h3{
+    color: #ffa600;
+}
+
 
 #participantwrap button {
     width: 100px;
@@ -587,3 +662,30 @@ h2 {
 #participantwrap button:hover {
     background-color: #ffad14;
 }
+
+#heartIcon {
+    position: absolute;
+    margin-left: 80px;
+    /* transform: translate(150%, 500%); */
+    /* animation: pop 0.4s ease; */
+}
+.fa-solid {
+ 
+    animation: pop 0.4s ease;
+}
+@keyframes pop {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.4); }
+    100% { transform: scale(1); }
+  }
+
+/* @keyframes beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+  
+  .beating-heart {
+    animation: beat 0.6s infinite;
+    color: red;
+    font-size: 2rem;
+  } */
