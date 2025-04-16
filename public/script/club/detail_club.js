@@ -244,6 +244,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (writeReviewBtn && reviewForm) {
             writeReviewBtn.addEventListener("click", async() => {
                 // 회원정보라우터에서 로그인되어있는지 확인하고 예외처리  
+                reviewForm.style.display = "block";
+                writeReviewBtn.style.display = "none";
                 const result = await axios.post('/clubs/detail/login');
                 console.log("res", result)
                 if (result.data.state === 401) {
@@ -253,8 +255,6 @@ document.addEventListener('DOMContentLoaded', function () {
                         window.location.assign(redirectURL)
                     })
                 } 
-            reviewForm.style.display = "block";
-            writeReviewBtn.style.display = "none";
         });
     }
 
