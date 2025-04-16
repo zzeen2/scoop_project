@@ -24,7 +24,7 @@
     <%- include("../common/header", {data}) %>
     <div id="Bodywrap">
         <div id="Bodycontent">
-            <h1><%= data.nickname %>님 환연합니다</h1>
+            <h1><%= data.nickname %>님 완영합니다</h1>
             <span class="line"></span>
             <div id="Userinfo">
                 <img src="<%= data.profile_image %>" alt="">
@@ -34,7 +34,6 @@
                         <a href="/Userintrest" id="Userintrest">관심 분야 추가</a>
                     </div>
                     <div class="userulbody">
-
                         <li>
                             <span>아이디 : <%= uuid %></span>
                             <span>현재 포인트 : <%= Userlevel %></span>
@@ -46,7 +45,6 @@
                             <span>나이 : <%= Userdata.age %> </span>
                         </li>
                         <li>
-
                             <span>성별 : <%= Userdata.gender %></span>
                         </li>
                     </div>

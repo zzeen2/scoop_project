@@ -9,6 +9,24 @@
 </head>
 <body>
 
+    <div id="Popupwrap">
+        <div class="Popup">           
+            <span>동호회 생선 되었습니다</span>
+            <a href="/mypage"><button>확인</button> </a>
+        </div>
+    </div>
+    <div id="Popupwraperror">
+        <div class="Popuperror">           
+            <span>동호회 생성 중 오류가 발생했습니다.</span>
+            <a href="/clubs/create"><button>확인</button> </a>
+        </div>
+    </div>
+    <div id="Popupwrap_empty">
+        <div class="Popup_empty">           
+            <span>모든 필드 입력해주세요</span>
+            <a href="/clubs/create"><button>확인</button> </a>
+        </div>
+    </div>
     <div class = "main-content"> 
         <div class = "header">
             <div class = "page-title">
@@ -117,7 +135,7 @@
                 
 
                 <div class="addForm-btn-container">
-                    <button type="button" class="btn btn-cancel">취소</button>
+                    <button type="button" class="btn btn-cancel" id="cancel_btn">취소</button>
                     <button  type="button" class="btn btn-ok" id = "ok_btn">동호회 생성하기</button>
                 </div>
             </form>

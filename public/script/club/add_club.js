@@ -287,15 +287,15 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageUploadBox = document.querySelector(".image-upload");
     const icon = document.querySelector(".upload-icon");
     const upload_info = document.querySelector(".upload-info");
-
+    
     imageUploadBox.addEventListener("click", () => {
         club_image.click();
     });
-
+    
     club_image.addEventListener("change", (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
+        
         const reader = new FileReader();
         reader.onload = function (event) {
             const existingImg = imageUploadBox.querySelector("img");
@@ -308,10 +308,10 @@ document.addEventListener("DOMContentLoaded", () => {
             previewImg.style.aspectRatio = "4 / 3";
             previewImg.style.objectFit = "cover";
             previewImg.style.borderRadius = "8px";
-
+            
             icon.style.display = "none";
             upload_info.style.display = "none";
-
+            
             imageUploadBox.appendChild(previewImg);
         };
         reader.readAsDataURL(file);
@@ -333,16 +333,17 @@ ok_btn.onclick = async (e) => {
     const station = subway_search.value.trim();
     const selected = document.querySelectorAll(".selected-district");
     const selectedDistricts = Array.from(selected).map(span => span.textContent.replace(" ×", ""));
-
+    
     if (!name || !info || !limit || !mainId || !subId || !rangeType ||
         (isLocal && !station) ||
         (!isLocal && selectedDistricts.length === 0)
     ) {
         console.log({ name, info, limit, mainId, subId, rangeType, station, selectedDistricts });
-        alert("모든 필드를 입력해주세요.");
+        // alert("모든 필드를 입력해주세요.");
+        Popupwrap_empty.classList.add('popup')
         return;
     }
-
+    
     const form = new FormData();
     form.append("name", name);
     form.append("introduction", info);
@@ -354,7 +355,7 @@ ok_btn.onclick = async (e) => {
     form.append("sub_category_name", subName);
     form.append("sub_category_id", subId);
     form.append("activity_type", rangeType);
-
+    
     if (isLocal) {
         form.append("local_station", station);
         form.append("wide_regions", "");
@@ -362,23 +363,30 @@ ok_btn.onclick = async (e) => {
         form.append("wide_regions", JSON.stringify(selectedDistricts));
         form.append("local_station", "");
     }
-
+    
     const tags = Array.from(document.querySelectorAll(".tag")).map(tag =>
         tag.firstChild.textContent.trim()
     );
     form.append("tags", JSON.stringify(tags));
-
+    
     try {
         const res = await axios.post("/clubs/create/", form, {
             headers: { "Content-Type": "multipart/form-data" }
         });
-
+        
         if (res.status === 200) {
-            alert("동호회가 성공적으로 생성되었습니다!");
-            location.href = "/";
+            // alert("동호회가 성공적으로 생성되었습니다!");
+            Popupwrap.classList.add('popup')
+            // location.href = "/";
         }
     } catch (err) {
         console.error("동호회 생성 실패:", err);
-        alert("동호회 생성 중 오류가 발생했습니다.");
+        // alert("동호회 생성 중 오류가 발생했습니다.");
+        Popupwraperror.classList.add('popup')
     }
 };
+
+cancel_btn.onclick = (e) => {
+    location.href = '/mypage'
+}
+

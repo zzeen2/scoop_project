@@ -96,6 +96,7 @@ input {
     width: 56.711vw;
 
     padding: 1.512vw 2.363vw 1.512vw 2.363vw; 
+    box-sizing: border-box;
 }
 
 #Userinfo {
@@ -134,7 +135,7 @@ input {
     width: 56.711vw;
     /* min-height: 33.081vw; */
     /* background-color: rgb(247, 247, 247); */
-    padding: 0.473vw 2.363vw;
+    padding: 9.082px 53.7px;
     box-sizing: border-box;
     display: flex;
     /* justify-content: center;
@@ -144,9 +145,8 @@ input {
     box-shadow: 0 0.189vw 0.473vw rgba(0, 0, 0, 0.1);
     border-radius: 0.331vw;
     border: none;
-    padding: 0 0.945vw;
     margin-right: 1.418vw;
-    width: 16.541vw;
+    width: 15.656vw;
     height: 9.452vw;
 }
 #Contentul li {
@@ -163,7 +163,7 @@ input {
 .Contentli ul {
     width: 28.355vw;
     padding: 1.654vw 0.473vw ;
-    height: 9.452vw;
+    height: 8.931vw;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -186,8 +186,8 @@ input {
 }
 
 .clubinfo span {
-    /* background-color: #ffd17a; */
-    background-color: ;
+    background-color: #ffd9b6;
+
     width: max-content;
     height: 1.89vw;
     padding: 0 1.418vw;
@@ -212,18 +212,17 @@ input {
 
 
 #Userul {
-    width: 26.843vw;
-    height: 13.752vw;
-    padding: 0.945vw 0.945vw;
+    width: 28.698vw;
+    height: 15.156vw;
+    padding: 1.041vw 2.135vw;
     box-sizing: border-box;
     /* background-color: #002a54;
     color: white; */
-    border-radius: 0.473vw;
-    margin: 0 1.418vw;
+    border-radius: 0.521vw;
     padding-bottom: 0;
 }
 .userulbody {
-    width: 24.953vw;
+    width: 24.427vw;
     padding: 0.945vw 0.945vw;
     height: 9.972vw;
     box-sizing: border-box;
@@ -255,10 +254,20 @@ input {
     box-sizing: border-box;
     font-weight: 500;
 }
-
+i {
+    display: inline-block;
+}
+.addclubdiv {
+    width: 56.667vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 6.042vw;
+    box-sizing: border-box;
+    position: relative;
+}
 
 .addclub {
-    right: 0;
     width: 21.267vw;
     height: 2.836vw;
     display: flex;
@@ -268,9 +277,7 @@ input {
     background-color: rgb(255, 221, 0);
     align-items: center;
     box-sizing: border-box;
-    margin-bottom: 0.945vw;
-    position: relative;
-    left: 29.773vw;
+    margin-bottom: 18.144px;
 }
 #Userul a:hover {
     background-color: rgb(255, 209, 111);
@@ -647,10 +654,10 @@ textarea {
     flex-direction: column;
     align-items: center;
     overflow-y: scroll;
-    padding: 0 2.363vw;
+    /* padding: 0 2.363vw; */
     box-sizing: border-box;
     /* overflow: hidden; */
-    border-bottom: 0.047vw solid #ffe5b7;
+    border-bottom: 0.047vw solid #fff6e6;
 }
 
 #participantwrap ul {
@@ -679,13 +686,14 @@ textarea {
 }
 
 #heartIcon {
-    position: absolute;
+    display: inline-block;
+    /* position: absolute; */
     margin-left: 7.089vw;
     /* transform: translate(150%, 500%); */
     /* animation: pop 0.4s ease; */
 }
 .fa-solid {
- 
+
     animation: pop 0.4s ease;
 }
 @keyframes pop {

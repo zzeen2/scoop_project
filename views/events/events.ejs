@@ -12,7 +12,32 @@
 
 </head>
 <body>
+    
     <%- include("../common/header", {data}) %>
+    <div id="Popupwrap">
+        <div class="Popup">           
+            <span>이벤트가 등록되었습니다!</span>
+            <a id="ok"><button>확인</button> </a>
+        </div>
+    </div>
+    <div id="Popupwraperror">
+        <div class="Popuperror">           
+            <span>이벤트 등록 중 오류가 발생했습니다.</span>
+            <a href=""><button>확인</button> </a>
+        </div>
+    </div>
+    <div id="Popupwraperrordate">
+        <div class="Popuperrordate">           
+            <span>이벤트 날짜 범위를 선택해주세요.</span>
+            <a href=""><button>확인</button> </a>
+        </div>
+    </div>
+    <div id="Popupwrap_empty">
+        <div class="Popup_empty">           
+            <span>모든 필드를 입력해주세요.</span>
+            <a href="/clubs/create"><button>확인</button> </a>
+        </div>
+    </div>
     <div class = "main-content"> 
         <!-- <div class = "header">
             <div class = "page-title">
@@ -98,6 +123,7 @@
                     <div id='calendar'></div>
                 </div>
                 <div class="addForm-btn-container2">
+                    <button type="button" class="btn btn-cancel" id="eventcancel_btn">취소</button>
                     <button class="btn btn-ok" id = "ok_btn2">이벤트 등록하기</button>
                 </div>
             </form>
