@@ -135,7 +135,7 @@ main {
   width: calc(33.333% - 16px);
   min-width: 300px;
   max-width: 400px;
-  min-height: 330px;
+  height: 380px;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);

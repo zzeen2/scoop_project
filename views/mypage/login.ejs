@@ -13,6 +13,46 @@
 
     <link rel="stylesheet" href="/public/css/common/header.css">
 </head>
+<style>
+    /* 로그인 페이지 스타일 */
+#loginwrap {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f9f9f9;
+    padding: 20px;
+    margin-top: -20px; /* 헤더와의 간격 조정 */
+}
+
+#loginform {
+    width: 100%;
+    max-width: 500px;
+    padding: 40px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    text-align: center;
+}
+
+#loginform a {
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+#loginform a:hover {
+    transform: translateY(-5px);
+}
+
+#loginform img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+</style>
 <body>
     <%- include('../common/header', {data}) %>
     <div id="loginwrap">
