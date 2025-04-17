@@ -156,7 +156,6 @@
         reader.readAsDataURL(file);
     });
     
-      // 동호회 수정 버튼 클릭
         document.querySelector(".btn-ok").addEventListener("click", async () => {
         const name = document.getElementById("club_name").value.trim();
         const info = document.getElementById("club_information").value.trim();
@@ -177,7 +176,7 @@
         formData.append("member_limit", limit);
         formData.append("tags", JSON.stringify(tags));
         if (file) {
-            formData.append("image", file); // 이미지 있는 경우만 
+            formData.append("image", file); 
         }
     
         try {
@@ -189,7 +188,6 @@
     
             if (res.data.state === 200) {
                 Popupwrap.classList.add('popup')
-                // alert("수정 완료!");
                 ok.onclick = (e) => {
                     window.location.assign(`/clubs/detail/<%= club.club_id %>`);
                 }
@@ -198,7 +196,6 @@
             }
         } catch (err) {
             console.error("수정 오류", err);
-        //   alert("수정 중 오류가 발생했습니다.");
             Popupwraperror.classList.add('popup')
         }
       });

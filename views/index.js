@@ -1,11 +1,4 @@
-
-
-
-
 const axios = require('axios');
-
-
-
 const Checkcookie = async () => {
     const {data} = await axios.get('/checkcookie')
     console.log(data)

@@ -31,7 +31,6 @@
                 <ul id="Userul">
                     <div id="Edit">
                         <a href="/Edituser" id="Edituser">정보 수정</a>
-                        <!-- <a href="/Userintrest" id="Userintrest">관심 분야 추가</a> -->
                     </div>
                     <div class="userulbody">
                         <li>
@@ -97,9 +96,6 @@
                             </ul>
                             
                         </li>
-                        <!-- <li>2</li>
-                        <li>3</li>
-                        <li>4</li> -->
                     </ul>
                 <% } %>
             <% } %>
@@ -123,9 +119,6 @@
                             </ul>
                             
                         </li>
-                        <!-- <li>2</li>
-                        <li>3</li>
-                        <li>4</li> -->
                     </ul>
                 <% } %>
             <% } %>                  
@@ -152,15 +145,6 @@
     </div>
 </body>
 <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     const calendarEl = document.getElementById('calendar')
-        //     const calendar = new FullCalendar.Calendar(calendarEl, {
-        //       initialView: 'dayGridMonth'
-        //     })
-        //     calendar.render()
-        //   })
-    
-    // inject EJS data into the browser
     window.mypageData = <%- JSON.stringify(participantdate) %>;
     window.mypageData1 = <%- JSON.stringify(participanttitle) %>;
 </script>

@@ -1,4 +1,3 @@
-/* 기본 스타일 */
 * {
     padding: 0;
     margin: 0;
@@ -21,7 +20,6 @@ a:hover {
     color: #ff7a00;
 }
 
-/* 정보 수정 폼 전체 컨테이너 */
 #Userdetailwrap {
     width: 100%;
     min-height: 100vh;
@@ -40,7 +38,6 @@ a:hover {
     padding: 40px;
 }
 
-/* 폼 스타일 */
 #Userdetailform ul {
     list-style: none;
     width: 100%;
@@ -60,7 +57,6 @@ a:hover {
     width: 100%;
 }
 
-/* 라벨 스타일 */
 #Userdetailform label {
     display: block;
     font-size: 16px;
@@ -69,7 +65,6 @@ a:hover {
     color: #333;
 }
 
-/* 입력 필드 스타일 */
 #Userdetailform input[type="number"],
 #Userdetailform input[type="text"] {
     width: 100%;
@@ -88,7 +83,6 @@ a:hover {
     outline: none;
 }
 
-/* 텍스트영역 스타일 */
 #Userdetailform textarea {
     width: 100%;
     min-height: 120px;
@@ -101,7 +95,6 @@ a:hover {
     font-family: 'Pretendard', Arial, sans-serif;
 }
 
-/* 성별 선택 스타일 */
 #gender {
     display: flex;
     gap: 30px;
@@ -122,7 +115,6 @@ a:hover {
     cursor: pointer;
 }
 
-/* 버튼 컨테이너 */
 #Userdetailform div {
     display: flex;
     justify-content:flex-start;
@@ -130,7 +122,6 @@ a:hover {
     margin-top: 30px;
 }
 
-/* 버튼 스타일 */
 #Userdetailform button {
     flex: 1;
     height: 48px;
@@ -222,7 +213,6 @@ a:hover {
     box-shadow: 0 5px 10px rgba(255, 122, 0, 0.3);
 }
 
-/* 반응형 조정 */
 @media (max-width: 600px) {
     #Userdetaildiv {
         padding: 25px;
@@ -247,7 +237,6 @@ a:hover {
     }
 }
 
-/* 버튼 컨테이너 스타일 */
 .form-buttons {
     display: flex;
     gap: 10px;
@@ -255,7 +244,6 @@ a:hover {
     width: 100%;
 }
 
-/* 공통 버튼 스타일 */
 .form-buttons button {
     flex: 1;
     height: 48px;
@@ -267,7 +255,6 @@ a:hover {
     border: none;
 }
 
-/* 완료 버튼 */
 .form-buttons button[type="submit"],
 .form-buttons .submit-btn {
     background-color: #ff7a00;
@@ -279,7 +266,6 @@ a:hover {
     background-color: #e56c00;
 }
 
-/* 취소 버튼 */
 .form-buttons button[type="button"],
 .form-buttons .cancel-btn {
     background-color: #f0f0f0;

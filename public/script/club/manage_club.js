@@ -7,7 +7,6 @@ document.querySelector(".btn-ok").addEventListener("click", async () => {
     const image = document.querySelector(".image-upload")
 
     if (!name || !info || !limit) {
-        // alert("모든 필드를 입력해주세요.");
         Popupwrap_empty.classList.add('popup')
         return;
     }
@@ -20,9 +19,7 @@ document.querySelector(".btn-ok").addEventListener("click", async () => {
             tags,
             image
         });
-        console.log("resresres", res)
         if (res.status === 200) {
-        // alert("수정 완료!");
 
         const redirectURL = `/clubs/detail/${CLUB_ID}`
             setTimeout(() => {
@@ -31,8 +28,6 @@ document.querySelector(".btn-ok").addEventListener("click", async () => {
             
         }
     } catch (err) {
-        console.error("수정 오류", err);
-        // alert("수정 실패");
         Popupwraperror.classList.add('popup')
     }
 });

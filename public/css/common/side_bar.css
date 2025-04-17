@@ -20,8 +20,6 @@ a {
     z-index: 100;
 }
 
-
-
 .sidebar ul {
     list-style: none;
     padding: 0;
@@ -31,11 +29,6 @@ a {
 .sidebar li {
     margin-bottom: 12px;
 }
-
-/* .sidebar ul li:hover {
-    background: linear-gradient(90deg, #e0eddd, #88aae5);
-    color: white;
-} */
 
 .sidebar a {
     display: flex;
@@ -49,8 +42,8 @@ a {
 }
 
 .sidebar a:hover {
-    background-color: #fff3e6; /* 연한 오렌지 배경 */
-    color: #ff7a00;            /* 텍스트 오렌지 */
+    background-color: #fff3e6;
+    color: #ff7a00;            
 }
 
 .sidebar img {

@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         timeZone: 'local',
         selectable: true,
         select: function (info) {
-            // 이전 선택 제거
             if (selectedRange) {
                 selectedRange.remove();
             }
-
-            // 선택 범위 표시
             selectedRange = calendar.addEvent({
                 title: "선택됨",
                 start: info.startStr,
@@ -23,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 display: 'background',
                 backgroundColor: '#ffd700'
             });
-
-            // 시작,종료일 저장 > html에 숨겨진 필드
             document.getElementById('selected_start_date').value = info.startStr;
             document.getElementById('selected_end_date').value = info.endStr;
         }
@@ -32,7 +27,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     calendar.render();
 
-    // 등록 버튼 클릭 이벤트
     document.getElementById("ok_btn2").addEventListener("click", async function (e) {
         e.preventDefault();
         
@@ -46,15 +40,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const endDate = document.getElementById("selected_end_date").value;
 
         if (!startDate || !endDate) {
-            // alert("이벤트 날짜 범위를 선택해주세요.");
-            console.log('asdfasdf')
             Popupwraperrordate.classList.add('popup')
             return;
         }
 
         if (!eventName || !eventInfo || !location || !maxParticipants) {
-            // alert("모든 필드를 입력해주세요.");
-            console.log('asdfasdf1')
             Popupwrap_empty.classList.add('popup')
             return;
         }
@@ -70,15 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             club_id: CLUB_ID
         };
 
-        console.log("event data", eventData);
-
         try {
-            console.log('dfsdfas')
-            console.log("CLUB_ID:", CLUB_ID);
             const response = await axios.post(`/clubs/detail/${CLUB_ID}/events`, eventData);
-            console.log("리스폰스", response)
-            // alert("이벤트가 등록되었습니다!");
-            console.log(" 리다이렉트", response.status);
             Popupwrap.classList.add('popup')
             if (response.status === 200) {
                 const redirectURL = `/clubs/detail/${CLUB_ID}`;
@@ -86,14 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 ok.onclick = (e) => {
                     window.location.assign(redirectURL);
                 }
-                // setTimeout(() => {
-                //     window.location.assign(redirectURL);
-                // }, 1000);
             }
         } catch (error) {
-            console.error("이벤트 등록 오류:", error);
-            console.log('asdfasdf2')
-            // alert("이벤트 등록 중 오류가 발생했습니다.");
             Popupwraperror.classList.add('popup')
         }
     });

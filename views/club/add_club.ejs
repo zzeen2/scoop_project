@@ -71,13 +71,11 @@
                         </div>
                         <select class = "category-select" id="club_category" required>
                             <option value="" >대표 카테고리를 선택하세요</option>
-                            <!-- 스크립트에서 처리 -->
                         </select>
                         <div class = "sub-category">
                             <label class = "sub-category-text">세부카테고리</label>
                             <div class = "sub-category-box">
                                 <div class = "sub-category-cardBox">
-                                <!-- 스크립트에서 처리 -->
                                 </div>
                             </div>
                         </div>
@@ -85,7 +83,6 @@
                             <label class = "selected-categories-text">선택된 카테고리</label>
                         </div>
                         <div class = "selected-categories-container">
-                            <!-- 스크립트에서 처리 -->
                             <span class = "selected-main-category"></span>
                             <span style="font-size: 1.2em;">›</span>
                             <span class = "selected-sub-category"></span>
@@ -100,17 +97,14 @@
                     </div>
                     <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
                 </div>
-                <!-- 지역 선택 옵션 -->
                 <div class="addFrom-group">
                     <label class="label required">활동 범위</label>
                 
-                    <!-- 라디오 버튼: 지역 or 광역 -->
                     <div>
                     <label><input type="radio" name="range_type" value="local" checked> 지역단위 (지하철 기준)</label>
                     <label><input type="radio" name="range_type" value="wide"> 광역단위 (시/구/군 기준)</label>
                     </div>
                 
-                    <!-- 지역단위: 지하철역 검색 -->
                     <div id="local-range-section" style="margin-top:10px;">
                     <div class="relative-wrapper">
                         <input type="text" id="subway_search" class="form-input" placeholder="지하철역 이름을 입력하세요">
@@ -118,7 +112,6 @@
                     </div>
                     </div>
                 
-                    <!-- 광역단위: 구/군 검색 및 선택 -->
                     <div id="wide-range-section" style="margin-top:10px; display:none;">
                     <div class="relative-wrapper">
                         <input type="text" id="district-search" class="form-input" placeholder="구 또는 군을 검색하세요 (최대 3개)">

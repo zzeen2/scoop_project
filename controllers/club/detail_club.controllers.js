@@ -7,12 +7,9 @@ const {
 } = require('../../models/configs');
 const { ValidationErrorItemOrigin } = require('sequelize');
 
-// -- 토큰에서 유저 ID 추출 함수
 const getUserIdFromToken = (req, res) => {
     const token = req.cookies.login_access_token;
-    console.log("token", token)
     if (token === undefined ) {
-      console.log("안녕")
       res.json({state : 401, message : "로그인이 필요합니다."});
     }
     try {
@@ -23,7 +20,6 @@ const getUserIdFromToken = (req, res) => {
     }
 };
 
-// -- 회원 여부 확인 함수
 const isClubMember = async (userId, clubId) => {
     const result = await Members.findOne({
     where: {
@@ -34,7 +30,6 @@ const isClubMember = async (userId, clubId) => {
     return !!result; 
 };
 
-// -- 상세 페이지 렌더링
 const clubDetail = async (req, res) => {
     const clubId = req.params.clubId;
     let userId = null;
@@ -48,11 +43,9 @@ const clubDetail = async (req, res) => {
         properties = decoded.properties;
       }
     } catch (err) {
-      console.error("토큰 검증 실패:", err);
     }
   
     try {
-      // 조회수 증가
       await Clubs.increment('view_count', {
         by: 1,
         where: { club_id: clubId }
@@ -94,7 +87,6 @@ const clubDetail = async (req, res) => {
         }
       }
   
-      // 찜 여부
       let liked = false;
       if (userId) {
         const heart = await Hearts.findOne({
@@ -103,7 +95,6 @@ const clubDetail = async (req, res) => {
         liked = !!heart;
       }
   
-      // 회원 여부
       const isMember = userId ? await isClubMember(userId, clubId) : false;
   
       return res.render("club/detail_club", {
@@ -111,19 +102,15 @@ const clubDetail = async (req, res) => {
         liked,
         loginUserId: userId,
         isMember,
-        data: properties // 로그인 사용자 정보 or null
+        data: properties 
       });
     } catch (error) {
-      console.error("상세페이지 오류", error);
       return res.status(500).json({ state: 401, message: "clubDetail, 상세페이지 서버 오류" });
     }
   };
-  
 
-// -- 찜하기 버튼 동작
 const heart = async (req, res) => {
     const token = req.cookies.login_access_token;
-    //console.log("찜하기 token", token)
     if (!token) return res.json({ state: 402, message: "로그인이 필요합니다." });
 
     const { id: userId } = jwt.verify(token, process.env.TOKEN);
@@ -142,12 +129,10 @@ const heart = async (req, res) => {
         return res.json({ liked: true });
     }
     } catch (error) {
-    console.error("찜하기 오류:", error);
     return res.json({ state: 500, message: "찜하기 서버 오류" });
     }
 };
 
-// -- 참여자 등록
 const participateInEvent = async (req, res) => {
   const { userId, clubId, state } = req.body;
   const { eventId } = req.params;
@@ -161,33 +146,27 @@ const participateInEvent = async (req, res) => {
     });
 
     if (existing) {
-        // 이미 참여 정보가 있으면 상태만 업데이트
         await existing.update({ state });
-        console.log(`상태 업데이트: ${userId} > ${state}`);
     } else {
-        // 없으면 새로 생성
         await Participants.create({
             participant_id: uuidv4().slice(0, 20),
             participants_id_fk: eventId,
             user_id_fk: userId,
             state
         });
-        console.log(`새 참가자 등록: ${userId} > ${state}`);
     }
 
     return res.json({ success: true });
   } catch (err) {
-      console.error('참여 등록 실패', err);
       return res.status(500).json({ success: false, message: '서버 에러' });
   }
 };
-//-- 리뷰등록
+
 const postReview = async (req, res) => {
     const { clubId } = req.params;
     const { userId, rating, content, affiliation } = req.body;
 
     try {
-    // 최근 리뷰 작성일 검사
     const lastReview = await Reviews.findOne({
         where: { user_id_fk: userId, club_id_fk: clubId },
         order: [['createdAt', 'DESC']]
@@ -203,7 +182,6 @@ const postReview = async (req, res) => {
         }
     }
 
-    // 리뷰 등록
     await Reviews.create({
         id: uuidv4().slice(0, 20),
         content,
@@ -213,7 +191,6 @@ const postReview = async (req, res) => {
         club_id_fk: clubId
     });
 
-    // 포인트
     const [point, created] = await Points.findOrCreate({
         where: { user_id_fk: userId },
         defaults: { point: 10 }
@@ -226,12 +203,10 @@ const postReview = async (req, res) => {
     return res.json({ success: true });
 
     } catch (error) {
-    console.error('리뷰 등록 실패:', error);
     return res.status(500).json({ success: false, message: '서버 오류' });
     }
 };
 
-// -- 가입 신청
 const addMember = async (req,res) => {
   const {clubId} = req.params;
 
@@ -264,11 +239,9 @@ const addMember = async (req,res) => {
     });
     return res.json({ state : 200, message : "회원추가가 완료되었습니다."})
   } catch (error) {
-    console.log("가입실패", error);
     return res.json({state : 401, message : "가입실패"})
   }
 }
-
 
 module.exports = {
     clubDetail,

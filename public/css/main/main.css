@@ -6,7 +6,6 @@ body {
   background-color: #f9f9f9;
 }
 
-/* 로딩 화면 스타일 */
 #loading {
   background-color: white;
   position: fixed;
@@ -133,10 +132,9 @@ body {
   rotate: 45deg;
 }
 
-/* 지도 스타일 */
 .wrap {
   position: relative;
-  margin-top: 75px; /* 헤더 높이에 맞춤 */
+  margin-top: 75px; 
   height: calc(100vh - 75px);
 }
 
@@ -168,7 +166,6 @@ body {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* 지도 컨트롤 버튼 스타일 */
 .map-control-btn {
   padding: 10px 16px;
   border: none;
@@ -202,7 +199,6 @@ body {
   color: white;
 }
 
-/* 오른쪽 패널 스타일 */
 .map-right-content {
   width: 450px;
   background-color: #eee;
@@ -250,7 +246,6 @@ body {
   box-shadow: 0 4px 8px rgba(255, 154, 2, 0.3);
 }
 
-/* 동호회 목록 스타일 */
 .club-list {
   display: flex;
   gap: 20px;
@@ -258,7 +253,6 @@ body {
   flex-direction: column;
 }
 
-/* 동호회 카드 썸네일 스타일 수정 */
 .club-item {
   background-color: white;
   border-radius: 12px;
@@ -314,7 +308,7 @@ body {
 .club-meta {
   padding: 0 20px;
 }
-/* 클럽 메타 정보 스타일 */
+
 .club-meta {
   width: 100%;
   display: flex;
@@ -345,7 +339,6 @@ body {
   color: #666;
 }
 
-/* 스크롤바 스타일 */
 .map-right-content::-webkit-scrollbar {
   width: 8px;
 }
@@ -363,7 +356,6 @@ body {
   background: #ccc;
 }
 
-/* 로딩 메시지 스타일 */
 .loading-message, .no-results, .error-message, .initial-message {
   margin: 20px 0;
   padding: 30px;
@@ -386,7 +378,6 @@ body {
   color: #777;
 }
 
-/* 마커 스타일 추가 */
 .station-marker {
   transition: transform 0.3s ease;
 }
@@ -405,7 +396,6 @@ body {
   white-space: nowrap;
 }
 
-/* 클릭 가능 안내 */
 .info-text {
   text-align: center;
   padding: 15px;
@@ -415,7 +405,6 @@ body {
   margin-top: 20px;
 }
 
-/* 애니메이션 키프레임 */
 @keyframes loading {
   0% {
     width: 0;
@@ -480,7 +469,6 @@ body {
   }
 }
 
-/* 반응형 디자인 */
 @media (max-width: 1024px) {
   #map {
     width: calc(100vw - 350px);

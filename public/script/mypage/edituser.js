@@ -1,14 +1,9 @@
-
-
-
 document.addEventListener('DOMContentLoaded', () => {
     Userdetailform.onsubmit = async (e) => {
         e.preventDefault();
         const {age : {value : agevalue}, 
         gender : {value : gendervalue},
         location : {value :locationvalue},
-        // longitude : {value :longitudevalue},
-        // latitude : {value : latitudevalue},
         content : {value : contentvalue}} = e.target;
         console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
         
@@ -36,5 +31,3 @@ function openPostcode() {
     }
     }).open();
 }
-
-// module.exports = {openPostcode}

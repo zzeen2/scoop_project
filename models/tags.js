@@ -5,7 +5,7 @@ class Tag extends Model {
         return super.init({
             tag: {
                 type: DataTypes.STRING(50),
-                allowNull: true // 수정
+                allowNull: true 
             }
         }, {
             sequelize,

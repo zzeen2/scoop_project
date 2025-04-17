@@ -1,31 +1,22 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // -- 찜하기 버튼
     const btn_like = document.querySelector(".btn_like");
     if (btn_like) {
         btn_like.onclick = async () => {
             const clubId = btn_like.dataset.clubid;
         try {
             const res = await axios.post(`/clubs/detail/${clubId}/heart`);
-            console.log("res", res)
             if (res.data.state === 402) {
                 Popupwrap.classList.add('popup')
-                // alert("로그인이 필요합니다.");
-                // const redirectURL = "/login"
-                //     setTimeout(() => {
-                //         window.location.assign(redirectURL)
-                //     })
             return;
         }
         const result = res.data;
         btn_like.classList.toggle("on", result.liked);
         } catch (error) {
-            console.log("찜하기 오류 발생:", error);
             alert("서버 오류가 발생했습니다."); 
         }
     };
     }
-    // -- 가입신청
     const join_btn = document.getElementById("join_btn");
     if (join_btn) {
     join_btn.addEventListener("click", async () => {
@@ -40,13 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
         } catch (error) {
-        console.log("가입 신청 에러", error);
         alert("가입신청 중 에러 발생");
         }
     });
 }
     
-    // -- 탭 전환
     const tabButtons = document.querySelectorAll('.tab-btn');
     const tabPanes = document.querySelectorAll('.tab-pane');
 
@@ -61,15 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     });
 
-    // -- 모달 닫기
     document.querySelector('.close-modal').addEventListener('click', () => {
         document.getElementById('schedule-detail-modal').style.display = 'none';
     });
 
-    // -- 캘린더 초기화
     initializeCalendar();
 
-    // -- 참여 버튼 렌더링 함수
     function renderParticipantBtn(eventId) {
         const container = document.querySelector('.participation-poll');
         if (isMember) {
@@ -90,12 +76,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     }
 
-    // -- 참여 버튼 이벤트
     document.addEventListener("click", async (e) => {
         const modal = document.getElementById('schedule-detail-modal');
         const eventId = modal.dataset.eventId;
     
-        // 회원
         if (e.target.classList.contains('poll-btn')) {
             const state = e.target.dataset.state;
             try {
@@ -115,7 +99,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
     
-        // 게스트
         if (e.target.classList.contains('btn-guest-apply')) {
             try {
                 if (!userId || userId === "") {
@@ -128,9 +111,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     clubId,
                     state: 'guest' 
                 });
-
-                console.log("res", res)
-
                 if (res.data.success) {
                     alert("일일참가 신청이 완료되었습니다.");
                     location.reload();
@@ -138,14 +118,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     alert(res.data.message || "신청 실패");
                 }
             } catch (err) {
-                console.error("게스트 신청 실패", err);
                 alert("서버 오류");
             }
         }
     });
     
-
-    // -- 참석자 목록 렌더링 함수 << 디버깅 필요
     function renderParticipantGroup(selector, names = [], role = 'participant') {
     const container = document.querySelector(`.participant-list${selector}`) || document.querySelector(selector);
     if (!container) return;
@@ -168,7 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
     container.innerHTML = html;
     }
 
-    // -- 모달 열기
     function openScheduleModal(info) {
     const event = info.event;
     const props = event.extendedProps;
@@ -194,14 +170,12 @@ document.addEventListener('DOMContentLoaded', function () {
     renderParticipantBtn(event.id);
     }
 
-    // -- 날짜 포맷 함수
     function formatDate(dateObj) {
     return dateObj.toLocaleDateString('ko-KR', {
         year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
     });
     }
 
-    // -- 캘린더 초기화 함수
     function initializeCalendar() {
     const calendarEl = document.getElementById('calendar');
     if (!calendarEl) return;
@@ -211,7 +185,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title: event.title,
         start: new Date(event.start_date),
         end: new Date(event.end_date),
-        color: '#ff7a00',  // 키컬러 적용
+        color: '#ff7a00',
         extendedProps: {
             location: event.location,
             description: event.content,
@@ -236,7 +210,6 @@ document.addEventListener('DOMContentLoaded', function () {
     calendar.render();
     }
 
-    // -- 리뷰 등록 
     const writeReviewBtn = document.querySelector(".btn-write-review");
     const reviewForm = document.querySelector(".review-form");
     const cancelReviewBtn = document.querySelector(".btn-cancel-review");
@@ -244,7 +217,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (writeReviewBtn && reviewForm) {
             writeReviewBtn.addEventListener("click", async() => {
-                // 회원정보라우터에서 로그인되어있는지 확인하고 예외처리  
                 reviewForm.style.display = "block";
                 writeReviewBtn.style.display = "none";
                 const result = await axios.post('/clubs/detail/login');
@@ -310,7 +282,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    //  -- 리뷰 수정삭제 버튼 << 디버깅 필요
     document.querySelectorAll('.btn-edit-review').forEach(button => {
         button.addEventListener('click', (e) => {
         const reviewItem = e.target.closest('.review-item');
@@ -331,31 +302,22 @@ document.addEventListener('DOMContentLoaded', function () {
         button.addEventListener('click', (e) => {
         if (confirm('리뷰를 삭제하시겠습니까?')) {
             const reviewItem = e.target.closest('.review-item');
-            // 실제 서버 요청은 생략하고 DOM 제거만:
             reviewItem.remove();
             alert('리뷰가 삭제되었습니다.');
         }
         });
     });
         
-
-    // 리뷰 렌더링 함수들
-
-    // 평균 평점과 별점, 개수 렌더링
     function renderReviewStats(reviews = []) {
         const total = reviews.length;
         const average = total > 0 ? (reviews.reduce((sum, r) => sum + r.star, 0) / total).toFixed(1) : 0;
         const rounded = Math.round(average);
-
-        // 별점 개수별 카운트
-        const counts = [0, 0, 0, 0, 0]; // 인덱스 0 = 1점, 4 = 5점
+        const counts = [0, 0, 0, 0, 0];
         reviews.forEach(r => counts[r.star - 1]++);
 
         document.querySelector(".average-score").textContent = average;
         document.querySelector(".stars").textContent = "★".repeat(rounded) + "☆".repeat(5 - rounded);
         document.querySelector(".review-count").textContent = `총 ${total}개 리뷰`;
-
-        // 각 bar 채우기 및 개수 표시
         counts.forEach((count, i) => {
         const percent = total > 0 ? (count / total * 100).toFixed(0) : 0;
         const bar = document.querySelectorAll(".rating-bar .bar")[4 - i];
@@ -364,8 +326,6 @@ document.addEventListener('DOMContentLoaded', function () {
         if (label) label.textContent = count;
         });
     }
-
-    // 리뷰 리스트 렌더링
     function renderReviewList(reviews = []) {
         const listContainer = document.querySelector(".reviews-list");
         if (!listContainer) return;

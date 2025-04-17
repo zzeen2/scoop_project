@@ -20,7 +20,6 @@ body {
 .main-content {
     margin-left: 200px;
     width: calc(100% - 200px);
-    /* max-width: 1400px; */
     height: fit-content;
     padding: 20px;
 }
@@ -34,7 +33,6 @@ body {
     border-radius: 12px;
 }
 
-/* 헤더 섹션 */
 .club-header {
     display: flex;
     margin-bottom: 40px;
@@ -250,7 +248,6 @@ body {
     gap: 10px;
 }
 
-/* 탭 섹션 */
 .club-tabs {
     display: flex;
     border-bottom: 1px solid #eee;
@@ -287,7 +284,6 @@ body {
     display: block;
 }
 
-/* 일정 섹션 */
 .schedule-header {
     display: flex;
     justify-content: space-between;
@@ -332,7 +328,6 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
 }
 
-/* 모달 스타일 */
 .schedule-detail {
     position: fixed;
     top: 0;
@@ -400,7 +395,6 @@ body {
     margin-right: 5px;
 }
 
-/* 참여 투표 섹션 */
 .participation-poll {
     border-top: 1px solid #eee;
     padding-top: 25px;
@@ -508,7 +502,6 @@ body {
     color: #ef6c00;
 }
 
-/* 게스트 섹션 */
 .guest-section {
     border-top: 1px solid #eee;
     padding-top: 25px;
@@ -549,7 +542,6 @@ body {
     font-size: 0.9em;
 }
 
-/* 멤버 탭 */
 .members-header {
     display: flex;
     justify-content: space-between;
@@ -642,7 +634,6 @@ body {
     color: #777;
 }
 
-/* 리뷰 탭 */
 .reviews-header {
     display: flex;
     justify-content: space-between;
@@ -753,7 +744,6 @@ body {
     font-weight: 500;
 }
 
-/* 리뷰 폼 */
 .review-form {
     background-color: #f9f9f9;
     padding: 25px;
@@ -845,7 +835,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* 리뷰 목록 */
 .reviews-list {
     margin-bottom: 30px;
 }
@@ -982,7 +971,6 @@ body {
     transform: scale(1.04);
 }
 
-/* 오늘 버튼 */
 .fc .fc-button.fc-today-button {
     display: none;
     background-color: #ffb402;
@@ -1007,12 +995,10 @@ body {
     ;
 }
 
-/* 요일 헤더(일~토) 배경색 */
 .fc-col-header-cell {
     background-color: #fff4dc;
 }
 
-/* 요일 텍스트 진하게 */
 .fc-col-header-cell-cushion {
     font-weight: 600;
     color: #333;
@@ -1029,17 +1015,17 @@ body {
 }
 
 #Popupwrap.popup, #Popupwrap_empty.popup, #Popupwraperror.popup {
-    position: fixed; /* fixed로 변경하여 스크롤해도 중앙에 유지 */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.6); /* 배경 어둡게 조정 */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* z-index 높게 설정 */
-    animation: fadeIn 0.3s ease; /* 페이드인 애니메이션 */
+    z-index: 1000;
+    animation: fadeIn 0.3s ease; 
 }
 
 .Popup, .Popup_empty, .Popuperror {
@@ -1053,7 +1039,7 @@ body {
     background-color: white;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-    animation: popUp 0.3s ease; /* 팝업 애니메이션 */
+    animation: popUp 0.3s ease;
     text-align: center;
 }
 
@@ -1074,21 +1060,20 @@ body {
     height: 40px;
     cursor: pointer;
     border: none;
-    background-color: #ff7a00; /* 키컬러 적용 */
+    background-color: #ff7a00; 
     color: white;
     font-weight: 600;
     border-radius: 8px;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(255, 122, 0, 0.3); /* 키컬러 그림자 */
+    box-shadow: 0 4px 8px rgba(255, 122, 0, 0.3); 
 }
 
 .Popup button:hover, .Popup_empty button:hover, .Popuperror button:hover {
-    background-color: #e56c00; /* 호버 시 어두운 색상 */
+    background-color: #e56c00; 
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(255, 122, 0, 0.4);
 }
 
-/* 애니메이션 키프레임 */
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -1109,7 +1094,6 @@ body {
     }
 }
 
-/* 팝업 닫기 버튼을 추가하고 싶다면 */
 .popup-close {
     position: absolute;
     top: 15px;
@@ -1124,7 +1108,6 @@ body {
     color: #ff7a00;
 }
 
-/* 캘린더 기본 컨테이너 스타일 */
 #calendar {
     height: 600px;
     width: 100%;
@@ -1135,7 +1118,6 @@ body {
     border: 1px solid #f0f0f0;
 }
 
-/* FullCalendar 커스텀 스타일 - 보내주신 디자인 적용 */
 .fc .fc-toolbar-title {
     color: #333;
     font-weight: bold;
@@ -1169,7 +1151,6 @@ body {
     transform: scale(1.04);
 }
 
-/* 오늘 버튼 */
 .fc .fc-button.fc-today-button {
     display: none;
     background-color: #ffb402;
@@ -1193,12 +1174,10 @@ body {
     background-color: #ffa653;
 }
 
-/* 요일 헤더(일~토) 배경색 */
 .fc-col-header-cell {
     background-color: #fff4dc;
 }
 
-/* 요일 텍스트 진하게 */
 .fc-col-header-cell-cushion {
     font-weight: 600;
     color: #333;
@@ -1209,7 +1188,6 @@ body {
     padding: 8px 0;
 }
 
-/* 캘린더 그리드 내부 셀 스타일링 */
 .fc-daygrid-day {
     transition: background-color 0.2s;
 }
@@ -1218,7 +1196,6 @@ body {
     background-color: #f9f9f9;
 }
 
-/* 날짜 텍스트 스타일 */
 .fc-daygrid-day-number {
     color: #555;
     text-decoration: none !important;
@@ -1226,31 +1203,26 @@ body {
     font-weight: 500;
 }
 
-/* 오늘 날짜 강조 */
 .fc .fc-day-today .fc-daygrid-day-number {
     color: #ff7a00;
     font-weight: 700;
 }
 
-/* 이벤트 내 텍스트 스타일 */
 .fc-event-title {
     font-weight: 500 !important;
     padding: 2px 0;
 }
 
-/* 이벤트 시간 스타일 */
 .fc-event-time {
     font-weight: 400;
     opacity: 0.8;
 }
 
-/* 더보기 버튼 스타일 */
 .fc-daygrid-more-link {
     color: #ff7a00 !important;
     font-weight: 500;
 }
 
-/* 반응형 조정 */
 @media (max-width: 768px) {
     #calendar {
         height: 500px;

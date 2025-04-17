@@ -2,7 +2,6 @@ const { Events } = require ('../../models/configs');
 const { v4: uuidv4 } = require('uuid'); 
 const jwt = require("jsonwebtoken")
 
-console.log("넘어왔어")
 const createEvent = async (req,res) => {
     try {
         const token = req.cookies.login_access_token;
@@ -33,7 +32,6 @@ const createEvent = async (req,res) => {
         })
         return res.json ({state : 200, message : "이벤트 등록 완료", event : newEvent})
     } catch (error) {
-        console.log("이벤트 생성 오류", error)
         return res.json({state : 400, message : "이벤트 생성 서버 오류"})
     }
 }

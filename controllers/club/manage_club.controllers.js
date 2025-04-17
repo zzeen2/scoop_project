@@ -14,7 +14,6 @@ const updateClub = async (req, res) => {
                 club_id: { [Op.ne]: clubId }
             }
         });
-
         if (existing) {
             return res.json({ state: 400, message: "이미 존재하는 이름입니다." });
         }
@@ -31,7 +30,6 @@ const updateClub = async (req, res) => {
             where: { club_id: clubId }
         });
 
-        // 기존 태그 삭제 후 재등록
         await Tags.destroy({ where: { club_id_fk: clubId } });
 
         if (Array.isArray(tags)) {
@@ -44,7 +42,6 @@ const updateClub = async (req, res) => {
 
         return res.json({ state: 200, message: "동호회가 수정되었습니다." });
     } catch (error) {
-        console.error("동호회 수정 오류:", error);
         return res.status(500).json({ state: 500, message: "서버 오류 발생" });
     }
 };

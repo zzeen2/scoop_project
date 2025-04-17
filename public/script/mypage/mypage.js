@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 end: new Date(item.end_date).toISOString().slice(0, 10)
             }
         })
-        // console.log(participantdata, participantdata.title,'title')
         const calendarEl = document.getElementById('calendar')
         const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
@@ -38,13 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
             calendar.render()
             }
     })
-// document.addEventListener('DOMContentLoaded', () => {
-//     const calendarEl = document.getElementById('calendar')
-//     const calendar = new FullCalendar.Calendar(calendarEl, {
-//     initialView: 'dayGridMonth'
-//     })
-//     calendar.render()
-// })
 document.addEventListener('DOMContentLoaded', () => {
     const Participantdata = document.querySelectorAll('.fc-event-title-container');
     if(Participantdata) {

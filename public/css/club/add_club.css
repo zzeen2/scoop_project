@@ -9,10 +9,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: white;
-    /* height: 100vh; */
     position: relative;
- 
-   
 }
 
 .main-content {
@@ -66,18 +63,17 @@ body {
     width: 100%;
 }   
 
-/* 폼 스타일 통일 */
 .addFrom-group{
     margin-bottom: 25px;
 }
-/* 라벨 전체 스타일  */
+
 .label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: #333;;
 }
-/* 인풋 전체 스타일 */
+
 .form-input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -90,7 +86,6 @@ body {
     width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ddd;
-    /* border: 1px solid black; */
     border-radius: 4px;
     min-height: 120px;
     resize: none;
@@ -172,7 +167,7 @@ body {
 .category-select-option{
     padding: 10px;
 }
-/* 스크립트에서 처리 */
+
 .sub-category-box{
     display:block;
 }
@@ -296,8 +291,6 @@ body {
     background-color: #ffa653
 }
 
-/* 지역 선택 */
-
 .relative-wrapper {
     position: relative;
 }
@@ -416,7 +409,6 @@ body {
     box-shadow: 0 5px 10px rgba(224, 112, 0, 0.3);
 }
 
-/* 애니메이션 키프레임 */
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }

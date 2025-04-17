@@ -2,13 +2,12 @@ window.addEventListener("load", () => {
   setTimeout(() => {
       const loading = document.getElementById("loading");
       if (loading) loading.style.display = "none";
-  }, 1500); // 로딩 시간 약간 증가하여 부드러운 경험 제공
+  }, 1500); 
 
 
   const loadingScreen = document.getElementById("loading-screen");
   const logo = document.getElementById("club_logo");
 
-  // 로고 애니메이션 (로딩 시작 시 로고가 나타나도록)
   const logoAnimation = logo.animate(
       [
           { opacity: 0, transform: "scale(0.8)" },
@@ -21,7 +20,6 @@ window.addEventListener("load", () => {
       }
   );
 
-  // 로딩 화면 스크린 동작
   const loadingScreenAnimation = loadingScreen?.animate(
       [
           { transform: "translateY(100vh)", opacity: 1 },
@@ -42,12 +40,9 @@ window.addEventListener("load", () => {
   }
 });  
 
-// 카테고리 필터 기능
 const result = ["member", "like", "review", "star"];
 const filterBtns = document.querySelectorAll('.category-btn');
 const clubList = document.querySelector('.club-list');
-
-// 카테고리 버튼 활성화 함수
 function setActiveCategoryBtn(clickedBtn) {
   filterBtns.forEach(btn => {
       btn.classList.remove('active');
@@ -60,7 +55,6 @@ for (let i = 0; i < filterBtns.length; i++) {
       setActiveCategoryBtn(filterBtns[i]);
       
       try {
-          // 로딩 표시
           clubList.innerHTML = '<div class="loading-message" style="text-align: center; padding: 30px;"><p>동호회 정보를 불러오는 중입니다...</p></div>';
           
           const filterData = await axios.get(`/filter?index=${result[i]}`);
@@ -80,8 +74,6 @@ for (let i = 0; i < filterBtns.length; i++) {
                       window.location.href = `/clubs/detail/${club.club_id}`;
                   }
               });
-
-              // 공통 출력 정보
               let extraInfo = '';
               if (result[i] === 'member') {
                   extraInfo = `<p><strong>회원 수:</strong> ${club.MemberCount || 0}명</p>`;
@@ -104,13 +96,11 @@ for (let i = 0; i < filterBtns.length; i++) {
               clubList.appendChild(clubItem);
           });
       } catch (error) {
-          console.log('필터링 중 오류 발생:', error);
           clubList.innerHTML = '<div class="error-message" style="text-align: center; padding: 30px; color: #e74c3c;"><p>동호회 정보를 불러오는 중 오류가 발생했습니다.</p></div>';
       }
   };
 }
 
-// 맵 초기화 및 관련 기능
 let MIN_ZOOM_LEVEL = 4;
 let MAX_ZOOM_LEVEL = 7;
 let currentViewType = '지역단위';
@@ -132,18 +122,16 @@ const mapOptions = {
 const map = new kakao.maps.Map(mapContainer, mapOptions);
 const zoomLabel = document.getElementById('zoomLabel');
 
-// 사용자 위치 정보 가져오기
 if (navigator.geolocation) {
   navigator.geolocation.getCurrentPosition(function(position) {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
       const currentLoc = new kakao.maps.LatLng(lat, lng);
       
-      userLocation = currentLoc; // 위치 저장
+      userLocation = currentLoc; 
 
       map.setCenter(currentLoc);
 
-      // 사용자 위치 마커 생성
       const imageSrc = '/public/images/usericon.png';
       const imageSize = new kakao.maps.Size(40, 40);
       const imageOption = { offset: new kakao.maps.Point(20, 40) };
@@ -156,17 +144,16 @@ if (navigator.geolocation) {
           image: markerImage
       });
 
-      loadStationMarkers(); // 초기 로드시 지하철 마커 표시
+      loadStationMarkers(); 
   }, function(error) {
       console.log("위치 정보를 가져올 수 없습니다. 기본 위치를 사용합니다.", error);
-      loadStationMarkers(); // 위치 정보를 가져오지 못해도 지하철 마커 표시
+      loadStationMarkers(); 
   });
 } else {
   alert("이 브라우저는 위치 정보를 지원하지 않습니다.");
-  loadStationMarkers(); // 위치 정보를 지원하지 않아도 지하철 마커 표시
+  loadStationMarkers(); 
 }
 
-// 지도 컨트롤 버튼 생성 및 스타일 개선
 const wideAreaButton = document.createElement('button');
 wideAreaButton.textContent = '광역단위 보기';
 wideAreaButton.id = 'wideAreaButton';
@@ -197,7 +184,6 @@ currentLocationButton.style.right = '20px';
 currentLocationButton.style.zIndex = 1000;
 mapContainer.appendChild(currentLocationButton);
 
-// 버튼 클릭 시 사용자 위치로 이동
 currentLocationButton.addEventListener('click', function () {
   if (userLocation) {
       map.setCenter(userLocation);
@@ -206,35 +192,32 @@ currentLocationButton.addEventListener('click', function () {
   }
 });
 
-// 지역단위 클릭 이벤트
 regionAreaButton.addEventListener('click', function () {
-  map.setLevel(4); // 지역단위로 확대
+  map.setLevel(4); 
   MIN_ZOOM_LEVEL = 2;
   MAX_ZOOM_LEVEL = 6;
   currentViewType = '지역단위';
 
   zoomLabel.textContent = '지역단위';
-  clearPolygons(); // 기존 폴리곤 삭제
-  clearStationMarkers(); // 기존 마커 삭제
-  clearClubList(); // 동호회 목록 초기화
-  loadStationMarkers(); // 지하철역 마커 로드
+  clearPolygons(); 
+  clearStationMarkers(); 
+  clearClubList();
+  loadStationMarkers(); 
 });
 
-// 광역단위 클릭 이벤트
 wideAreaButton.addEventListener('click', function () {
-  map.setLevel(9); // 광역단위로 확대
+  map.setLevel(9); 
   MIN_ZOOM_LEVEL = 9;
   MAX_ZOOM_LEVEL = 13;
   currentViewType = '광역단위';
 
   zoomLabel.textContent = '광역단위';
-  clearPolygons(); // 기존 폴리곤 삭제
-  clearStationMarkers(); // 기존 마커 삭제
-  clearClubList(); // 동호회 목록 초기화
-  loadAreaPoligon(); // 시/군구 폴리곤 로드
+  clearPolygons(); 
+  clearStationMarkers(); 
+  clearClubList(); 
+  loadAreaPoligon(); 
 });
 
-// 줌 레벨 제한
 kakao.maps.event.addListener(map, 'zoom_changed', function () {
   const currentZoom = map.getLevel();
   if (currentZoom < MIN_ZOOM_LEVEL) {
@@ -244,12 +227,10 @@ kakao.maps.event.addListener(map, 'zoom_changed', function () {
   }
 });
 
-// 지역 폴리곤 로드
 function loadAreaPoligon() {
   axios.get('/api/area')
       .then(response => {
           const features = response.data.features;
-          console.log("응답 데이터:", features);
   
           features.forEach(regionFeature => {
               if (regionFeature) {
@@ -270,11 +251,9 @@ function loadAreaPoligon() {
                   polygon.setMap(map);
                   polygons.push(polygon);
   
-                  // 폴리곤 클릭 이벤트
                   kakao.maps.event.addListener(polygon, 'click', async function () {
                       console.log("클릭된 시/군구 이름:", selectedRegionName);
                       try {
-                          // 로딩 표시
                           clubList.innerHTML = '<div class="loading-message" style="text-align: center; padding: 30px;"><p>동호회 정보를 불러오는 중입니다...</p></div>';
                           
                           const res = await axios.get(`/area?wide_regions=${encodeURIComponent(selectedRegionName)}`);
@@ -286,7 +265,6 @@ function loadAreaPoligon() {
                       }
                   });
                   
-                  // 폴리곤 마우스오버 이벤트
                   kakao.maps.event.addListener(polygon, 'mouseover', function() {
                       polygon.setOptions({
                           fillColor: '#f39c12',
@@ -294,7 +272,6 @@ function loadAreaPoligon() {
                       });
                   });
                   
-                  // 폴리곤 마우스아웃 이벤트
                   kakao.maps.event.addListener(polygon, 'mouseout', function() {
                       polygon.setOptions({
                           fillColor: '#ffb402',
@@ -311,14 +288,12 @@ function loadAreaPoligon() {
       });
 }
 
-// 동호회 목록 초기화 함수
 function clearClubList() {
   clubList.innerHTML = '<div class="initial-message" style="text-align: center; padding: 40px 20px; color: #777;"><p>지도에서 지역을 선택하거나 카테고리 버튼을 클릭하여 동호회를 찾아보세요.</p></div>';
 }
 
-// 동호회 목록 업데이트 함수
 function updateClubList(clubs) {
-  clubList.innerHTML = '';  // 기존 동호회 목록 초기화
+  clubList.innerHTML = '';  
 
   if (!clubs || clubs.length === 0) {
       clubList.innerHTML = '<div class="no-results" style="text-align: center; padding: 40px 20px; color: #777;"><p>조회된 동호회가 없습니다</p></div>';
@@ -347,7 +322,6 @@ function updateClubList(clubs) {
       clubList.appendChild(clubItem);
   });
 
-  // 클릭 가능함을 알려주는 안내 텍스트 추가
   const infoText = document.createElement('div');
   infoText.className = 'info-text';
   infoText.style.textAlign = 'center';
@@ -360,7 +334,6 @@ function updateClubList(clubs) {
   clubList.appendChild(infoText);
 }
 
-// 지하철역 마커를 보여주는 함수
 async function loadStationMarkers() {
   try {
       const response = await axios.get('/api/station');
@@ -379,14 +352,10 @@ async function loadStationMarkers() {
                       const percent = (station.MembersCount * increment) > 100 ? 100 : station.MembersCount * increment;
                       const calculate = total * percent / 100;
                       const value = total + calculate;
-                  
-                      // 컨테이너 생성
                       const containerDiv = document.createElement('div');
                       containerDiv.style.position = 'relative';
                       containerDiv.style.width = `${value}px`;
                       containerDiv.style.height = `${value}px`;
-                      
-                      // 마커 이미지 생성
                       const markerDiv = document.createElement('div');
                       markerDiv.style.width = '100%';
                       markerDiv.style.height = '100%';
@@ -398,8 +367,6 @@ async function loadStationMarkers() {
                       markerDiv.style.cursor = 'pointer';
                       markerDiv.style.boxShadow = '0 2px 6px rgba(255, 180, 2, 0.5)';
                       markerDiv.style.transition = 'all 0.3s ease';
-                      
-                      // 호버 효과
                       markerDiv.onmouseover = function() {
                           this.style.transform = 'scale(1.1)';
                           this.style.boxShadow = '0 4px 10px rgba(255, 180, 2, 0.7)';
@@ -409,15 +376,11 @@ async function loadStationMarkers() {
                           this.style.transform = 'scale(1)';
                           this.style.boxShadow = '0 2px 6px rgba(255, 180, 2, 0.5)';
                       };
-                      
-                      // 이미지 추가
                       const img = document.createElement('img');
                       img.src = image || '/public/images/default-club.png';
                       img.style.width = '100%';
                       img.style.height = '100%';
                       img.style.objectFit = 'cover';
-                      
-                      // 역 이름 레이블 추가
                       const labelDiv = document.createElement('div');
                       labelDiv.textContent = station.bldn_nm || '역 정보 없음';
                       labelDiv.style.position = 'absolute';
@@ -434,7 +397,6 @@ async function loadStationMarkers() {
                       labelDiv.style.opacity = '0';
                       labelDiv.style.transition = 'opacity 0.3s ease';
                       
-                      // 호버 시 레이블 표시
                       markerDiv.onmouseover = function() {
                           this.style.transform = 'scale(1.1)';
                           this.style.boxShadow = '0 4px 10px rgba(255, 180, 2, 0.7)';
@@ -459,8 +421,6 @@ async function loadStationMarkers() {
                       });
                   
                       overlay.setMap(map);
-                  
-                      // 클릭 이벤트
                       containerDiv.addEventListener('click', async () => {
                           const local_station = station.bldn_nm;
                           const index = result[0];
@@ -478,8 +438,6 @@ async function loadStationMarkers() {
                               clubList.innerHTML = '<div class="error-message" style="text-align: center; padding: 30px; color: #e74c3c;"><p>동호회 정보를 불러오는 중 오류가 발생했습니다.</p></div>';
                           }
                       });
-                  
-                      // 마커(오버레이) 저장
                       stationMarkers.push(overlay);
                   });
               }
@@ -492,7 +450,6 @@ async function loadStationMarkers() {
   }
 }
 
-// 지하철역 마커 삭제 함수
 function clearStationMarkers() {
   stationMarkers.forEach(function (marker) {
       marker.setMap(null);
@@ -500,7 +457,6 @@ function clearStationMarkers() {
   stationMarkers = [];
 }
 
-// 폴리곤 삭제 함수
 function clearPolygons() {
   polygons.forEach(function (polygon) {
       polygon.setMap(null);
@@ -508,9 +464,7 @@ function clearPolygons() {
   polygons = [];
 }
 
-// 초기에 회원순 버튼 활성화 (페이지 로드 후 자동으로 데이터 로드)
 document.addEventListener('DOMContentLoaded', function() {
-  // 첫 번째 카테고리 버튼 클릭 이벤트 발생시키기
   if (filterBtns.length > 0) {
       filterBtns[0].click();
   }
