@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // 등록 버튼 클릭 이벤트
     document.getElementById("ok_btn2").addEventListener("click", async function (e) {
         e.preventDefault();
-
+        
         const eventName = document.getElementById("event_name1").value.trim();
         const eventInfo = document.getElementById("event_information").value.trim();
         const location = document.getElementById("addr").value.trim();
@@ -47,12 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (!startDate || !endDate) {
             // alert("이벤트 날짜 범위를 선택해주세요.");
+            console.log('asdfasdf')
             Popupwraperrordate.classList.add('popup')
             return;
         }
 
         if (!eventName || !eventInfo || !location || !maxParticipants) {
             // alert("모든 필드를 입력해주세요.");
+            console.log('asdfasdf1')
             Popupwrap_empty.classList.add('popup')
             return;
         }
@@ -90,6 +92,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         } catch (error) {
             console.error("이벤트 등록 오류:", error);
+            console.log('asdfasdf2')
             // alert("이벤트 등록 중 오류가 발생했습니다.");
             Popupwraperror.classList.add('popup')
         }
@@ -109,3 +112,41 @@ document.addEventListener("DOMContentLoaded", function () {
         location.href = `/clubs/detail/${CLUB_ID}`
     }
 })
+
+document.getElementById('ok').addEventListener('click', function() {
+    document.getElementById('Popupwrap').classList.remove('popup');
+
+    const redirectURL = `/clubs/detail/${CLUB_ID}`;
+    window.location.assign(redirectURL);
+});
+
+document.getElementById('errorOk').addEventListener('click', function() {
+    document.getElementById('Popupwraperror').classList.remove('popup');
+});
+
+document.getElementById('dateErrorOk').addEventListener('click', function() {
+    document.getElementById('Popupwraperrordate').classList.remove('popup');
+});
+
+document.getElementById('emptyOk').addEventListener('click', function() {
+    document.getElementById('Popupwrap_empty').classList.remove('popup');
+});
+
+const popups = [
+    { wrapId: 'Popupwrap', popupClass: 'Popup' },
+    { wrapId: 'Popupwraperror', popupClass: 'Popuperror' },
+    { wrapId: 'Popupwraperrordate', popupClass: 'Popuperrordate' },
+    { wrapId: 'Popupwrap_empty', popupClass: 'Popup_empty' }
+];
+
+popups.forEach(popup => {
+    const wrap = document.getElementById(popup.wrapId);
+    if (wrap) {
+        wrap.addEventListener('click', function(e) {
+        
+            if (!e.target.closest('.' + popup.popupClass)) {
+                wrap.classList.remove('popup');
+            }
+        });
+    }
+});

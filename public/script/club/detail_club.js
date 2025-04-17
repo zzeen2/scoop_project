@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', function () {
         title: event.title,
         start: new Date(event.start_date),
         end: new Date(event.end_date),
-        color: '#ffb402',  // 키컬러 적용
+        color: '#ff7a00',  // 키컬러 적용
         extendedProps: {
             location: event.location,
             description: event.content,

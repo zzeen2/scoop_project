@@ -106,43 +106,110 @@ ol button:hover {
     cursor: pointer;
 }
 
-
 #Popupwrap, #Popupwrap_empty, #Popupwraperror, #Popupwraperrordate {
     display: none;
 }
 
 #Popupwrap.popup, #Popupwrap_empty.popup, #Popupwraperror.popup, #Popupwraperrordate.popup {
-    width: 100%;
-    height: 100vh;
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 5;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
 }
 
-.Popup, .Popup_empty, .Popuperror, .Popuperrordate{
-    position: absolute;
-    width: 400.009px;
-    height: 200.004px;
+.Popup, .Popup_empty, .Popuperror, .Popuperrordate {
+    position: relative;
+    width: 400px;
+    padding: 40px 30px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     background-color: white;
-    border-radius: 7.004px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: popUp 0.3s ease;
+    text-align: center;
+}
+
+.Popup span, .Popup_empty span, .Popuperror span, .Popuperrordate span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+    display: block;
+    line-height: 1.5;
 }
 
 .Popup button, .Popup_empty button, .Popuperror button, .Popuperrordate button {
-    width: 89.993px;
+    width: 120px;
+    height: 45px;
     cursor: pointer;
-    height: 30.005px;
     border: none;
-    box-shadow: 0 3.999px 10.009px rgba(0, 0, 0, 0.7);
-    border-radius: 7.004px;
+    background-color: #ff7a00;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 122, 0, 0.3);
 }
 
 .Popup button:hover, .Popup_empty button:hover, .Popuperror button:hover, .Popuperrordate button:hover {
-    background-color: rgb(255, 181, 21);
+    background-color: #e56c00;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 122, 0, 0.4);
+}
+
+.Popup a, .Popup_empty a, .Popuperror a, .Popuperrordate a {
+    text-decoration: none;
+    display: inline-block;
+}
+
+.Popup span::before {
+    content: '✓';
+    display: block;
+    font-size: 48px;
+    color: #ff7a00;
+    margin-bottom: 15px;
+}
+
+.Popuperror span::before, .Popuperrordate span::before, .Popup_empty span::before {
+    content: '!';
+    display: block;
+    font-size: 48px;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff7a00;
+    color: white;
+    margin: 0 auto 15px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }

@@ -19,7 +19,7 @@ body {
 }
 
 #loading-screen {
-  background-color: #c0bbbb;
+  background-color:#c0bbbb;
   position: fixed;
   inset: 0;
   z-index: 9998;
@@ -41,9 +41,6 @@ body {
   opacity: 0;
   animation: fadeInText 0.5s ease-in-out forwards;
   animation-delay: 0.5s;
-  color: #333;
-  margin-top: 20px;
-  font-weight: 500;
 }
 
 .loader {
@@ -51,18 +48,17 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 15px;
+  gap: 5px;
 }
+
 
 .dot {
   margin-left: 3px;
   animation: blink 1.0s infinite;
 }
-
 .dot:nth-child(2) {
   animation-delay: 0.3s;
 }
-
 .dot:nth-child(3) {
   animation-delay: 0.6s;
 }
@@ -75,8 +71,8 @@ body {
   padding: 5px;
   width: 200px;
   height: var(--height);
-  background-color: #f0f0f0;
-  box-shadow: rgba(0, 0, 0, 0.1) -2px 2px 4px 0px inset;
+  background-color: #212121;
+  box-shadow: #0c0c0c -2px 2px 4px 0px inset;
   border-radius: calc(var(--height) / 2);
 }
 
@@ -91,15 +87,15 @@ body {
   overflow: hidden;
   background: linear-gradient(
     90deg,
-    #ffb402 0%,
-    #ffc143 25%,
-    #ffd166 50%,
-    #ffc143 75%,
-    #ffb402 100%
+    #ff8c42 0%,
+    #ffa93f 25%,
+    #ffd700 50%,
+    #ffa93f 75%,
+    #ff8c42 100%
   );
   border-radius: calc(var(--height) / 2);
-  animation: loading 1.5s ease-out forwards;
-  box-shadow: 0 0 10px rgba(255, 180, 2, 0.8), 0 0 20px rgba(255, 180, 2, 0.4);
+  animation: loading 0.7s ease-out forwards;
+  box-shadow: 0 0 10px rgba(255, 138, 0, 0.8), 0 0 20px rgba(255, 138, 0, 0.6);
 }
 
 .loading-bar::before {
@@ -115,7 +111,7 @@ body {
     rgba(255, 255, 255, 0.6),
     rgba(255, 255, 255, 0.2)
   );
-  animation: shine 1s infinite;
+  animation: shine 0.3s infinite;
 }
 
 .white-bars-container {
