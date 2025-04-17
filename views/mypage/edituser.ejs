@@ -1,17 +1,14 @@
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>정보 수정</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <link rel="stylesheet" href="/public/css/common/header.css">
-    <link rel="stylesheet" href="/public/css/mypage/mypage.css">
+    <link rel="stylesheet" href="/public/css/mypage/edituser.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard/dist/web/static/pretendard.css">
     <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    
 </head>
 <body>
     <%- include("../common/header", {data}) %>
@@ -20,81 +17,47 @@
         <div id="Popupwrap">
             <div id="Popup">           
                 <span>입력 정보를 확인해주세요</span>
-                <a href="/Edituser"><button>확인</button> </a>
+                <a href="/Edituser"><button>확인</button></a>
             </div>
         </div>
         <div id="Userdetaildiv">
             <form action="" id="Userdetailform">
                 <ul>
                     <li>
-
                         <h2>나의 정보 수정하기</h2>
                     </li>
                     <li>
-                        <label for="">나이 : </label>
-                        <input type="number" name="age" placeholder="나이">
+                        <label for="age">나이</label>
+                        <input type="number" id="age" name="age" placeholder="나이를 입력하세요">
                     </li>
                     <li>
-                        <label for="" id="gender">성별 : 
-                            <label for="male">남성 : </label>
-                            <input type="radio" name="gender" value="male"> 
-                            <label for="female" >여성 : </label>
-                            <input type="radio" name="gender" value="female" >
-                        </label>
+                        <label for="gender">성별</label>
+                        <div id="gender">
+                            <label for="male">
+                                <input type="radio" id="male" name="gender" value="male"> 남성
+                            </label>
+                            <label for="female">
+                                <input type="radio" id="female" name="gender" value="female"> 여성
+                            </label>
+                        </div>
                     </li>
                     <li>
-
-                        <label for="">활동 위치 : </label>
-                        <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="주소를 입력하세요" />
+                        <label for="addr">활동 위치</label>
+                        <input type="text" name="location" id="addr" onclick="openPostcode()" placeholder="주소를 검색하려면 클릭하세요" readonly />
                     </li>
                     <li>
-
-                        <label for="">자기소개 : </label>
-                        <textarea name="content" ></textarea>
+                        <label for="content">자기소개</label>
+                        <textarea name="content" id="content" placeholder="자기소개를 입력하세요"></textarea>
                     </li>
-                    <div>
-                        <button>환료</button>
-                        <a href="/mypage"><button type="button">취소</button></a>
+                    <div class = "btns">
+                        <button class = "okbtn" type="submit">완료</button>
+                        <a href="/mypage"><button type="button" class = "canclebtn">취소</button></a>
                     </div>
                 </ul>
             </form>
         </div>
     </div>
+
+    <script src="/public/script/mypage/edituser.js"></script>
 </body>
-<script src="/public/script/mypage/edituser.js">
-    // Userdetailform.onsubmit = async (e) => {
-    //     e.preventDefault();
-    //     const {age : {value : agevalue}, 
-    //     gender : {value : gendervalue},
-    //     location : {value :locationvalue},
-    //     // longitude : {value :longitudevalue},
-    //     // latitude : {value : latitudevalue},
-    //     content : {value : contentvalue}} = e.target;
-    //     console.log({agevalue, gendervalue, locationvalue, contentvalue}, 'asdfffffffffffff')
-        
-    //     if(agevalue.trim() === '' || gendervalue.trim() === '' || locationvalue === '' || contentvalue === '') {
-    //         Userdetailwrap.classList.add('popup');
-    //         return
-    //     }
-    //     const {data} = await axios.post('/Edituser', {agevalue, gendervalue, locationvalue, contentvalue})
-    //     console.log(data,'mypage')
-    //     if(data.state === 200) {
-    //         console.log(data.state)
-    //         location.href = '/mypage'
-    //     }
-    //     else {
-    //         location.href = '/error'
-    //     }
-
-    // }
-    // function openPostcode() {
-    //     new daum.Postcode({
-    //     oncomplete: function(data) {
-    //         document.getElementById('addr').value = data.address;
-    //     }
-    //     }).open();
-    // }
-
-</script>
-
 </html>

@@ -24,20 +24,16 @@
     <%- include("../common/header", {data}) %>
     <div id="Bodywrap">
         <div id="Bodycontent">
-            <h1><%= data.nickname %>님 완영합니다</h1>
+            <h1><%= data.nickname %>님 환영합니다!</h1>
             <span class="line"></span>
             <div id="Userinfo">
                 <img src="<%= data.profile_image %>" alt="">
                 <ul id="Userul">
                     <div id="Edit">
                         <a href="/Edituser" id="Edituser">정보 수정</a>
-                        <a href="/Userintrest" id="Userintrest">관심 분야 추가</a>
+                        <!-- <a href="/Userintrest" id="Userintrest">관심 분야 추가</a> -->
                     </div>
                     <div class="userulbody">
-                        <li>
-                            <span>아이디 : <%= uuid %></span>
-                            <span>현재 포인트 : <%= Userlevel %></span>
-                        </li>
                         <li>
                             <span>이름 : <%= data.nickname %></span>                      
                         </li>
@@ -46,6 +42,10 @@
                         </li>
                         <li>
                             <span>성별 : <%= Userdata.gender %></span>
+                        </li>
+                        <li>
+                            <!-- <span>아이디 : <%= uuid %></span> -->
+                            <span>현재 포인트 : <%= Userlevel %></span>
                         </li>
                     </div>
                   
@@ -85,8 +85,8 @@
                                 <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
                             </div>
                             <ul class="">
-                                <li>동호회 이름 :  <%= clubdata[i].name %> </li>
-                                <li>내용 : 
+                                <li><%= clubdata[i].name %> </li>
+                                <li> 
                                     <%= clubdata[i].introduction %>
                                 </li>
                              
