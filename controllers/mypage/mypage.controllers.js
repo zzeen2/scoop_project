@@ -1,5 +1,5 @@
 
-const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts, Participants} = require('../../models/configs');
+const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts, Participants, Events} = require('../../models/configs');
 
 
 const Createuser = async ( id, name, image, user_age, user_gender, user_introduction, location) => {
@@ -88,11 +88,23 @@ const Findlike = async (id) => {
 }
 
 const Getparticipantdate = async (id) => {
-  const Participant = await Participants.findAll({where : {user_id_fk : id}})
+  const Participant = await Participants.findAll({
+    include: [{
+      model: Events,
+      where : {user_id_fk : id}
+    }]
+})
+
   const arraydate = Participant.map(el => el.dataValues)
-  return arraydate
+  const arraytitle = Participant.map(el => el.Event.dataValues)
+  console.log(arraydate,arraytitle, 'asdfasd' )
+  return {arraydate, arraytitle}
 }
 
+const Geteventtitle = async (participant_id) => {
+  const title = await Events.findAll({where : {id : participant_id}})
+  console.log(title, 'title')
+}
 const Userinput = []
 const Reviewsinput = [{
   id : 'hello3',
@@ -140,4 +152,4 @@ const Createpoint = async (id) => {
 
 // })
 
-module.exports = {Createpoint,Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+module.exports = {Geteventtitle, Createpoint,Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

@@ -1019,8 +1019,11 @@ body {
     text-decoration: none !important;
 }
 
-.fc-daygrid-day-number {
-    text-decoration: none !important;
-    color: #555;
-    font-weight: 500;
-}
+  .fc .fc-day-today {
+    background-color: #f4f4f4 !important;
+    border: 1px solid #ddd;
+  }
+
+  #Popupwrap {
+    
+  }

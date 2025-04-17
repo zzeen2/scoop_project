@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const events = data.map(item => {
             return {
               title: item.participant_id,
-              backgroundColor: '#9d2933',
+              backgroundColor: '#ffa600',
               date: new Date(item.createdAt).toISOString().slice(0, 10)
             }
           })

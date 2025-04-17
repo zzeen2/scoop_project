@@ -46,12 +46,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const endDate = document.getElementById("selected_end_date").value;
 
         if (!startDate || !endDate) {
-            alert("이벤트 날짜 범위를 선택해주세요.");
+            // alert("이벤트 날짜 범위를 선택해주세요.");
+            Popupwraperrordate.classList.add('popup')
             return;
         }
 
         if (!eventName || !eventInfo || !location || !maxParticipants) {
-            alert("모든 필드를 입력해주세요.");
+            // alert("모든 필드를 입력해주세요.");
+            Popupwrap_empty.classList.add('popup')
             return;
         }
 
@@ -73,19 +75,23 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("CLUB_ID:", CLUB_ID);
             const response = await axios.post(`/clubs/detail/${CLUB_ID}/events`, eventData);
             console.log("리스폰스", response)
-            alert("이벤트가 등록되었습니다!");
+            // alert("이벤트가 등록되었습니다!");
             console.log(" 리다이렉트", response.status);
+            Popupwrap.classList.add('popup')
             if (response.status === 200) {
                 const redirectURL = `/clubs/detail/${CLUB_ID}`;
                 console.log("이동할 주소:", redirectURL);
-
-                setTimeout(() => {
+                ok.onclick = (e) => {
                     window.location.assign(redirectURL);
-                }, 0);
+                }
+                // setTimeout(() => {
+                //     window.location.assign(redirectURL);
+                // }, 1000);
             }
         } catch (error) {
             console.error("이벤트 등록 오류:", error);
-            alert("이벤트 등록 중 오류가 발생했습니다.");
+            // alert("이벤트 등록 중 오류가 발생했습니다.");
+            Popupwraperror.classList.add('popup')
         }
     });
 });
@@ -97,3 +103,9 @@ function openPostcode() {
     }
     }).open();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    eventcancel_btn.onclick = (e) => {
+        location.href = `/clubs/detail/${CLUB_ID}`
+    }
+})

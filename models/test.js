@@ -160,12 +160,12 @@ async function insertUserData() {
     }
   ];
   
-  for (const user of users) {
-    await db.Users.create(user);
-  }
+  // for (const user of users) {
+  //   await db.Users.create(user);
+  // }
   
-  console.log("User data inserted successfully");
-  return users;
+  // console.log("User data inserted successfully");
+  // return users;
 }
 
 // Insert UserIntrest data

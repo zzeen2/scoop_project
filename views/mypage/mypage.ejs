@@ -24,7 +24,7 @@
     <%- include("../common/header", {data}) %>
     <div id="Bodywrap">
         <div id="Bodycontent">
-            <h1><%= data.nickname %>님 환연합니다</h1>
+            <h1><%= data.nickname %>님 완영합니다</h1>
             <span class="line"></span>
             <div id="Userinfo">
                 <img src="<%= data.profile_image %>" alt="">
@@ -34,7 +34,6 @@
                         <a href="/Userintrest" id="Userintrest">관심 분야 추가</a>
                     </div>
                     <div class="userulbody">
-
                         <li>
                             <span>아이디 : <%= uuid %></span>
                             <span>현재 포인트 : <%= Userlevel %></span>
@@ -46,7 +45,6 @@
                             <span>나이 : <%= Userdata.age %> </span>
                         </li>
                         <li>
-
                             <span>성별 : <%= Userdata.gender %></span>
                         </li>
                     </div>
@@ -56,12 +54,12 @@
             <div class="addclubdiv">
                 <i class="fa-regular fa-heart beating-heart" id="heartIcon" onclick="toggleLike()" style="color: #e63946; font-size: 2rem;"></i>
 
-                <a href="/clubs/create" class="addclub">동호회 추가하기</a>
+                <a href="/clubs/create" class="addclub" style="color: rgb(255, 255, 255);">동호회 추가하기</a>
             </div>
             <span class="line"></span>
 
             <div id="Introduction">
-                    소개글 : 
+                    <span>소개글 : </span>
                 <p>
                     <%= Userdata.introduction %>
                 </p>
@@ -82,7 +80,10 @@
                 <% for(let i = 0; i < clubdata.length; i++) { %> 
                     <ul class="Contentul Active">
                         <li class="Contentli"> 
-                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            <div class="imagediv">
+                                
+                                <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata[i].image %>" alt=""></a>
+                            </div>
                             <ul class="">
                                 <li>동호회 이름 :  <%= clubdata[i].name %> </li>
                                 <li>내용 : 
@@ -91,7 +92,6 @@
                              
                                 <li class="clubinfo">
                                     <span><%= clubdata[i].club_category_name %></span>
-                                    <span>잉일체험 : <%= clubdata[i].allow_guest %></span>
                                     <span>멤버 정원 : <%= clubdata[i].member_limit %></span>
                                 </li>
                             </ul>
@@ -107,7 +107,9 @@
                 <% for(let i = 0; i < clubdata1.length; i++) { %> 
                     <ul class="Contentul1">
                         <li class="Contentli"> 
-                            <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            <div class="imagediv1">
+                                <a href="/clubs/detail/<%= clubdata[i].club_id %>" class="imagetag"><img src="<%= clubdata1[i].image %>" alt=""></a>
+                            </div>
                             <ul class="">
                                 <li>동호회 이름 :  <%= clubdata1[i].name %> </li>
                                 <li>내용 : 
@@ -137,9 +139,10 @@
                     <% for(let i = 0; i < participantdate.length; i++) { %> 
                         <ul>
                             <h3>이벤트 잠여 정보</h3><br>
-                            <li>잠여 아이디 : <%= participantdate[i].participant_id %></li>
-                            <li>참가자 유형 : <%= participantdate[i].state %></li>
-                            <li>잠여 날짜 : <%= new Date(participantdate[i].createdAt).toISOString().slice(0, 10) %></li>
+                            <li><strong>이벤트 이름 : </strong> <%= participanttitle[i].title %></li>
+                            <li><strong>잠여 아이디 : </strong> <%= participantdate[i].participant_id %></li>
+                            <li><strong>참가자 유형 : </strong> <%= participantdate[i].state %></li>
+                            <li><strong>잠여 날짜 : </strong>잠여 날짜 : <%= new Date(participantdate[i].createdAt).toISOString().slice(0, 10) %></li>
                         </ul>
                         <% } %>
                     </div>
