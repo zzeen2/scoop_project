@@ -132,9 +132,7 @@ main {
 
 .club-card {
   background-color: white;
-  width: calc(33.333% - 16px);
-  min-width: 300px;
-  max-width: 400px;
+  width: 100%;
   height: 380px;
   border-radius: 12px;
   overflow: hidden;
@@ -144,6 +142,26 @@ main {
   text-decoration: none;
   color: inherit;
   border: 1px solid #f0f0f0;
+}
+.club-card-link {
+  width: calc(33.333% - 16px);
+  min-width: 300px;
+  max-width: 400px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.club-desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 10px;
+  line-height: 1.5;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 42px; /* 대략적인 2줄 높이 */
 }
 
 .club-card:hover {
@@ -271,4 +289,29 @@ main {
     padding: 6px 12px;
     font-size: 13px;
   }
+}
+
+.club-meta {
+  font-size: 13px;
+  color: #888;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.club-tag {
+  background-color: #f2f2f2;
+  color: #444;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.club-tag:hover {
+  background-color: #ff7a00;
+  color: white;
 }
