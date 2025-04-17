@@ -1,5 +1,6 @@
 // 메인페이지 오른쪽 영역 필터링 기능
 const { Clubs, Members, Hearts, Reviews, sequelize: Sequelize } = require('../../models/configs');
+const { Op } = require("sequelize");
 const fs = require('fs');
 const path = require('path');
 
@@ -262,15 +263,19 @@ const AreaAllFilter = async () => {
             ]
         });
         const areaList = data.map(el => el.dataValues.wide_regions)
-        // console.log("시/군구 리스트",areaList)
         
         // JSON에서 해당 DB wide_regions와 일치하는 Feature만 필터링 
         const result = areaJson.filter(el => {
+
             for (let i = 0; i < areaList.length; i++) {
-                const cleaned = areaList[i].replace(/[\[\]"]/g, "").replace(/,/g, ",").split(",").map(el => el.trim());
+                if(areaList[i] === "") continue; 
+                const cleaned = areaList[i].replace(/[\[\]"]/g, "").replace(/,/g, ",").split(",").map(el => el.trim().split(" "));
+                // [["경기", "남양주시"], ["서울","강남구"]]
                 // console.log(cleaned, cleaned.includes(`'"${el.properties.SIG_KOR_NM}"'`), el.properties.SIG_KOR_NM);
                 // console.log(el.properties.SIG_KOR_NM, cleaned.includes(el.properties.SIG_KOR_NM), cleaned);
-                if (cleaned.includes(el.properties.SIG_KOR_NM)) {
+                const temp = cleaned.map(el => el[1]);
+                // ["남양주시", "강남구"]
+                if (temp.includes(el.properties.SIG_KOR_NM)) {
                     // console.log(el.properties.SIG_KOR_NM);
                     // areaList.splice(i,1) // 중복 방지
                     return true
@@ -278,24 +283,29 @@ const AreaAllFilter = async () => {
             }
             return false;
         });
-        
-    console.log("필터링된 시/군구 수 ", result);
+        console.log("필터링된 시/군구 수 ", result);
         return result;
     } catch (error) {
         console.log(error)   
     }
 }
-AreaAllFilter();
+// AreaAllFilter();
 
 // 동호회가 등록된 광역단위(시/군구) 필터링 하는 ㅎ마수
-// const AreaFilter  = async (wide_regions) => {
-//     try {
-//         const data = await Clubs.findAll({ where : { wide_regions }})
-//         // console.log("야ㅑ야",data)
-//         return {state : 200, message :"시/군구 동호회 필터링 성공", data}
-//     } catch (error) {
-//         return {state: 406, message : "시/군구 동호회 필터링 실패", error}
-//     }
-// }
-// AreaFilter("남양주시")
-module.exports = { FilteringSort , SubwayFilter, subwayAllFilter, AreaAllFilter};
+const AreaFilter = async (wide_regions) => {
+    try {
+        const data = await Clubs.findAll({
+            where: {
+                wide_regions: {
+                    [Op.like]: `%${wide_regions}%`
+                }
+            }
+        });
+        // console.log("아니", data);
+        return data
+    } catch (error) {
+        return { state: 406, message: "시/군구 동호회 필터링 실패", error };
+    }
+};
+// AreaFilter("성남시 수정구")
+module.exports = { FilteringSort , SubwayFilter, subwayAllFilter, AreaAllFilter, AreaFilter};
