@@ -1,79 +1,117 @@
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/variable/pretendardvariable.css');
 
 * {
-    padding: 0%;
     margin: 0;
-    
-    text-decoration: none;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pretendard Variable', sans-serif;
 }
 ul {
     list-style: none;
 }
 a {
-    color: black;
-}
-
-h1 {
-    font-size: 26px;
+    text-decoration: none;
+    color: #222;
 }
 
 header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 80px;
-    background-color: white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 0 40px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 75px;
-    box-sizing: border-box;
+    height: 60px;
     z-index: 1000;
-    font-size: 16px;
-    /* font-family: 'Pretendard', sans-serif; */
 }
 
-
-header div {
+.logo {
     display: flex;
     align-items: center;
 }
-
-
-
-#logo {
-    width: 90px;
-    height: 90px;
+.logo img {
+    height: 48px;
+    width: 48px;
+    margin-right: 10px;
+}
+.logo h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ff7a00;
 }
 
-#logo {
-    height: 80px;
-    width: 80px;
+#userul {
+    display: flex;
+    align-items: center;
 }
-
-
-
+.Userlogin {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
 
 .Userlogin img {
-    width: 45px;
-    height: 45px;
-    border-radius: 45px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
+
 .Userlogin span {
-    width: max-content;
-    padding:0 20px;
-    box-sizing: border-box;
+    font-size: 15px;
+    font-weight: 500;
+    color: #333;
+    white-space: nowrap;
 }
-.Userlogin .login-form{
+
+.Userlogin .login-form {
     display: none;
+    align-items: center;
+    gap: 12px;
 }
 
-.activelogin .login-form{
-    display: flex ;
+.activelogin .login-form {
+    display: flex;
 }
-
 .activelogin #alogin {
     display: none;
 }
+#alogout {
+    background-color: #227aff;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+#alogout:hover {
+    background-color: #1a5ddc;
+}
 
+#alogin,
+#alogout {
+    background-color: #ff7a00;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+#alogin:hover,
+#alogout:hover {
+    background-color: #1a5ddc;
+}
+.activelogin .login-form {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}

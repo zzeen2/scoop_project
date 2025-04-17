@@ -6,6 +6,6 @@ const categoryCtrl = require('../../controllers/categories/all_category.controll
 router.get('/', categoryCtrl.getAllCategories);
 
 // 세부 카테고리 보기
-router.get('/:categoryName', categoryCtrl.getDetailCategory);
+router.get('/:categoryName', categoryCtrl.getDetailCategories);
 
 module.exports = router;
