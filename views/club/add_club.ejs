@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-
+    <%- include("../common/header", {data}) %>
     <div id="Popupwrap">
         <div class="Popup">           
             <span>동호회 생선 되었습니다</span>
@@ -28,11 +28,6 @@
         </div>
     </div>
     <div class = "main-content"> 
-        <div class = "header">
-            <div class = "page-title">
-                <h1> 동호회 추가 </h1>
-            </div>
-        </div>
         <div id = "club-form">
             <div class = "form-header">
                 <h2 class = "form-title">새 동호회 정보 입력</h2>

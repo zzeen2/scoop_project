@@ -20,7 +20,7 @@ body {
 .main-content {
     margin-left: 200px;
     width: calc(100% - 200px);
-    max-width: 1400px;
+    /* max-width: 1400px; */
     height: fit-content;
     padding: 20px;
 }
