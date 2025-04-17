@@ -69,15 +69,13 @@ router.get('/mypage', async (req, res) => {
         const Activitydata = await Findactivity(id) || null;
         const Likedata = await Findlike(id) || null;
         const Participantdate = await Getparticipantdate(id) || null;
-        // const eventtitle = await Geteventtitle(participantdate.participant_id_fk) || null;
-        // console.log(Participantdate.arraydate, 'fffff')
 
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
         }
         for (let i = 0; i < Likedata.length; i++) {
             if(!(club_id.indexOf(Likedata[i]))){
-                return;
+                continue;
             }else{
                 club_id.push(Likedata[i])
             }           
