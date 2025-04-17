@@ -25,10 +25,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (res.data.state === 200) {
             alert("가입신청이 되었습니다!");
         } else if (res.data.state === 400) {
-            alert("로그인이 필요합니다.");
-            setTimeout(() => {
-            window.location.assign("/login");
-            });
+            Popupwrap.classList.add('popup')
+            // alert("로그인이 필요합니다.");
+            // setTimeout(() => {
+            // window.location.assign("/login");
+            // });
         }
         } catch (error) {
         alert("가입신청 중 에러 발생");
@@ -102,8 +103,9 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.target.classList.contains('btn-guest-apply')) {
             try {
                 if (!userId || userId === "") {
-                    alert("로그인이 필요합니다.");
-                    location.href = "/login";
+                    // alert("로그인이 필요합니다.");
+                    // location.href = "/login";
+                    Popupwrap.classList.add('popup')
                     return;
                 }
                 const res = await axios.post(`/clubs/detail/events/${eventId}/participate`, {
@@ -222,11 +224,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 const result = await axios.post('/clubs/detail/login');
                 console.log("res", result)
                 if (result.data.state === 401) {
-                    alert("로그인이 필요합니다!");
-                    const redirectURL = "/login"
-                    setTimeout(() => {
-                        window.location.assign(redirectURL)
-                    })
+                    Popupwrap.classList.add('popup')
+                    // alert("로그인이 필요합니다!");
+                    // const redirectURL = "/login"
+                    // setTimeout(() => {
+                    //     window.location.assign(redirectURL)
+                    // })
                 } 
         });
     }

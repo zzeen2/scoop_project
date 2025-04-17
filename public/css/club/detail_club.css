@@ -338,7 +338,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 800;
 }
 
 .modal-content {
@@ -1041,6 +1041,7 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     animation: popUp 0.3s ease;
     text-align: center;
+    z-index: 1000;
 }
 
 .Popup h3, .Popup_empty h3, .Popuperror h3 {
