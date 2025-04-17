@@ -36,9 +36,9 @@ main {
 }
 
 .type-btn.active {
-  background-color: #ffb402;
+  background-color: #ff7a00;
   color: white;
-  box-shadow: 0 2px 6px rgba(255, 180, 2, 0.3);
+  box-shadow: 0 2px 6px rgba(255, 154, 2, 0.3);
 }
 
 .type-btn:hover:not(.active) {
@@ -77,11 +77,11 @@ main {
 }
 
 .subcategory-bar a.selected {
-  background-color: #ffb402;
+  background-color: #ff7a00;
   color: white;
   font-weight: bold;
-  border-color: #ffb402;
-  box-shadow: 0 2px 6px rgba(255, 180, 2, 0.3);
+  border-color: #ff7a00;
+  box-shadow: 0 2px 6px rgba(255, 154, 2, 0.3);
 }
 
 .recommend-search-bar {
@@ -103,13 +103,13 @@ main {
 }
 
 .recommend-search-bar input[type="text"]:focus {
-  border-color: #ffb402;
+  border-color: #ff7a00;
 }
 
 .recommend-search-bar button {
   padding: 14px 20px;
   border: none;
-  background-color: #ffb402;
+  background-color: #ff7a00;
   color: white;
   font-weight: bold;
   border-radius: 0 20px 20px 0;
@@ -118,7 +118,7 @@ main {
 }
 
 .recommend-search-bar button:hover {
-  background-color: #e0a002;
+  background-color: #ffa653
 }
 
 .club-container {
@@ -149,7 +149,7 @@ main {
 .club-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  border-color: #ffb402;
+  border-color: #ff7a00;
 }
 
 .club-img {
@@ -203,7 +203,7 @@ main {
 
 .club-badge {
   background-color: #fff3e6;
-  color: #ffb402;
+  color: #ff7a00;
   padding: 2px 8px;
   font-size: 12px;
   border-radius: 14px;
@@ -221,7 +221,7 @@ main {
 }
 
 .club-type-badge.wide {
-  background-color: #ffb402;
+  background-color: #ff7a00;
 }
 
 .club-tags {

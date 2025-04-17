@@ -100,7 +100,8 @@ const FilteringSort = async (index, local_station) => {
                             'introduction',
                             'image',
                             "view_count",
-                            [Sequelize.fn('COUNT', Sequelize.col('Reviews.star')), 'ReviewCount']
+                            [Sequelize.fn('AVG', Sequelize.col('Reviews.star')), 'ReviewScore'],
+                            [Sequelize.fn('COUNT', Sequelize.col('Reviews.id')), 'ReviewCount']
                         ],
                         where : {local_station},
                         include: [{
@@ -108,10 +109,10 @@ const FilteringSort = async (index, local_station) => {
                             attributes: []
                         }],
                         group: ['club_id'],
-                        order: [[Sequelize.literal('ReviewCount'), 'DESC']]
+                        order: [[Sequelize.literal('ReviewScore'), 'DESC']]
                     });
-                    return { state: 200, message: "조회순순 정렬 성공", data };
-                }else {
+                    return { state: 200, message: "평점순 정렬 성공", data };
+                } else {
                     const data = await Clubs.findAll({
                         attributes: [
                             'club_id',
@@ -119,19 +120,20 @@ const FilteringSort = async (index, local_station) => {
                             'introduction',
                             'image',
                             "view_count",
-                            [Sequelize.fn('COUNT', Sequelize.col('Reviews.star')), 'ReviewCount']
+                            [Sequelize.fn('AVG', Sequelize.col('Reviews.star')), 'ReviewScore'],
+                            [Sequelize.fn('COUNT', Sequelize.col('Reviews.id')), 'ReviewCount']
                         ],
                         include: [{
                             model: Reviews,
                             attributes: []
                         }],
                         group: ['club_id'],
-                        order: [[Sequelize.literal('ReviewCount'), 'DESC']]
+                        order: [[Sequelize.literal('ReviewScore'), 'DESC']]
                     });
                     return { state: 200, message: "평점순 정렬 성공", data };
                 }
             } catch (error) {
-                return { state: 404, message: "평점순순 정렬 실패", error };
+                return { state: 404, message: "평점순 정렬 실패", error };
             }
         }
 

@@ -6,6 +6,7 @@
 }
 
 body {
+    display: flex;
     background-color: #f9f9f9;
     color: #333;
 }
@@ -13,15 +14,15 @@ body {
 .page-container {
     display: flex;
     width: 100%;
-    margin-top: 75px; /* 헤더 높이에 맞춤 */
+    margin-top: 60px;
 }
 
 .main-content {
-    margin-left: 200px; /* 사이드바 너비만큼 여백 */
+    margin-left: 200px;
     width: calc(100% - 200px);
     max-width: 1400px;
     height: fit-content;
-    padding: 30px;
+    padding: 20px;
 }
 
 .club-detail-container {
@@ -82,9 +83,9 @@ body {
 }
 
 .btn_like {
-    width: 50px;
-    height: 50px;
-    background: url('https://umings.github.io/images/i_like_off.png') no-repeat center / 50px;
+    width: 35px;  
+    height: 35px; 
+    background: url('https://umings.github.io/images/i_like_off.png') no-repeat center / 35px; 
     border: 0;
     cursor: pointer;
     font-size: 0;
@@ -98,7 +99,7 @@ body {
 }
 
 .btn_like.on {
-    background: url('https://umings.github.io/images/i_like_on.png') no-repeat center / 50px;
+    background: url('https://umings.github.io/images/i_like_on.png') no-repeat center / 35px;
     animation: beating 0.5s 1 alternate;
 }
 
@@ -117,7 +118,7 @@ body {
 }
 
 .main-category {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
     padding: 6px 14px;
     border-radius: 50px;
@@ -128,7 +129,7 @@ body {
 
 .sub-category {
     background-color: #fff2d6;
-    color: #e09600;
+    color: #ffa653;
     padding: 6px 14px;
     border-radius: 50px;
     font-size: 0.95em;
@@ -167,7 +168,7 @@ body {
 
 .current {
     font-weight: bold;
-    color: #ffb402;
+    color: #ff7a00;
 }
 
 .max {
@@ -308,7 +309,7 @@ body {
     top: 5px;
     height: 80%;
     width: 4px;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     border-radius: 2px;
 }
 
@@ -980,11 +981,12 @@ body {
 }
 
 .fc-event:hover {
-    transform: scale(1.02);
+    transform: scale(1.04);
 }
 
 /* 오늘 버튼 */
 .fc .fc-button.fc-today-button {
+    display: none;
     background-color: #ffb402;
     border-color: #ffb402;
     color: white;
@@ -997,14 +999,15 @@ body {
 /* 좌우 화살표 버튼 */
 .fc .fc-button.fc-prev-button,
 .fc .fc-button.fc-next-button {
-    background-color: #ffb402;
-    border-color: #ffb402;
+    background-color: #ff7a00;
+    border-color: #ff7a00;
     color: white;
 }
 
 .fc .fc-button.fc-prev-button:hover,
 .fc .fc-button.fc-next-button:hover {
-    background-color: #e0a002;
+    background-color:  #ffa653
+    ;
 }
 
 /* 요일 헤더(일~토) 배경색 */

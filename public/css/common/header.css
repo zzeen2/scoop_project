@@ -18,7 +18,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
+    padding: 0 10px;
+    padding-right: 35px;
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: fixed;
@@ -108,7 +109,7 @@ header {
 }
 #alogin:hover,
 #alogout:hover {
-    background-color: #1a5ddc;
+    background-color: #ffa653;
 }
 .activelogin .login-form {
     display: flex;
