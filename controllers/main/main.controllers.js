@@ -219,6 +219,13 @@ const subwayAllFilter = async () => {
                 [Sequelize.fn('DISTINCT', Sequelize.col('local_station')), 'local_station']
             ]
         });
+        const club = await Clubs.findAll({
+            attributes : [
+                "local_station",
+                "image"
+            ]
+        });
+        console.log(club);
         const subways = data.map(el => el.dataValues.local_station)
         const result = stationJson.filter(el =>{
                 for (let i = 0; i < subways.length; i++) {
@@ -234,6 +241,10 @@ const subwayAllFilter = async () => {
                             console.log(el.bldn_nm)
                             console.log(subways[i])
                             subways.splice(i,1)
+                            club.forEach(item => {
+                                if(item.dataValues.local_station === el.bldn_nm)
+                                    el.image = item.dataValues.image;
+                             })
                             return true;
                         }
                     }
@@ -241,6 +252,8 @@ const subwayAllFilter = async () => {
                 return false
             }
         )
+        console.log(result)
+        
         return result;
     } catch (error) {
         return error

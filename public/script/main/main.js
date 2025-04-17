@@ -334,8 +334,8 @@ async function loadStationMarkers() {
 
           const latLng = new kakao.maps.LatLng(lat, lot);
   
-          // 마커 이미지 설정
-          const imageSrc = '/public/images/subway.jpg';
+          // 마커 이미지 경로
+          const imageSrc = stationsData.image;
           const imageSize = new kakao.maps.Size(30, 30);
           const imageOption = { offset: new kakao.maps.Point(15, 30) };
           const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
