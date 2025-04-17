@@ -3,22 +3,31 @@
 document.addEventListener('DOMContentLoaded', () => {
     try {
         const data = window.mypageData;
-        console.log(data)
+        const titledata = window.mypageData1;
+        console.log(data, titledata, 'asdfasdf')
         const events = data.map(item => {
             return {
-              title: item.participant_id,
-              backgroundColor: '#ffa600',
-              date: new Date(item.createdAt).toISOString().slice(0, 10)
+                title: item.participant_id,
+                backgroundColor: '#ffa600',
+                start: new Date(item.createdAt).toISOString().slice(0, 10)
             }
-          })
+        })
+        const participantdata = titledata.map(item => {
+            return {
+                title : item.title,
+                backgroundColor: '#ffa600',
+                start: new Date(item.start_date).toISOString().slice(0, 10),
+                end: new Date(item.end_date).toISOString().slice(0, 10)
+            }
+        })
+        // console.log(participantdata, participantdata.title,'title')
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: participantdata
+        })
           
-          const calendarEl = document.getElementById('calendar')
-          const calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
-            events: events
-          })
-          
-          calendar.render()
+        calendar.render()
           
     } catch (error) {
         console.log('afffff')

@@ -148,6 +148,7 @@ input {
     margin-right: 1.418vw;
     width: 15.656vw;
     height: 9.452vw;
+    object-fit: cover;
 }
 #Contentul li {
     width: 18.904vw;
