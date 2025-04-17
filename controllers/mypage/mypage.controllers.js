@@ -4,9 +4,10 @@ const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts
 
 const Createuser = async ( id, name, image, user_age, user_gender, user_introduction, location) => {
     try {
-        const data = await Users.findOne({where : {kakao_id : id}})
+        const data = await Users.findOne({where : {uid : id}})
+        console.log(data,'sssssssssssssssssssssssssssssssssss')
         if (data) {
-            await Users.update({age : user_age, gender : user_gender, introduction : user_introduction, location : location}, {where : {kakao_id : id}})
+            await Users.update({age : user_age, gender : user_gender, introduction : user_introduction, location : location}, {where : {uid : `${id}`}})
             return ({state : 200, message : '수정 완료료 1'})
         } else {
             const data = await Users.create({uid : id, kakao_id : id, kakao_name : name, kakao_profile_image : image})

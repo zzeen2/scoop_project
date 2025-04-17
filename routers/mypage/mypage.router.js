@@ -70,7 +70,7 @@ router.get('/mypage', async (req, res) => {
         const Likedata = await Findlike(id) || null;
         const Participantdate = await Getparticipantdate(id) || null;
         // const eventtitle = await Geteventtitle(participantdate.participant_id_fk) || null;
-        console.log(Participantdate.arraydate, 'fffff')
+        // console.log(Participantdate.arraydate, 'fffff')
 
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
