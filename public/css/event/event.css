@@ -5,8 +5,15 @@
     margin: 30px auto;
     padding: 70px 40px;
 }
-h2 {
+
+#form-header{
     margin-bottom: 30px;
+    border-bottom: 1px solid rgb(215, 214, 214);
+    padding-bottom: 15px;
+}
+
+h2 {
+    margin-bottom: 10px;
 }
 .Memberlist {
     width: 400px;
@@ -94,4 +101,45 @@ ol button:hover {
 .tag-remove {
     margin-left: 5px;
     cursor: pointer;
+}
+
+
+#Popupwrap, #Popupwrap_empty, #Popupwraperror, #Popupwraperrordate {
+    display: none;
+}
+
+#Popupwrap.popup, #Popupwrap_empty.popup, #Popupwraperror.popup, #Popupwraperrordate.popup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+.Popup, .Popup_empty, .Popuperror, .Popuperrordate{
+    position: absolute;
+    width: 400.009px;
+    height: 200.004px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: white;
+    border-radius: 7.004px;
+}
+
+.Popup button, .Popup_empty button, .Popuperror button, .Popuperrordate button {
+    width: 89.993px;
+    cursor: pointer;
+    height: 30.005px;
+    border: none;
+    box-shadow: 0 3.999px 10.009px rgba(0, 0, 0, 0.7);
+    border-radius: 7.004px;
+}
+
+.Popup button:hover, .Popup_empty button:hover, .Popuperror button:hover, .Popuperrordate button:hover {
+    background-color: rgb(255, 181, 21);
 }

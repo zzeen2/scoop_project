@@ -18,16 +18,24 @@ const getDetailCategories = async (categoryName) => {
 // 전체 동호회 페이지
 exports.getAllCategories = async (req, res) => {
     const { keyword } = req.query;
-    const {login_access_token} = req.cookies;
-            const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
+    const { login_access_token } = req.cookies;
+    let properties = null; 
 
+    if (login_access_token) {
+        try {
+            const decoded = jwt.verify(login_access_token, process.env.TOKEN);
+            properties = decoded.properties;
+        }catch (err) {
+        console.error("JWT 파싱 실패:", err);
+        }
+    }
     let where = {};
     if (keyword) {
         where = {
             [Op.or]: [
-                { name: { [Op.like]: `%${keyword}%` } },
-                { '$Tags.tag$': { [Op.like]: `%${keyword}%` } }
-            ]
+            { name: { [Op.like]: `%${keyword}%` } },
+            { '$Tags.tag$': { [Op.like]: `%${keyword}%` } }
+        ]
         };
     }
 
@@ -36,16 +44,13 @@ exports.getAllCategories = async (req, res) => {
         include: [Tags]
     });
 
-    
-
     const recommendedClubs = clubs.filter(club => club.allow_guest === "1");
-
     res.render('categories/all_category', {
         categoryName: null,
         clubs,
         recommendedClubs,
         keyword,
-        data : properties
+      data: properties // 로그인 안 해도 null로 넘김
     });
 };
 
@@ -53,55 +58,48 @@ exports.getAllCategories = async (req, res) => {
 exports.getDetailCategory = async (req, res) => {
     const rawCategory = req.params.categoryName;
     const categoryName = decodeURIComponent(rawCategory).trim();
-    const {login_access_token} = req.cookies;
-            const {id, properties} = await jwt.verify(login_access_token, process.env.TOKEN)
-
     const { subCategory, keyword } = req.query;
-
-    // 디버깅용 로그
+    let properties = null;
+    try {
+        const { login_access_token } = req.cookies;
+        if (login_access_token) {
+            const decoded = jwt.verify(login_access_token, process.env.TOKEN);
+            properties = decoded.properties;
+        }
+    } catch (err) {
+        console.log(error)
+    }
     console.log("디코딩된 카테고리명:", categoryName);
-
-    // 대표 카테고리 찾기
     const mainCategory = await Categorys.findOne({ where: { name: categoryName, depth: 1 } });
-
     if (!mainCategory) {
-        console.warn(`[WARN] '${categoryName}' 카테고리를 찾을 수 없습니다.`);
         return res.status(404).send('카테고리를 찾을 수 없습니다.');
     }
-
-    // 하위 카테고리 가져오기
     const subCategoryRows = await Categorys.findAll({
         where: {
             depth: 2,
             categorys_id_fk: mainCategory.id
         }
     });
-
     const subCategoryIds = subCategoryRows.map(row => row.id);
     const subCategories = subCategoryRows.map(row => row.name);
-
     // 클럽 조건
     let where = {
         categorys_id_fk: { [Op.in]: subCategoryIds }
     };
-    
     if (subCategory && subCategory !== '전체') {
-    const selected = await Categorys.findOne({
-        where: {
-        name: subCategory,
-        depth: 2,
-        categorys_id_fk: mainCategory.id
+        const selected = await Categorys.findOne({
+            where: {
+                name: subCategory,
+                depth: 2,
+                categorys_id_fk: mainCategory.id
+            }
+        });
+        if (selected) {
+            where.categorys_id_fk = selected.id;
+        } else {
+            where.categorys_id_fk = -1;
         }
-    });
-    
-    if (selected) {
-        where.categorys_id_fk = selected.id;
-    } else {
-        where.categorys_id_fk = -1; // 없으면 일부러 빈 결과
     }
-    }
-    
-
     if (keyword) {
         where = {
             ...where,
@@ -111,16 +109,11 @@ exports.getDetailCategory = async (req, res) => {
             ]
         };
     }
-
-    // 클럽 가져오기
     const clubs = await Clubs.findAll({
         where,
         include: [Tags]
     });
-
     const recommendedClubs = clubs.filter(club => club.allow_guest === "1");
-
-    // 뷰 렌더링
     res.render('categories/detail_category', {
         categoryName,
         clubs,
@@ -128,7 +121,7 @@ exports.getDetailCategory = async (req, res) => {
         selectedSubCategory: subCategory || '전체',
         recommendedClubs,
         keyword,
-        data : properties
+      data: properties // null 또는 로그인된 사용자 정보
     });
 };
 
