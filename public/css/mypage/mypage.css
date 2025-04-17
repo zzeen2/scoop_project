@@ -186,7 +186,7 @@ input {
 }
 
 .clubinfo span {
-    background-color: #ffd9b6;
+    background-color: #ffe2c7;
 
     width: max-content;
     height: 1.89vw;
@@ -226,8 +226,8 @@ input {
     padding: 0.945vw 0.945vw;
     height: 9.972vw;
     box-sizing: border-box;
-    background-color: #002a54;
-    color: white;
+    background-color: #ffcc9d;
+    /* color: white; */
     border-radius: 0.473vw;
     box-sizing: border-box;
     margin: 2.836vw 0 0.709vw 0 ;
@@ -265,6 +265,7 @@ i {
     padding: 0 6.042vw;
     box-sizing: border-box;
     position: relative;
+    
 }
 
 .addclub {
@@ -274,13 +275,16 @@ i {
     justify-content: center;
     border: 0.047vw solid rgb(170, 149, 79);
     border-radius: 0.473vw;
-    background-color: rgb(255, 221, 0);
+    background-color:  #ff7a00;;;
     align-items: center;
     box-sizing: border-box;
     margin-bottom: 18.144px;
 }
+.addclub:hover {
+    background-color: #ffb067;
+}
 #Userul a:hover {
-    background-color: rgb(255, 209, 111);
+    background-color: #ffb067;
 }
 
 

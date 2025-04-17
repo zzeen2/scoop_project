@@ -9,11 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const res = await axios.post(`/clubs/detail/${clubId}/heart`);
             console.log("res", res)
             if (res.data.state === 402) {
-                alert("로그인이 필요합니다.");
-                const redirectURL = "/login"
-                    setTimeout(() => {
-                        window.location.assign(redirectURL)
-                    })
+                Popupwrap.classList.add('popup')
+                // alert("로그인이 필요합니다.");
+                // const redirectURL = "/login"
+                //     setTimeout(() => {
+                //         window.location.assign(redirectURL)
+                //     })
             return;
         }
         const result = res.data;
