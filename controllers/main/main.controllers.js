@@ -220,10 +220,16 @@ const subwayAllFilter = async () => {
             ]
         });
         const club = await Clubs.findAll({
-            attributes : [
+            attributes: [
                 "local_station",
-                "image"
-            ]
+                "image",
+                [Sequelize.fn('COUNT', Sequelize.col('Members.member_uid')), 'MemberCount']
+            ],
+            include: [{
+                model: Members,
+                attributes: []
+            }],
+            group: ["club_id"],
         });
         console.log(club);
         const subways = data.map(el => el.dataValues.local_station)
@@ -238,12 +244,18 @@ const subwayAllFilter = async () => {
                         }
                     }else {
                         if(el.bldn_nm === subways[i]){
-                            console.log(el.bldn_nm)
-                            console.log(subways[i])
                             subways.splice(i,1)
                             club.forEach(item => {
                                 if(item.dataValues.local_station === el.bldn_nm)
-                                    el.image = item.dataValues.image;
+                                    if(el.image){
+                                        el.MembersCount = el.MembersCount + item.dataValues.MemberCount;
+                                        el.image.push(item.dataValues.image)
+                                    }else {
+                                        el.MembersCount = 0;
+                                        el.image = []
+                                        el.image.push(item.dataValues.image)
+                                        el.MembersCount =+ item.dataValues.MemberCount;
+                                    };
                              })
                             return true;
                         }
