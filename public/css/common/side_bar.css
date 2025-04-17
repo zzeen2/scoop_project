@@ -7,16 +7,17 @@ a {
 }
 
 .sidebar {
-    position: absolute;
-    left: 0;
+    position: fixed;
     top: 60px;
+    left: 0;
     width: 200px;
+    height: calc(100vh - 60px);
     background-color: #ffffff;
-    color: rgb(17, 17, 17);
-    box-shadow: 3px 2px 4px rgba(1, 0, 2, 0.1);
-    height: calc(100vh - 55px);
+    border-right: 1px solid #eee;
     overflow-y: auto;
-    z-index: 1;
+    padding: 10px 10px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+    z-index: 100;
 }
 
 
@@ -24,88 +25,49 @@ a {
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.sidebar ul li {
-    position: relative;
-    padding: 15px;
-    text-align: center;
+.sidebar li {
+    margin-bottom: 12px;
 }
 
-.sidebar ul li:hover {
+/* .sidebar ul li:hover {
     background: linear-gradient(90deg, #e0eddd, #88aae5);
     color: white;
-}
+} */
 
-.sidebar ul li a {
-    color: rgb(17, 17, 17);
-    text-decoration: none;
-    display: inline-flex;
+.sidebar a {
+    display: flex;
     align-items: center;
-    font-size: 16px;
-    position: relative;
-    transition: opacity 0.3s ease;
+    gap: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    color: #333;
+    font-size: 15px;
+    transition: all 0.2s ease-in-out;
 }
 
-
-.sidebar ul li::after {
-    content: "바로가기"; 
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-    font-size: 14px;
-    font-weight: bold;
-    color: white;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 6px 10px;
-    border-radius: 5px;
-    white-space: nowrap;
-    pointer-events: none;  /* 사이드바 가려서 넣어야함 */
+.sidebar a:hover {
+    background-color: #fff3e6; /* 연한 오렌지 배경 */
+    color: #ff7a00;            /* 텍스트 오렌지 */
 }
 
-
-.sidebar ul li:hover a {
-    animation: fadeOut 0.3s forwards;
+.sidebar img {
+    width: 40px;
+    height: 30px;
+    object-fit: contain;
 }
 
-.sidebar ul li:hover::after {
-    animation: fadeInScale 0.3s forwards;
+hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 18px 0;
 }
 
-.sidebar ul li img {
-    width: 24px;
-    height: 24px; 
-    display: block;
-    margin: 0 auto;
-}
-
-.sidebar ul li:hover {
-    background-color: #a7b4c0;
-    color: white;
-}
-
-.sidebar ul li:hover a {
-    color: white;
-}
-
-@keyframes fadeInScale {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0.5);
-    }
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+.sidebar img {
+    width: 20px;
+    height: 30px;
+    object-fit: contain;
+    flex-shrink: 0;
 }
