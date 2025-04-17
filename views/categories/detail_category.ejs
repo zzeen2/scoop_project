@@ -2,77 +2,92 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title><%= categoryName %> 카테고리</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>동호회 상세페이지</title>
   <link rel="stylesheet" href="/public/css/categories/detail_category.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
-
 <body>
+  <%- include("../common/header", {data}) %>
   <%- include("../common/side_bar") %>
-  <%- include("../common/footer") %>
-  <%- include("../common/header", {data}) %> 
 
   <main>
     <div class="top-bar">
       <h2 class="title">
         <%= categoryName ? categoryName + " 카테고리" : "전체 동호회 목록" %>
       </h2>
-      <form class="recommend-search-bar" method="GET" action="">
-        <input
-          type="text"
-          name="keyword"
-          placeholder="동호회 이름 검색"
-          value="<%= keyword || '' %>"
-        />
+      <div class="type-toggle">
+        <a href="/categories/<%= categoryName %>?<%= subCategory ? 'subCategory=' + encodeURIComponent(subCategory) + '&' : '' %>activity_type=all<%= keyword ? '&keyword=' + encodeURIComponent(keyword) : '' %>" class="type-btn <%= activity_type === 'all' ? 'active' : '' %>">전체</a>
+        <a href="/categories/<%= categoryName %>?<%= subCategory ? 'subCategory=' + encodeURIComponent(subCategory) + '&' : '' %>activity_type=local<%= keyword ? '&keyword=' + encodeURIComponent(keyword) : '' %>" class="type-btn <%= activity_type === 'local' ? 'active' : '' %>">지역기반</a>
+        <a href="/categories/<%= categoryName %>?<%= subCategory ? 'subCategory=' + encodeURIComponent(subCategory) + '&' : '' %>activity_type=wide<%= keyword ? '&keyword=' + encodeURIComponent(keyword) : '' %>" class="type-btn <%= activity_type === 'wide' ? 'active' : '' %>">광역기반</a>
+      </div>
+      <form class="recommend-search-bar" method="GET" action="/categories/<%= categoryName %>">
+        <input type="text" name="keyword" placeholder="동호회 이름 검색" value="<%= keyword || '' %>" />
+        <input type="hidden" name="activity_type" value="<%= activity_type %>" />
+        <% if (subCategory) { %>
+          <input type="hidden" name="subCategory" value="<%= subCategory %>" />
+        <% } %>
         <button type="submit">검색</button>
       </form>
     </div>
-  
-    <!-- 세부 카테고리 바 -->
-  <div class="subcategory-bar">
-    <a href="/categories/<%= categoryName %>?subCategory=전체"
-        class="<%= selectedSubCategory === '전체' ? 'selected' : '' %>">
-      전체
-    </a>
-    <% subCategories.forEach(sub => { %>
-      <a href="/categories/<%= categoryName %>?subCategory=<%= sub %>"
-          class="<%= selectedSubCategory === sub ? 'selected' : '' %>">
-        <%= sub %>
-      </a>
-    <% }) %>
-  </div>
-  
-    <!-- ✅ club-container -->
+    <div class="subcategory-bar">
+      <a href="/categories/<%= categoryName %>?<%= activity_type !== 'all' ? 'activity_type=' + activity_type : '' %><%= keyword ? (activity_type !== 'all' ? '&' : '') + 'keyword=' + encodeURIComponent(keyword) : '' %>" class="<%= !subCategory ? 'selected' : '' %>">전체</a>
+      <% subCategories.forEach(subCat => { %>
+        <a href="/categories/<%= categoryName %>?subCategory=<%= encodeURIComponent(subCat) %><%= activity_type !== 'all' ? '&activity_type=' + activity_type : '' %><%= keyword ? '&keyword=' + encodeURIComponent(keyword) : '' %>" class="<%= subCat === subCategory ? 'selected' : '' %>">
+          <%= subCat %>
+        </a>
+      <% }) %>
+    </div>
+    
     <div class="club-container">
-      <div class="club-cards">
+      <% if (clubs && clubs.length > 0) { %>
         <% clubs.forEach(club => { %>
           <a href="/clubs/detail/<%= club.club_id %>" class="club-card-link">
             <div class="club-card">
-              <img src="<%= club.image %>" alt="동호회 이미지" class="club-img">
+              <img src="<%= club.image || '/public/images/default-club.png' %>" alt="<%= club.name %> 이미지" class="club-img">
               <div class="club-info">
                 <h3><%= club.name %></h3>
-                <p>카테고리: <%= club.club_category_name %></p>
-                <p>소개: <%= club.introduction ? club.introduction : '정보 없음' %></p>
-                <p>멤버 수: <%= club.member_limit ? club.member_limit : 0 %>명</p>
+                <p class="club-desc"><%= club.introduction || '정보 없음' %></p>
+                <p>카테고리: <%= club.club_category_name || (club.Category ? club.Category.name : '분류 없음') %></p>
+                <p class="club-location">
+                  <% if (club.activity_type === 'local') { %>
+                    <%= club.local_station || '지역 정보 없음' %>
+                  <% } else { %>
+                    <% 
+                      let regionsText = '지역 정보 없음';
+                      if (Array.isArray(club.wide_regions) && club.wide_regions.length > 0) {
+                        regionsText = club.wide_regions.join(', ');
+                      } else if (typeof club.wide_regions === 'string') {
+                        regionsText = club.wide_regions;
+                      }
+                    %>
+                    <%= regionsText %>
+                  <% } %>
+                </p>
+                <div class="club-meta">
+                  <span class="club-type-badge <%= club.activity_type %>">
+                    <%= club.activity_type === 'local' ? '지역기반' : '광역기반' %>
+                  </span>
+                  <% if (club.Tags && club.Tags.length > 0) { %>
+                    <div class="club-tags">
+                      <% club.Tags.slice(0, 3).forEach(tag => { %>
+                        <span class="club-tag">#<%= tag.tag %></span>
+                      <% }) %>
+                    </div>
+                  <% } %>
+                </div>
               </div>
             </div>
           </a>
         <% }) %>
-      </div>
-    </div>
-    
-  
-      <!-- ✅ 추천 섹션 -->
-      <div class="recommend-section">
-        <h3>게스트 체험이 있는 동호회 추천</h3>
-        <% recommendedClubs.forEach(club => { %>
-          <div class="recommend-card">
-            <img src="<%= club.image %>" alt="<%= club.name %>" />
-            <p><%= club.name %></p>
-          </div>
-        <% }) %>
-      </div>
+      <% } else { %>
+        <div class="no-clubs">
+          <p>검색 결과가 없습니다.</p>
+        </div>
+      <% } %>
     </div>
   </main>
-  <script src = "../../public/script/categories/all_category.js"></script>
+
+  <script src="/public/script/categories/detail_category.js"></script>
 </body>
 </html>

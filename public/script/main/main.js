@@ -328,44 +328,64 @@ async function loadStationMarkers() {
   
       if (stationsData.DATA) {
         stationsData.DATA.forEach(function (station) {
-          const lat = parseFloat(station.lat);
-          const lot = parseFloat(station.lot);
-  
-
-          const latLng = new kakao.maps.LatLng(lat, lot);
-  
-          // 마커 이미지 설정
-          const imageSrc = '/public/images/subway.jpg';
-          const imageSize = new kakao.maps.Size(30, 30);
-          const imageOption = { offset: new kakao.maps.Point(15, 30) };
-          const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption);
-  
-          // 마커 생성
-          const marker = new kakao.maps.Marker({
-            position: latLng,
-            map: map,
-            title: station.bldn_nm,
-            image: markerImage
-          });
-  
-          // 지하철역 마커 클릭 시 동호회 데이터 호출
-          kakao.maps.event.addListener(marker, 'click', async function () {
-            const local_station = station.bldn_nm;
-            const index = result[0];
-  
-            try {
-              const res = await axios.get(`/station?index=${index}&local_station=${encodeURIComponent(local_station)}`);
-              console.log("서버 응답 데이터:", res.data.data);
-  
-              const clubs = res.data.data;
-              updateClubList(clubs);
-            } catch (error) {
-              console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
-            }
-          });
-  
-          // 마커 저장
-          stationMarkers.push(marker);
+            station.image.forEach((image, index) => {
+                const lat = parseFloat(station.lat);
+                const lot = parseFloat(station.lot);
+                
+                const latLng = new kakao.maps.LatLng(lat, lot);
+                const total = 30;
+                const increment = 10;
+                const percent = (station.MembersCount * increment) > 100 ? 100 : station.MembersCount * increment;
+                const calculate = total * percent / 100;
+                const value = total + calculate;
+            
+                const markerDiv = document.createElement('div');
+                markerDiv.style.width = `${value}px`;
+                markerDiv.style.height = `${value}px`;
+                markerDiv.style.border = '2px solid black';
+                markerDiv.style.background = '#ff7a00';
+                markerDiv.style.borderRadius = '50%';
+                markerDiv.style.overflow = 'hidden';
+                markerDiv.style.boxSizing = 'border-box';
+                markerDiv.style.cursor = 'pointer';
+                markerDiv.style.transform = `translateX(${value * index}px)`;
+                
+                const img = document.createElement('img');
+                img.src = image;
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                
+                markerDiv.appendChild(img);
+            
+                const overlay = new kakao.maps.CustomOverlay({
+                    content: markerDiv,
+                    position: latLng,
+                    xAnchor: 0.5,
+                    yAnchor: 1
+                });
+            
+                overlay.setMap(map);
+            
+                // 🔥 클릭 이벤트
+                markerDiv.addEventListener('click', async () => {
+                    const local_station = station.bldn_nm;
+                    const index = result[0];
+            
+                    try {
+                        const res = await axios.get(`/station?index=${index}&local_station=${encodeURIComponent(local_station)}`);
+                        console.log("서버 응답 데이터:", res.data.data);
+            
+                        const clubs = res.data.data;
+                        updateClubList(clubs);
+                    } catch (error) {
+                        console.log("동호회 목록을 가져오는 데 실패했습니다.", error);
+                    }
+                });
+            
+                // 마커(오버레이) 저장
+                stationMarkers.push(overlay);
+            });
         });
       } else {
         console.log("지하철역 데이터가 없습니다.");
