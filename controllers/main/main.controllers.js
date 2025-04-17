@@ -263,15 +263,19 @@ const AreaAllFilter = async () => {
             ]
         });
         const areaList = data.map(el => el.dataValues.wide_regions)
-        // console.log("시/군구 리스트",areaList)
         
         // JSON에서 해당 DB wide_regions와 일치하는 Feature만 필터링 
         const result = areaJson.filter(el => {
+
             for (let i = 0; i < areaList.length; i++) {
-                const cleaned = areaList[i].replace(/[\[\]"]/g, "").replace(/,/g, ",").split(",").map(el => el.trim());
+                if(areaList[i] === "") continue; 
+                const cleaned = areaList[i].replace(/[\[\]"]/g, "").replace(/,/g, ",").split(",").map(el => el.trim().split(" "));
+                // [["경기", "남양주시"], ["서울","강남구"]]
                 // console.log(cleaned, cleaned.includes(`'"${el.properties.SIG_KOR_NM}"'`), el.properties.SIG_KOR_NM);
                 // console.log(el.properties.SIG_KOR_NM, cleaned.includes(el.properties.SIG_KOR_NM), cleaned);
-                if (cleaned.includes(el.properties.SIG_KOR_NM)) {
+                const temp = cleaned.map(el => el[1]);
+                // ["남양주시", "강남구"]
+                if (temp.includes(el.properties.SIG_KOR_NM)) {
                     // console.log(el.properties.SIG_KOR_NM);
                     // areaList.splice(i,1) // 중복 방지
                     return true
