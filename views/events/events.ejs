@@ -13,49 +13,34 @@
 </head>
 <body>
     <%- include("../common/header", {data}) %>
-    <div class = "main-content"> 
-        <!-- <div class = "header">
-            <div class = "page-title">
-                <h1> 동호회 관리 </h1>
-            </div>
+    <div id="Popupwrap">
+        <div class="Popup">           
+            <span>이벤트가 성공적으로 등록되었습니다!</span>
+            <a id="ok"><button>확인</button></a>
         </div>
-        <div id = "club-form1">
-            <form id="Form1">
-                <div class = "form-header">
-                    <h2 class = "form-title">동호회 수정하기</h2>
-                    <p class = "form-information">동호회를 수정하여 같은 관심사를 가진 사람들과 함께하세요! </p>
-                </div>
-                <div class = "addFrom-group">
-                    <label class = "label required">동호회 대표 이미지 (4:3 비율)</label>
-                    <div class = "form-container">
-                        <div class = "image-upload" id="imagediv1">
-                            <div class = "upload-icon" id = "icon1">📷<span style="font-size: 18px;" id="imagename"></span></div>
-                            <p class = "upload-info" id ="upload_info1">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
-                            <input type="file" id = "club_image1">
-                        </div>
-                    </div>
-                </div>
-                <div class = "addFrom-group">
-                    <label class = "label required">동호회 이름</label>
-                    <input type="text" class = "form-input" id = "club_name1" placeholder="동호회 이름을 알려주세요." required>
-                </div>
-                <div class = "addFrom-group">
-                    <label class="label">태그</label>
-                    <div class = "add-tag">           
-                        <input type="text" class = "tag-input" id = "club_tags1" name="imgpath" placeholder="태그를 입력하고 Enter를 누르세요">
-                    </div>
-                </div>
-                <div class = "addFrom-group">
-                    <label class = "label required">동호회 설명</label>
-                    <textarea class = "form-input-txtarea" id="club_information1" placeholder="동호회에 대한 설명을 해주세요." required></textarea>
-                </div>
-                
-                <div class="addForm-btn-container1">
-                    <button class="btn btn-ok" id = "ok_btn1">동호회 수정하기</button>
-                </div>
-            </form>
-        </div> -->
-
+    </div>
+    
+    <div id="Popupwraperror">
+        <div class="Popuperror">           
+            <span>이벤트 등록 중 오류가 발생했습니다.</span>
+            <a id="errorOk"><button>확인</button></a>
+        </div>
+    </div>
+    
+    <div id="Popupwraperrordate">
+        <div class="Popuperrordate">           
+            <span>이벤트 날짜 범위를 선택해주세요.</span>
+            <a id="dateErrorOk"><button>확인</button></a>
+        </div>
+    </div>
+    
+    <div id="Popupwrap_empty">
+        <div class="Popup_empty">           
+            <span>모든 필드를 입력해주세요.</span>
+            <a id="emptyOk"><button>확인</button></a>
+        </div>
+    </div>
+    <div class = "main-content"> 
         <div id="club-form2">
             <input type="hidden" id="selected_start_date">
             <input type="hidden" id="selected_end_date">
@@ -98,45 +83,11 @@
                     <div id='calendar'></div>
                 </div>
                 <div class="addForm-btn-container2">
+                    <button type="button" class="btn btn-cancel" id="eventcancel_btn">취소</button>
                     <button class="btn btn-ok" id = "ok_btn2">이벤트 등록하기</button>
                 </div>
             </form>
         </div>
-        <!-- <div id="Managemember">
-            <h2>멤버 관리하기</h2>
-            <div class="Memberlist">
-                <h3>멤버 이름</h3><br>
-                <ol id="Memberol">
-                    <li>
-                        <span>김다온</span>
-                        <button>삭제</button>
-                    </li>                    
-                    <li>
-                        <span>김다온</span>
-                        <button>삭제</button>
-                    </li>                    
-                               
-                </ol>
-            </div>
-        </div> -->
-        <!-- <div id="Memberverify">
-            <h2>잠여 인증하기</h2>
-            <form action="">
-                <div class = "addFrom-group">
-                    <label class = "label required">이벤트 이미지 (4:3 비율)</label>
-                    <div class = "form-container">
-                        <div class = "image-upload" id="imagediv3">
-                            <div class = "upload-icon" id = "icon1">📷</div>
-                            <p class = "upload-info" id ="upload_info1">이미지를 클릭하여 업로드하세요.(미선택시 기본 이미지가 제공됩니다.)</p>
-                            <input type="file" id = "club_image3">
-                        </div>
-                    </div>
-                </div>
-                <div class="addForm-btn-container3">
-                    <button class="btn btn-ok" id = "ok_btn3">이벤트 잠여 인증하기</button>
-                </div>
-            </form>
-        </div> -->
     </div>
 
 </body>

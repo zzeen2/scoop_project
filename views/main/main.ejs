@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>스쿱 - 관심있는 동호회를 찾아보세요</title>
   <link rel="stylesheet" href="/public/css/main/main.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap">
 </head>
 <body>
   
@@ -14,9 +15,9 @@
     <div class="loader">
       <div class="loading-text">
         스쿱에 오신것을 환영합니다
-        <span class="dot"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
+        <span class="dot">.</span>
+        <span class="dot">.</span>
+        <span class="dot">.</span>
       </div>
   
       <div class="loading-bar-background">
@@ -34,29 +35,31 @@
   <%- include("../common/header", {data}) %>
   <div class="wrap">
     <div class="map-container">
-
       <div id="map">
         <div class="zoom-level-label" id="zoomLabel">지역단위</div>
       </div>
   
       <div class="map-right-content">
         <div class="map_category_bar">
-          <button class="category-btn">회원순</button>
+          <button class="category-btn active">회원순</button>
           <button class="category-btn">좋아요순</button>
           <button class="category-btn">조회순</button>
           <button class="category-btn">평점순</button>
         </div>
   
-        <div class="club-list"></div>
-  
+        <div class="club-list">
+          <div class="initial-message" style="text-align: center; padding: 40px 20px; color: #777;">
+            <p>지도에서 지역을 선택하거나 카테고리 버튼을 클릭하여 동호회를 찾아보세요.</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
   <%- include("../common/side_bar") %>
   <%- include("../common/footer") %>
-</body>
 
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b809f71776d66974e4cb1caee3375cea"></script>
-<script src="/public/script/main/main.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b809f71776d66974e4cb1caee3375cea"></script>
+  <script src="/public/script/main/main.js"></script>
+</body>
 </html>

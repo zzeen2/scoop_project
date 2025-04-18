@@ -5,7 +5,7 @@ const router = require('express').Router();
 const axios = require('axios');
 const jwt = require('jsonwebtoken')
 const cookieParser = require('cookie-parser');
-const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate} = require('../../controllers/mypage/mypage.controllers');
+const {Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, seedCategories, Findclub, Checkpoint, Findlike, Findactivity, Findclub_id, Getparticipantdate, Geteventtitle} = require('../../controllers/mypage/mypage.controllers');
 const { getSubCategories } = require('../../controllers/club/add_club.controllers');
 
 router.use(cookieParser())
@@ -68,14 +68,14 @@ router.get('/mypage', async (req, res) => {
         const Userlevel = Math.floor(pointdata.point)
         const Activitydata = await Findactivity(id) || null;
         const Likedata = await Findlike(id) || null;
-        const participantdate = await Getparticipantdate(id) || null;
+        const Participantdate = await Getparticipantdate(id) || null;
 
         for (let i = 0; i < Activitydata.length; i++) {
             club_id.push(Activitydata[i])
         }
         for (let i = 0; i < Likedata.length; i++) {
             if(!(club_id.indexOf(Likedata[i]))){
-                return;
+                continue;
             }else{
                 club_id.push(Likedata[i])
             }           
@@ -85,7 +85,7 @@ router.get('/mypage', async (req, res) => {
             clubdata1.push(data)
         }
         if(Userdata) {
-            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1, participantdate})
+            res.render('mypage/mypage', {data : properties, uuid : id, Userdata, clubdata, Userlevel, clubdata1, participantdate : Participantdate.arraydate, participanttitle : Participantdate.arraytitle})
         }
         else {
             res.render('mypage/mypage', {data : properties, uuid : id, clubdata, Userlevel, clubdata1, participantdate})

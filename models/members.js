@@ -16,7 +16,6 @@ class Member extends Model {
         })
     }
     static associate(models) {
-        // models.Keywords.belongsTo(models.User, {foreignKey : 'user_id', target : 'uid', onDelete : 'CASCADE'})
         models.Members.belongsTo(models.Clubs, {foreignKey : 'club_id_fk', target : 'club_id', onDelete : 'CASCADE'})
         models.Members.belongsTo(models.Users, { foreignKey : 'user_id_fk', target : 'uid', onDelete : 'CASCADE'})
     }

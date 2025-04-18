@@ -1,19 +1,18 @@
 
-const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts, Participants} = require('../../models/configs');
+const {Categorys, Users, Userintrests, sequelize, Clubs, Points, Reviews, Hearts, Participants, Events} = require('../../models/configs');
 
 
 const Createuser = async ( id, name, image, user_age, user_gender, user_introduction, location) => {
     try {
-        const data = await Users.findOne({where : {kakao_id : id}})
+        const data = await Users.findOne({where : {uid : id}})
         if (data) {
-            await Users.update({age : user_age, gender : user_gender, introduction : user_introduction, location : location}, {where : {kakao_id : id}})
+            await Users.update({age : user_age, gender : user_gender, introduction : user_introduction, location : location}, {where : {uid : `${id}`}})
             return ({state : 200, message : '수정 완료료 1'})
         } else {
             const data = await Users.create({uid : id, kakao_id : id, kakao_name : name, kakao_profile_image : image})
             return ({state : 200, message : '수정 완료료'})
         }
     } catch (error) {
-        console.log(error)
         return ({state : 400, message : error})
     }
 }
@@ -34,7 +33,6 @@ const Updatecategory = async (id, content) => {
         await sequelize.query('ALTER TABLE userintrests AUTO_INCREMENT = 1')
         const data = await Userintrests.create({uid : id , keyword_category_name : content})
     } catch (error) {
-        console.log(error)
     }
     return {state : 200, message : '획인'}
 }
@@ -50,7 +48,6 @@ const Findclub = async (id) => {
         const arrayClub = Club.map(el => el.dataValues);
         return arrayClub;
     } catch (error) {
-        console.log("세부카테고리 불러오기 오류 : ", error);
         return({state : 400, message : "세부카테고리 불러오기 오류"})
     }
 }
@@ -64,7 +61,6 @@ const Findclub_id = async (clubid) => {
         const arrayClub = Club.map(el => el.dataValues);
         return arrayClub;
     } catch (error) {
-        console.log("세부카테고리 불러오기 오류 : ", error);
         return({state : 400, message : "세부카테고리 불러오기 오류"})
     }
 }
@@ -88,11 +84,21 @@ const Findlike = async (id) => {
 }
 
 const Getparticipantdate = async (id) => {
-  const Participant = await Participants.findAll({where : {user_id_fk : id}})
+  const Participant = await Participants.findAll({
+    include: [{
+      model: Events,
+      where : {user_id_fk : id}
+    }]
+})
+
   const arraydate = Participant.map(el => el.dataValues)
-  return arraydate
+  const arraytitle = Participant.map(el => el.Event.dataValues)
+  return {arraydate, arraytitle}
 }
 
+const Geteventtitle = async (participant_id) => {
+  const title = await Events.findAll({where : {id : participant_id}})
+}
 const Userinput = []
 const Reviewsinput = [{
   id : 'hello3',
@@ -113,12 +119,6 @@ const Heartsinput = [{
 }]
 
 const insertdata = async () => {
-  // for (let i = 0; i < Userinput.length; i++) {
-  //   await Reviews.create(Userinput[i])
-  // }
-  // for (let i = 0; i < Reviewsinput.length; i++) {
-  //   await Users.create(Userinput[i])
-  // }
   for (let i = 0; i < Heartsinput.length; i++) {
     await Hearts.create(Heartsinput[i])    
   }
@@ -127,17 +127,9 @@ const insertdata = async () => {
 const Createpoint = async (id) => {
   try {
     await Points.create({user_id_fk : id})
-    console.log('point created')
   } catch (error) {
     console.log('point exits')
   }
 }
 
-// insertdata();
-// Participants.create({
-//   participant_id : 'asdf5',
-//   user_id_fk : '4202096295'
-
-// })
-
-module.exports = {Createpoint,Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}
+module.exports = {Geteventtitle, Createpoint,Getparticipantdate, Findclub_id, Findlike, Findactivity, Checkpoint, Createuser, Finduser, Updatecategory, Finduserintrest, Deleteuserintrest, Findclub}

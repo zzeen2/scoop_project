@@ -3,7 +3,6 @@ class Club extends Model {
     static init(sequelize) {
         return super.init({
             club_id : {type : DataTypes.INTEGER, primaryKey : true, allowNull : false, autoIncrement : true}, 
-            // 고유아이디 삽입 문제로 integer로 변경함
             name : {type : DataTypes.STRING(20), allowNull : false, unique: true},
             introduction : {type : DataTypes.STRING(200), allowNull : false},
             image : {type : DataTypes.STRING(200), allowNull : false},

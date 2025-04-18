@@ -9,12 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
         timeZone: 'local',
         selectable: true,
         select: function (info) {
-            // 이전 선택 제거
             if (selectedRange) {
                 selectedRange.remove();
             }
-
-            // 선택 범위 표시
             selectedRange = calendar.addEvent({
                 title: "선택됨",
                 start: info.startStr,
@@ -23,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 display: 'background',
                 backgroundColor: '#ffd700'
             });
-
-            // 시작,종료일 저장 > html에 숨겨진 필드
             document.getElementById('selected_start_date').value = info.startStr;
             document.getElementById('selected_end_date').value = info.endStr;
         }
@@ -32,10 +27,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     calendar.render();
 
-    // 등록 버튼 클릭 이벤트
     document.getElementById("ok_btn2").addEventListener("click", async function (e) {
         e.preventDefault();
-
+        
         const eventName = document.getElementById("event_name1").value.trim();
         const eventInfo = document.getElementById("event_information").value.trim();
         const location = document.getElementById("addr").value.trim();
@@ -46,12 +40,12 @@ document.addEventListener("DOMContentLoaded", function () {
         const endDate = document.getElementById("selected_end_date").value;
 
         if (!startDate || !endDate) {
-            alert("이벤트 날짜 범위를 선택해주세요.");
+            Popupwraperrordate.classList.add('popup')
             return;
         }
 
         if (!eventName || !eventInfo || !location || !maxParticipants) {
-            alert("모든 필드를 입력해주세요.");
+            Popupwrap_empty.classList.add('popup')
             return;
         }
 
@@ -66,26 +60,18 @@ document.addEventListener("DOMContentLoaded", function () {
             club_id: CLUB_ID
         };
 
-        console.log("event data", eventData);
-
         try {
-            console.log('dfsdfas')
-            console.log("CLUB_ID:", CLUB_ID);
             const response = await axios.post(`/clubs/detail/${CLUB_ID}/events`, eventData);
-            console.log("리스폰스", response)
-            alert("이벤트가 등록되었습니다!");
-            console.log(" 리다이렉트", response.status);
+            Popupwrap.classList.add('popup')
             if (response.status === 200) {
                 const redirectURL = `/clubs/detail/${CLUB_ID}`;
                 console.log("이동할 주소:", redirectURL);
-
-                setTimeout(() => {
+                ok.onclick = (e) => {
                     window.location.assign(redirectURL);
-                }, 0);
+                }
             }
         } catch (error) {
-            console.error("이벤트 등록 오류:", error);
-            alert("이벤트 등록 중 오류가 발생했습니다.");
+            Popupwraperror.classList.add('popup')
         }
     });
 });
@@ -97,3 +83,47 @@ function openPostcode() {
     }
     }).open();
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    eventcancel_btn.onclick = (e) => {
+        location.href = `/clubs/detail/${CLUB_ID}`
+    }
+})
+
+document.getElementById('ok').addEventListener('click', function() {
+    document.getElementById('Popupwrap').classList.remove('popup');
+
+    const redirectURL = `/clubs/detail/${CLUB_ID}`;
+    window.location.assign(redirectURL);
+});
+
+document.getElementById('errorOk').addEventListener('click', function() {
+    document.getElementById('Popupwraperror').classList.remove('popup');
+});
+
+document.getElementById('dateErrorOk').addEventListener('click', function() {
+    document.getElementById('Popupwraperrordate').classList.remove('popup');
+});
+
+document.getElementById('emptyOk').addEventListener('click', function() {
+    document.getElementById('Popupwrap_empty').classList.remove('popup');
+});
+
+const popups = [
+    { wrapId: 'Popupwrap', popupClass: 'Popup' },
+    { wrapId: 'Popupwraperror', popupClass: 'Popuperror' },
+    { wrapId: 'Popupwraperrordate', popupClass: 'Popuperrordate' },
+    { wrapId: 'Popupwrap_empty', popupClass: 'Popup_empty' }
+];
+
+popups.forEach(popup => {
+    const wrap = document.getElementById(popup.wrapId);
+    if (wrap) {
+        wrap.addEventListener('click', function(e) {
+        
+            if (!e.target.closest('.' + popup.popupClass)) {
+                wrap.classList.remove('popup');
+            }
+        });
+    }
+});

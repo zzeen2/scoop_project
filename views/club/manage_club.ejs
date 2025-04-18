@@ -8,6 +8,26 @@
 </head>
 <body>
     <%- include("../common/header", {data}) %>
+    <div id="Popupwrap">
+        <div class="Popup">           
+            <span>수정이 완료되었습니다!</span>
+            <a id="ok"><button>확인</button></a>
+        </div>
+    </div>
+    
+    <div id="Popupwraperror">
+        <div class="Popuperror">           
+            <span>수정 중 오류가 발생했습니다.</span>
+            <a id="errorOk"><button>확인</button></a>
+        </div>
+    </div>
+    
+    <div id="Popupwrap_empty">
+        <div class="Popup_empty">           
+            <span>모든 필드를 입력해주세요.</span>
+            <a id="emptyOk"><button>확인</button></a>
+        </div>
+    </div>
     <div class = "main-content"> 
         <div id = "club-form">
             <div class = "form-header">
@@ -53,7 +73,7 @@
                     <p class = "member-noti">최소 2명 이상 입력해주세요.</p>
                 </div>
                 <div class="addForm-btn-container">
-                    <button type="button" class="btn btn-cancel">취소</button>
+                    <button type="button" class="btn btn-cancel" id="cancel_btn">취소</button>
                     <button type="button" class="btn btn-ok">동호회 수정하기</button>
                 </div>
             </form>
@@ -110,7 +130,7 @@
         club_image.click();
         });
     
-      // 이미지 미리보기
+      
       club_image.addEventListener("change", (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -136,7 +156,6 @@
         reader.readAsDataURL(file);
     });
     
-      // 동호회 수정 버튼 클릭
         document.querySelector(".btn-ok").addEventListener("click", async () => {
         const name = document.getElementById("club_name").value.trim();
         const info = document.getElementById("club_information").value.trim();
@@ -157,7 +176,7 @@
         formData.append("member_limit", limit);
         formData.append("tags", JSON.stringify(tags));
         if (file) {
-            formData.append("image", file); // 이미지 있는 경우만 
+            formData.append("image", file); 
         }
     
         try {
@@ -168,17 +187,48 @@
         });
     
             if (res.data.state === 200) {
-                alert("수정 완료!");
-                window.location.assign(`/clubs/detail/<%= club.club_id %>`);
+                Popupwrap.classList.add('popup')
+                ok.onclick = (e) => {
+                    window.location.assign(`/clubs/detail/<%= club.club_id %>`);
+                }
             } else {
                 alert(res.data.message || "수정 실패");
             }
         } catch (err) {
-          console.error("수정 오류", err);
-          alert("수정 중 오류가 발생했습니다.");
+            console.error("수정 오류", err);
+            Popupwraperror.classList.add('popup')
         }
       });
     });
+
+    cancel_btn.onclick = (e) => {
+    location.href = '/clubs/detail/<%= club.club_id %>'
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+    const okButton = document.getElementById("ok");
+    if (okButton) {
+        okButton.addEventListener("click", () => {
+            document.getElementById("Popupwrap").classList.remove("popup");
+            window.location.assign(`/clubs/detail/<%= club.club_id %>`);
+        });
+    }
+
+    
+    const errorButton = document.querySelector("#Popupwraperror button");
+    if (errorButton) {
+        errorButton.addEventListener("click", () => {
+            document.getElementById("Popupwraperror").classList.remove("popup");
+        });
+    }
+
+    
+    const emptyButton = document.querySelector("#Popupwrap_empty button");
+    if (emptyButton) {
+        emptyButton.addEventListener("click", () => {
+            document.getElementById("Popupwrap_empty").classList.remove("popup");
+        });
+    }
+});
     </script>
     
 </html>

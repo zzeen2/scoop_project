@@ -6,6 +6,7 @@
 }
 
 body {
+    display: flex;
     background-color: #f9f9f9;
     color: #333;
 }
@@ -13,15 +14,14 @@ body {
 .page-container {
     display: flex;
     width: 100%;
-    margin-top: 75px; /* 헤더 높이에 맞춤 */
+    margin-top: 60px;
 }
 
 .main-content {
-    margin-left: 200px; /* 사이드바 너비만큼 여백 */
+    margin-left: 200px;
     width: calc(100% - 200px);
-    max-width: 1400px;
     height: fit-content;
-    padding: 30px;
+    padding: 20px;
 }
 
 .club-detail-container {
@@ -33,7 +33,6 @@ body {
     border-radius: 12px;
 }
 
-/* 헤더 섹션 */
 .club-header {
     display: flex;
     margin-bottom: 40px;
@@ -82,9 +81,9 @@ body {
 }
 
 .btn_like {
-    width: 50px;
-    height: 50px;
-    background: url('https://umings.github.io/images/i_like_off.png') no-repeat center / 50px;
+    width: 35px;  
+    height: 35px; 
+    background: url('https://umings.github.io/images/i_like_off.png') no-repeat center / 35px; 
     border: 0;
     cursor: pointer;
     font-size: 0;
@@ -98,7 +97,7 @@ body {
 }
 
 .btn_like.on {
-    background: url('https://umings.github.io/images/i_like_on.png') no-repeat center / 50px;
+    background: url('https://umings.github.io/images/i_like_on.png') no-repeat center / 35px;
     animation: beating 0.5s 1 alternate;
 }
 
@@ -117,7 +116,7 @@ body {
 }
 
 .main-category {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
     padding: 6px 14px;
     border-radius: 50px;
@@ -128,7 +127,7 @@ body {
 
 .sub-category {
     background-color: #fff2d6;
-    color: #e09600;
+    color: #ffa653;
     padding: 6px 14px;
     border-radius: 50px;
     font-size: 0.95em;
@@ -167,7 +166,7 @@ body {
 
 .current {
     font-weight: bold;
-    color: #ffb402;
+    color: #ff7a00;
 }
 
 .max {
@@ -231,15 +230,15 @@ body {
     height: 42px;
     font-size: 1.2em;
     padding: 0;
-    background-color: #fff4e0;
-    color: #ffb402;
-    border: 2px solid #ffb402;
+    background-color: #ffffff;
+    color: #fff4e0;
+    border: 2px solid #ff7a00;
     border-radius: 50%;
     transition: all 0.3s ease;
 }
 
 .btn-manage:hover, .btn-event-add:hover {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
     transform: scale(1.1);
 }
@@ -249,7 +248,6 @@ body {
     gap: 10px;
 }
 
-/* 탭 섹션 */
 .club-tabs {
     display: flex;
     border-bottom: 1px solid #eee;
@@ -269,12 +267,12 @@ body {
 }
 
 .tab-btn:hover {
-    color: #ffb402;
+    color: #ff7a00;
 }
 
 .tab-btn.active {
-    color: #ffb402;
-    border-bottom-color: #ffb402;
+    color: #ff7a00;
+    border-bottom-color: #ff7a00;
 }
 
 .tab-pane {
@@ -286,7 +284,6 @@ body {
     display: block;
 }
 
-/* 일정 섹션 */
 .schedule-header {
     display: flex;
     justify-content: space-between;
@@ -308,7 +305,7 @@ body {
     top: 5px;
     height: 80%;
     width: 4px;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     border-radius: 2px;
 }
 
@@ -331,7 +328,6 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
 }
 
-/* 모달 스타일 */
 .schedule-detail {
     position: fixed;
     top: 0;
@@ -342,7 +338,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 800;
 }
 
 .modal-content {
@@ -399,7 +395,6 @@ body {
     margin-right: 5px;
 }
 
-/* 참여 투표 섹션 */
 .participation-poll {
     border-top: 1px solid #eee;
     padding-top: 25px;
@@ -507,7 +502,6 @@ body {
     color: #ef6c00;
 }
 
-/* 게스트 섹션 */
 .guest-section {
     border-top: 1px solid #eee;
     padding-top: 25px;
@@ -526,7 +520,7 @@ body {
 
 .btn-guest-apply {
     padding: 10px 20px;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
     border: none;
     border-radius: 50px;
@@ -548,7 +542,6 @@ body {
     font-size: 0.9em;
 }
 
-/* 멤버 탭 */
 .members-header {
     display: flex;
     justify-content: space-between;
@@ -570,7 +563,7 @@ body {
     top: 5px;
     height: 80%;
     width: 4px;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     border-radius: 2px;
 }
 
@@ -607,7 +600,7 @@ body {
 .member-card:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transform: translateY(-3px);
-    border-color: #ffb402;
+    border-color: #ff7a00;
 }
 
 .member-avatar {
@@ -616,7 +609,7 @@ body {
     border-radius: 50%;
     overflow: hidden;
     margin-right: 15px;
-    border: 2px solid #ffb402;
+    border: 2px solid #ff7a00;
 }
 
 .member-avatar img {
@@ -641,7 +634,6 @@ body {
     color: #777;
 }
 
-/* 리뷰 탭 */
 .reviews-header {
     display: flex;
     justify-content: space-between;
@@ -663,18 +655,18 @@ body {
     top: 5px;
     height: 80%;
     width: 4px;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     border-radius: 2px;
 }
 
 .btn-write-review {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
-    box-shadow: 0 3px 6px rgba(255, 180, 2, 0.3);
+    box-shadow: 0 3px 6px rgba(255, 154, 2, 0.3);
 }
 
 .btn-write-review:hover {
-    background-color: #e0a002;
+    background-color: #ffa653;
     transform: translateY(-2px);
 }
 
@@ -702,7 +694,7 @@ body {
 }
 
 .stars {
-    color: #ffb402;
+    color: #ff7a00;
     font-size: 1.6em;
     margin: 8px 0;
 }
@@ -741,7 +733,7 @@ body {
 
 .bar {
     height: 100%;
-    background-color: #ffb402;
+    background-color: #ff7a00;
     border-radius: 10px;
     transition: width 0.5s ease;
 }
@@ -752,7 +744,6 @@ body {
     font-weight: 500;
 }
 
-/* 리뷰 폼 */
 .review-form {
     background-color: #f9f9f9;
     padding: 25px;
@@ -792,12 +783,12 @@ body {
 }
 
 .star-rating input:checked ~ label {
-    color: #ffb402;
+    color: #ff7a00;
 }
 
 .star-rating label:hover,
 .star-rating label:hover ~ label {
-    color: #ffb402;
+    color: #ff7a00;
 }
 
 .review-textarea {
@@ -813,7 +804,7 @@ body {
 }
 
 .review-textarea:focus {
-    border-color: #ffb402;
+    border-color: #ff7a00;
     outline: none;
 }
 
@@ -834,17 +825,16 @@ body {
 }
 
 .btn-submit-review {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
     box-shadow: 0 3px 6px rgba(255, 180, 2, 0.3);
 }
 
 .btn-submit-review:hover {
-    background-color: #e0a002;
+    background-color: #ffa653;
     transform: translateY(-2px);
 }
 
-/* 리뷰 목록 */
 .reviews-list {
     margin-bottom: 30px;
 }
@@ -898,7 +888,7 @@ body {
 }
 
 .review-rating {
-    color: #ffb402;
+    color: #ff7a00;
     font-size: 1.1em;
     margin-top: 5px;
 }
@@ -915,7 +905,6 @@ body {
     padding: 0 5px;
 }
 
-/* 반응형 */
 @media (max-width: 1024px) {
     .club-header {
         flex-direction: column;
@@ -950,9 +939,8 @@ body {
     }
 }
 
-/* 풀캘린더 스타일 수정 */
 .fc .fc-toolbar-title {
-    color: #ffb402;
+    color: #333;
     font-weight: bold;
 }
 
@@ -980,11 +968,11 @@ body {
 }
 
 .fc-event:hover {
-    transform: scale(1.02);
+    transform: scale(1.04);
 }
 
-/* 오늘 버튼 */
 .fc .fc-button.fc-today-button {
+    display: none;
     background-color: #ffb402;
     border-color: #ffb402;
     color: white;
@@ -994,33 +982,259 @@ body {
     background-color: #e0a002;
 }
 
-/* 좌우 화살표 버튼 */
 .fc .fc-button.fc-prev-button,
 .fc .fc-button.fc-next-button {
-    background-color: #ffb402;
-    border-color: #ffb402;
+    background-color: #ff7a00;
+    border-color: #ff7a00;
     color: white;
 }
 
 .fc .fc-button.fc-prev-button:hover,
 .fc .fc-button.fc-next-button:hover {
-    background-color: #e0a002;
+    background-color:  #ffa653
+    ;
 }
 
-/* 요일 헤더(일~토) 배경색 */
 .fc-col-header-cell {
     background-color: #fff4dc;
 }
 
-/* 요일 텍스트 진하게 */
 .fc-col-header-cell-cushion {
     font-weight: 600;
     color: #333;
     text-decoration: none !important;
 }
 
-.fc-daygrid-day-number {
-    text-decoration: none !important;
-    color: #555;
+  .fc .fc-day-today {
+    background-color: #f4f4f4 !important;
+    border: 1px solid #ddd;
+  }
+
+  #Popupwrap, #Popupwrap_empty, #Popupwraperror {
+    display: none;
+}
+
+#Popupwrap.popup, #Popupwrap_empty.popup, #Popupwraperror.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease; 
+}
+
+.Popup, .Popup_empty, .Popuperror {
+    position: relative;
+    width: 400px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: popUp 0.3s ease;
+    text-align: center;
+    z-index: 1000;
+}
+
+.Popup h3, .Popup_empty h3, .Popuperror h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.Popup p, .Popup_empty p, .Popuperror p {
+    color: #666;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.Popup button, .Popup_empty button, .Popuperror button {
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+    border: none;
+    background-color: #ff7a00; 
+    color: white;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(255, 122, 0, 0.3); 
+}
+
+.Popup button:hover, .Popup_empty button:hover, .Popuperror button:hover {
+    background-color: #e56c00; 
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(255, 122, 0, 0.4);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.popup-close:hover {
+    color: #ff7a00;
+}
+
+#calendar {
+    height: 600px;
+    width: 100%;
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    border: 1px solid #f0f0f0;
+}
+
+.fc .fc-toolbar-title {
+    color: #333;
+    font-weight: bold;
+}
+
+.fc .fc-button-primary {
+    background-color: #ffb402;
+    border-color: #ffb402;
+}
+
+.fc .fc-button-primary:not(:disabled):hover {
+    background-color: #e0a002;
+    border-color: #e0a002;
+}
+
+.fc .fc-day-today {
+    background-color: #fff6dd !important;
+    border: 1px solid #ddd;
+}
+
+.fc-event {
+    color: #000; 
     font-weight: 500;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+}
+
+.fc-event:hover {
+    transform: scale(1.04);
+}
+
+.fc .fc-button.fc-today-button {
+    display: none;
+    background-color: #ffb402;
+    border-color: #ffb402;
+    color: white;
+}
+
+.fc .fc-button.fc-today-button:hover {
+    background-color: #e0a002;
+}
+
+.fc .fc-button.fc-prev-button,
+.fc .fc-button.fc-next-button {
+    background-color: #ff7a00;
+    border-color: #ff7a00;
+    color: white;
+}
+
+.fc .fc-button.fc-prev-button:hover,
+.fc .fc-button.fc-next-button:hover {
+    background-color: #ffa653;
+}
+
+.fc-col-header-cell {
+    background-color: #fff4dc;
+}
+
+.fc-col-header-cell-cushion {
+    font-weight: 600;
+    color: #333;
+    text-decoration: none !important;
+}
+
+.fc-scrollgrid-sync-inner {
+    padding: 8px 0;
+}
+
+.fc-daygrid-day {
+    transition: background-color 0.2s;
+}
+
+.fc-daygrid-day:hover {
+    background-color: #f9f9f9;
+}
+
+.fc-daygrid-day-number {
+    color: #555;
+    text-decoration: none !important;
+    padding: 8px;
+    font-weight: 500;
+}
+
+.fc .fc-day-today .fc-daygrid-day-number {
+    color: #ff7a00;
+    font-weight: 700;
+}
+
+.fc-event-title {
+    font-weight: 500 !important;
+    padding: 2px 0;
+}
+
+.fc-event-time {
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.fc-daygrid-more-link {
+    color: #ff7a00 !important;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    #calendar {
+        height: 500px;
+    }
+    
+    .fc .fc-toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .fc .fc-toolbar-title {
+        font-size: 1.2em !important;
+    }
 }

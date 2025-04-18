@@ -9,13 +9,14 @@ body {
     justify-content: center;
     align-items: center;
     background-color: white;
+    position: relative;
 }
 
 .main-content {
     margin-top: 90px;
     width: 100vw;
     max-width: 1600px;
-    /* height: 100vh; */
+    height: 100vh;
     height: fit-content;
     padding: 10px;
     
@@ -62,18 +63,17 @@ body {
     width: 100%;
 }   
 
-/* 폼 스타일 통일 */
 .addFrom-group{
     margin-bottom: 25px;
 }
-/* 라벨 전체 스타일  */
+
 .label {
     display: block;
     margin-bottom: 8px;
     font-weight: 500;
     color: #333;;
 }
-/* 인풋 전체 스타일 */
+
 .form-input {
     width: calc(100% - 20px);
     padding: 10px;
@@ -86,7 +86,6 @@ body {
     width: calc(100% - 20px);
     padding: 10px;
     border: 1px solid #ddd;
-    /* border: 1px solid black; */
     border-radius: 4px;
     min-height: 120px;
     resize: none;
@@ -109,7 +108,7 @@ body {
     height: calc(100%/4*3);
 }
 .image-upload:hover {
-        border-color: #ffb402;
+        border-color: #ff7a00;
 }
 .upload-icon{
     font-size: 2em;
@@ -168,7 +167,7 @@ body {
 .category-select-option{
     padding: 10px;
 }
-/* 스크립트에서 처리 */
+
 .sub-category-box{
     display:block;
 }
@@ -210,7 +209,7 @@ body {
     gap: 8px;
 }
 .selected-main-category{
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: #333;
     padding: 6px 12px;
     border-radius: 4px;
@@ -220,7 +219,8 @@ body {
     font-weight: 500;
 }
 .selected-sub-category{
-    background-color: #ffd993;
+    background-color: #ffa653
+    ;
     color: #333;
     padding: 6px 12px;
     border-radius: 4px;
@@ -231,7 +231,7 @@ body {
 }
 
 .sub-category-card.selected {
-    background-color: rgb(255, 217, 147); 
+    background-color: #ffa653
 }
 
 .member-container{
@@ -284,14 +284,12 @@ body {
     background-color: #bbbbbb;
 }
 .btn-ok {
-    background-color: #ffb402;
+    background-color: #ff7a00;
     color: white;
 }
 .btn-ok:hover {
-    background-color: #e07000;
+    background-color: #ffa653
 }
-
-/* 지역 선택 */
 
 .relative-wrapper {
     position: relative;
@@ -347,4 +345,82 @@ body {
     border-top: 1px solid #ddd;
     height: 520px;
     margin-bottom: 35px;
+}
+
+#Popupwrap, #Popupwrap_empty, #Popupwraperror {
+    display: none;
+}
+
+#Popupwrap.popup, #Popupwrap_empty.popup, #Popupwraperror.popup  {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.Popup, .Popup_empty, .Popuperror {
+    width: 400px;
+    padding: 40px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    animation: popUp 0.3s ease;
+    text-align: center;
+    position: relative;
+}
+
+.Popup span, .Popup_empty span, .Popuperror span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 25px;
+    display: block;
+    line-height: 1.5;
+}
+
+.Popup button, .Popup_empty button, .Popuperror button {
+    width: 120px;
+    height: 45px;
+    background-color: #e07000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 3px 6px rgba(255, 180, 2, 0.2);
+}
+
+.Popup button:hover, .Popup_empty button:hover, .Popuperror button:hover {
+    background-color: #e07000;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 10px rgba(224, 112, 0, 0.3);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes popUp {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
