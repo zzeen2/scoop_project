@@ -1,4 +1,5 @@
 # 🎯 Node.js-Project_Scoop
+---
 
 <p align="center">
   <img src="./public/images/logo.png" width="150px"/>
@@ -7,6 +8,8 @@
 <p align="center">
 "Scoop은 '한 스푼 퍼올리다'는 의미를 담아, 사용자 지역 커뮤니티 정보를 손쉽게 접근하고 활용할 수 있도록 설계된 플랫폼입니다."
 </p>
+
+---
 
 ## 📖 목차
 - [📺 프로젝트 소개](#-프로젝트-소개)
@@ -75,11 +78,13 @@
 | 이수호 | [@susuholee](https://github.com/oo-dev) | • 카카오맵 API를 통한 메인 페이지 구현 |
 | 비노드 | [@vinod](https://github.com/oo-dev) | • 마이페이지 및 사용자 정보 수정 기능 구현<br>• Sequelize 모델 정의 및 관계 설정 |
 
+---
+
 ## 🖥 화면 구성 및 기능
 
 ### 📌 동호회 탐색 페이지
 
-#### 전체 카테고리 페이지
+#### 🔎 전체 카테고리 페이지
 <p align="center">
   <img src="./public/images/1.png" width="500px"/>
 </p>
@@ -94,7 +99,7 @@
 
 - 사이드바에서는 다양한 메인 카테고리를 선택할 수 있습니다.
 
-#### 상세 카테고리 페이지
+#### 🔎 상세 카테고리 페이지
 <p align="center">
   <img src="./public/images/2.png" width="100px"/>
 </p>
