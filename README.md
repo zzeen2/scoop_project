@@ -1,5 +1,8 @@
 # Node.js-Project_Scoop
 ---
+**배포 주소**  
+https://joinscoop.store
+
 Node.js + 카카오맵 API + 동호회 추천 사이트
 
 ## 📓목차
@@ -81,9 +84,9 @@ Node.js + 카카오맵 API + 동호회 추천 사이트
 
 
 ---
-##  API 문서 (Swagger 주소 )
+##  API 문서
 
-[![Swagger 주소](https://img.shields.io/badge/SwaggerHub-API-blue?logo=swagger)](https://app.swaggerhub.com/apis/suho-b83/Scoop/1.0.0)
+[![Swagger 주소](https://img.shields.io/badge/SwaggerHub-API-blue?logo=swagger)](https://app.swaggerhub.com/apis-docs/suho-b83/Scoop/1.0.0#/)
 ---
 ## 기술 스택
 
