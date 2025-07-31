@@ -1,174 +1,189 @@
-# 🧭 Node.js-Project_Scoop
+# Scoop_Project
+
+<img src="./public/images/logo.png" width="100px" />
+
+>**Node.js + Express + KakaoMap API 기반 위치기반 동호회 추천 플랫폼**
+
 ---
-Node.js + 카카오맵 API + 동호회 추천 사이트
 
-## 📓목차
-- [📺 프로젝트 소개](#-프로젝트-소개)
-- [🖥 화면 구성](#-화면-구성)
-- [📌 메인 페이지](#-메인-페이지)
-- [🏷️ 주요 기능](#️주요-기능)
-- [🗓️ 개발 기간](#️-개발-기간)
-- [💁‍♂️ 팀원소개](#️-팀원소개)
-- [🛠 기술 스택](#-기술-스택)
-- [🛠 협업 도구](#-협업-도구)
-- [🛠 프로젝트 폴더 구조 ](#-프로젝트-폴더-구조)
+## 배포 주소
+- https://joinscoop.store
 ---
-## 📺 프로젝트 소개
-"Scoop"은 사용자가 선택한 지역 정보를 바탕으로 동호회를 추천해주는 웹사이트입니다. 카카오맵 API를 활용해 동호회의 위치를 지도에 시각적으로 표시하여, 사용자가 직관적으로 동호회를 탐색할 수 있도록 돕습니다. 각 동호회의 상세 정보와 활동 내용을 한눈에 확인할 수 있도록 구성하였습니다.
 
-## 🖥 화면 구성
-
-### 📌 담당 : 메인 페이지
-
-- 사용자는 지역 기반 또는 광역 기반으로 동호회를 선택해 지도를 통해 시각적으로 확인할 수 있습니다.
-
-- 지도에서 지역 또는 광역 단위로 생성된 동호회를 클릭하면 해당 동호회의 상세 정보를 확인할 수 있습니다.
-
-- 로그인하지 않은 비회원도 생성된 동호회를 조회할 수 있으며, 필터 기능도 사용할 수 있습니다.
+## 목차
+- [개발 기간 및 협업 방식](#개발-기간-및-협업-방식)
+- [프로젝트 소개](#프로젝트-소개)
+- [주요 기능](#주요-기능)
+- [화면 구성](#화면-구성)
+- [api 문서](#api-문서)
+- [담당 기능 설명](#담당-기능-설명)
+- [기술 스택](#기술-스택)
+- [협업 도구](#협업-도구)
+- [실행 방법](#실행-방법)
+- [이슈 상황](#이슈-상황)
+- [개선 방향](#개선-방향)
+- [향후 확장 방향](#향후-확장-방향)
+- [느낀 점](#느낀-점)
 ---
-## 지역단위 동호회 조회
+
+## 개발 기간 및 협업 방식
+- **개발 기간**: 2025.04.02 ~ 2025.04.18 (약 2주)
+- **팀 구성**: 3인 협업 프로젝트
+- **협업 방식**: GitHub + Notion 기반 협업 및 버전 관리
+
+---
+
+## 프로젝트 소개
+
+“Scoop”은 사용자가 선택한 지역 정보를 바탕으로 동호회를 추천해주는 **위치 기반 동호회 탐색 플랫폼**입니다. 카카오맵 API를 통해 지역/광역 단위로 동호회를 지도 위에 시각화하여 누구나 쉽게 탐색할 수 있도록 구현했습니다.
+
+---
+
+## 주요 기능
+
+- 카카오맵 기반 동호회 위치 마커 표시
+- 지역 및 광역 단위 필터링 기능
+- 비회원도 지도 탐색 및 필터 사용 가능
+- 동호회 등록, 수정, 삭제 기능
+- 동호회 좋아요(찜) 및 리뷰 기능
+- 일정 등록용 캘린더 UI
+- 비회원 일일 게스트 참가 기능
+- 활동 기반 포인트 적립 시스템
+
+---
+
+## 화면 구성
+
+### 지역 단위 동호회 조회
 ![지역단위 동호회](./public/images/subway.gif)
 
-## 광역단위 동호회 조회
+### 광역 단위 동호회 조회
 ![광역단위 동호회](./public/images/area.gif)
----
-## 필터링 조회
+
+### 필터 기능
 ![필터링 기능](./public/images/filter.gif)
----
-
- ## 🏷️주요 기능
-* 지역 및 지하철역 기반 동호회 추천
-
-* 카카오맵 API를 활용한 동호회 위치 시각화
-
-* 카카오 로그인 (카카오 Auth 연동)
-
-* 동호회 상세 정보 열람 기능
-
-* 동호회 등록, 수정 및 필터링 기능
-
-* 카테고리별 동호회 목록 조회
-
-* 동호회 좋아요(찜) 및 리뷰 작성 기능
-
-* 캘린더를 통한 동호회 일정 등록
-
-* 비회원 일일 게스트 참가 기능
-
-* 동호회 활동에 따른 포인트 적립 시스템
 
 
-## 🗓️ 개발 기간
-* 2025.04.02(수) ~ 2025.04.18(금)
-
-### 💁‍♂️ 팀원소개
----
-<div style="display: flex; justify-content: space-evenly; align-items: flex-start; flex-wrap: nowrap;">
-  <div style="text-align: center;">
-    <img src="https://github.com/susuholee.png" width="120"><br>
-    <a href="https://github.com/susuholee">팀장 : 이수호</a>
-  </div>
-
-  <div style="text-align: center;">
-    <img src="https://github.com/zzeen2.png" width="120"><br>
-    <a href="https://github.com/zzeen2/">팀원 : 김지은</a>
-  </div>
-
-  <div style="text-align: center;">
-    <img src="https://github.com/Mr-Binod.png" width="120"><br>
-    <a href="https://github.com/Mr-Binod">팀원 : 비노드</a>
-  </div>
-</div>
-
-
----
-## 📡 API 문서
-
-### 🔹 메인 페이지
-- **`GET /`**
-  - 메인 페이지를 반환합니다.
-
-### 🔹 오른쪽 잉어영역 필터링
-- **`GET /filter`**
-  - 필터링된 동호회 목록 데이터를 반환합니다.
-
-### 🔹 광역 기반 시/군구 데이터
-- **`GET /api/area`**
-  - 광역시도 기반의 시/군/구 GeoJSON 데이터를 json 형식으로 반환합니다.
-  - **Response:** `application/json`
-
-### 🔹 지하철 정보 데이터
-- **`GET /api/station`**
-  - 지하철 역사명, 위도, 경도 정보 GeoJSON 데이터를  json 형식으로 반환합니다.
-  - **Response:** `application/json`
-
-### 🔹 지하철역 마커 클릭 시
-- **`GET /station`**
-  - 사용자가 지하철 마커를 클릭했을 때 해당 역 관련 데이터를 반환합니다.
-
-### 🔹 등록된 동호회 지역 데이터
-- **`GET /area`**
-  - 동호회가 등록된 시/군/구 데이터를 반환합니다.
-
----
-## 🛠 기술 스택
-
-- Frontend </br>
-
-<img src="./public/images/html.png" alt="HTML5" width="80"/> 
-<img src="./public/images/CSS3.png" alt="CSS3" width="80"/>
-<img src="./public/images/JavaScript.png" alt="js" width="80"/>
-
-- Backend </br>
-
-<img src="./public/images/Node.js.png" alt="node.js" width="80"/> 
-<img src="./public/images/Express.png" alt="CSS3" width="80"/>
-<img src="./public/images/JavaScript.png" alt="js" width="80"/>
-
-- Database </br>
-
-<img src="./public/images/MySQL.png" alt="mysql" width="80"/> 
-<img src="./public/images/Sequelize.png" alt="CSS3" width="80"/>
-
-- 지도 API </br>
-
-<img src="./public/images/kakaomaps.png" alt="mysql" width="120"/> 
-
-## 🛠 협업 도구
----
-<div>
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
-<img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Notion.png?raw=true" width="80">
-</div>
+## API 문서
+[![API 문서](https://img.shields.io/badge/SwaggerHub-API-blue?logo=swagger)](https://app.swaggerhub.com/apis-docs/suho-5b1/joinscoop/1.0.0#)
 
 ---
 
-## 🛠 프로젝트 폴더 구조
+## 담당 기능 설명
 
-📦scoopproject
+### 메인 페이지 + 지도 연동
+- 카카오맵 API 기반 지도 렌더링
+- 지역/광역 필터 적용 시 마커 동적 생성
+- 필터링 시 해당하는 동호회 조회
+- 정렬 조건에 따른 동호회 리스트 및 마커 재구성
+- 비회원도 필터 탐색 가능
+---
 
- ┣ 📂controllers
- 
- ┣ 📂json
+## 기술 스택
 
- ┣ 📂lib
+### Frontend
+<p>
+  <img src="./public/images/html.png" width="50"/>
+  <img src="./public/images/CSS3.png" width="50"/>
+  <img src="./public/images/JavaScript.png" width="50"/>
+</p>
 
- ┣ 📂routers
+### Backend
+<p>
+  <img src="./public/images/Node.js.png" width="50"/>
+  <img src="./public/images/Express.png" width="50"/>
+</p>
 
- ┣ 📂views
+### Database
+<p>
+  <img src="./public/images/MySQL.png" width="50"/>
+  <img src="./public/images/Sequelize.png" width="50"/>
+</p>
 
- ┣ 📂public
+### 지도 API
+<p>
+  <img src="./public/images/kakaomaps.png" width="120"/>
+</p>
 
- ┃ ┣ 📂css
+---
 
- ┃ ┣ 📂images
+## 협업 도구
+<p>
+  <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Github.png?raw=true" width="80">
+  <img src="https://github.com/yewon-Noh/readme-template/blob/main/skills/Notion.png?raw=true" width="80">
+</p>
 
- ┃ ┣ 📂script
+---
 
- ┣ 📜server.js
+## 실행 방법
 
- ┣ 📜README.md
+1. 저장소 클론  
+```bash
+git clone https://github.com/susuholee/scoop_project.git
+```
+2. 프로젝트 폴더로 이동
+```bash
+cd scoop_project
+```
+3. 의존성 설치
+```bash
+npm install
+```
+4. 서버 실행
+```bash
+node server.js
+```
+
+## 이슈 상황
+
+| 번호 | 이슈 내용 |
+|------|-----------|
+| 1 | 동호회가 지역 기반 또는 광역 단위로 명확히 분리되지 않음 → 하나의 위치 정보만 저장되어, 지역/광역 구분이 불명확해 사용자 탐색에 혼란 발생 |
+| 2 | 같은 시/군구나 동일 지하철역에 여러 동호회 등록 시 → 지도에서 마커가 겹쳐, 여러 동호회 존재 여부를 한눈에 파악하기 어려움 |
+| 3 | 지역 단위 동호회 등록 시 지하철 마커가 누락되는 경우 발생 |
+| 4 | 일부 필터링 기능이 정상 작동하지 않음|
 
 
+---
+
+## 해결 방안
+
+| 문제 | 해결 방법 |
+|------|-----------|
+| 지역/광역 단위 동호회 구분 문제 | 지역 단위는 지하철역 좌표, **광역 단위는 시·군·구 중심 좌표(API)**를 활용하여 지도에서 각기 다른 방식으로 시각화 |
+| 마커 겹침 문제 | 동호회 회원 수에 따라 마커 크기 차등 적용 → 다수 동호회가 있을 경우 시각적 우선순위 제공|
+| 마커 표시 문제 | 등록 시 입력받은 지하철역명을 기준으로 좌표 매칭 → JSON 데이터 가공 단계에서 일치 확인 및 자동 매핑 처리|
+
+---
+## 개선 방향
+
+| 항목 | 개선 방향 | 기대 효과 |
+|------|------------|------------|
+| 지도 마커 초기화 처리 | 필터 변경 시 기존 마커를 초기화하여 다시 렌더링 | 중복 마커 제거 및 지도 UI 안정성 향상 |
+| 마커 겹침 시각화 개선 | 동일 위치에 다수 동호회가 존재할 경우 마커 크기 또는 클러스터 처리로 시각적 구분 | 사용자 혼란 최소화 및 접근성 향상 |
+| 지역/광역 단위 구분 | 지역 단위는 지하철역 기준, 광역 단위는 시·군·구 중심 좌표로 분리 표시 | 필터링 시 구분이 명확해져 사용성 향상 |
+| 필터링 안정화 | 필터 선택 시 지도 및 리스트 영역이 정확히 동기화되도록 로직 정비 | 예외 상황 제거 및 UX 일관성 확보 |
+| 정렬 기능 구현 | 회원 수, 평점, 리뷰 수 기준 정렬 기능 추가 및 백엔드 연동 | 사용자가 관심 있는 기준으로 동호회 탐색 가능 |
+
+---
+## 향후 확장 방향
+
+| 항목 | 확장 방향 | 기대 효과 |
+|------|------------|------------|
+| 마커 클러스터링 적용 | 지도에 마커가 다수 존재할 경우 자동 클러스터링 적용 | **대규모 데이터 대응** 및 지도 렌더링 성능 향상 |
+| 동호회 추천 알고리즘 | 사용자 **지역 + 선호 카테고리 기반**으로 동호회 추천 기능 구현 | 개인화된 탐색 경험 제공, **활동 유도 증가** |
+| 알림 기능 추가 | 일정 등록, 리뷰, 좋아요 등 이벤트 발생 시 알림 제공 | 사용자 **참여율 및 리텐션 향상** |
+| 관리자 페이지 구성 | 동호회 제재, 신고 관리, 활동 통계 확인 등의 백오피스 기능 개발 | 서비스 운영의 **안정성과 신뢰성 강화** |
+| 모바일 최적화 | 반응형 UI 적용 및 모바일 기기 대응 | **접근성 향상 및 다양한 기기 환경 지원** |
+| 사용자 실시간 위치 기반 | 사용자의 현재 위치 기반 동호회 추천/정렬 기능 | **즉시성 높은 탐색 UX 제공**, 위치 기반 콘텐츠 확장 가능성 |
+
+## 느낀 점
+이번 프로젝트를 통해 **카카오맵과 DB를 연동하는 흐름**을 실질적으로 이해할 수 있었고, 지도 API와 동적인 데이터베이스를 연결하여 **UI를 구성하는 실제 개발 프로세스**를 경험할 수 있었습니다.
+
+특히 사용자 접근성과 서비스 확장성을 동시에 고려하여 개발을 진행하면서,
+기능 구현뿐 아니라 **사용자 중심 UX 설계와 피드백 반영의 중요성**을 깊이 체감했습니다.
+
+또한 GitHub 기반 협업과 역할 분담을 통해 **효율적인 팀 개발** 경험도 쌓을 수 있었으며,  
+실제 사용자 시나리오를 중심으로 기능을 다듬고 확장하는 과정에서 **실무적인 감각**을 익힐 수 있었습니다.
 
 
