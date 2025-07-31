@@ -17,6 +17,7 @@
 - [화면 구성](#화면-구성)
 - [api 문서](#api-문서)
 - [담당 기능 설명](#담당-기능-설명)
+- [팀원 소개](#팀원-소개)
 - [기술 스택](#기술-스택)
 - [협업 도구](#협업-도구)
 - [실행 방법](#실행-방법)
@@ -78,6 +79,14 @@
 - 정렬 조건에 따른 동호회 리스트 및 마커 재구성
 - 비회원도 필터 탐색 가능
 ---
+
+## 팀원 소개
+---
+| 팀원 | 역할 | GitHub |
+|------|------|--------|
+| <img src="https://github.com/susuholee.png" width="100"> | 팀장<br>이수호 | [@susuholee](https://github.com/susuholee) |
+| <img src="https://github.com/zzeen2.png" width="100"> | 팀원<br>김지은 | [@zzeen2](https://github.com/zzeen2) |
+| <img src="https://github.com/Mr-Binod.png" width="100"> | 팀원<br>비노드 | [@Mr-Binod](https://github.com/Mr-Binod) |
 
 ## 기술 스택
 
