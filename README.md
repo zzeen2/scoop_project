@@ -87,7 +87,7 @@
 
 #### 🔎 전체 카테고리 페이지
 <p align="center">
-  <img src="./public/images/1.png" width="700px"/>
+  <img src="./public/images/allCategory.png" width="700px"/>
 </p>
 
 - 모든 동호회를 한 눈에 확인할 수 있는 기본 페이지입니다.
@@ -102,7 +102,7 @@
 
 #### 🔎 상세 카테고리 페이지
 <p align="center">
-  <img src="./public/images/2.png" width="700px"/>
+  <img src="./public/images/detailCategory.png" width="700px"/>
 </p>
 
 - 특정 카테고리를 선택하면 해당 **하위 카테고리(세부 항목)**를 추가로 선택할 수 있는 상세 페이지로 이동합니다.
@@ -121,21 +121,21 @@
   <table>
     <tr>
       <td align="center">
-        <img src="이미지3_URL" width="300"/><br/>
+        <img src="./public/images/clubDetail.png" width="300"/><br/>
         <b>동호회 상세 페이지</b>
       </td>
       <td align="center">
-        <img src="이미지4_URL" width="300"/><br/>
+        <img src="./public/images/cal.png" width="300"/><br/>
         <b>일정 캘린더</b>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="이미지3_URL" width="300"/><br/>
+        <img src="./public/images/mem.png" width="300"/><br/>
         <b>멤버탭</b>
       </td>
       <td align="center">
-        <img src="이미지4_URL" width="300"/><br/>
+        <img src="./public/images/reviewTab.png" width="300"/><br/>
         <b>리뷰탭</b>
       </td>
     </tr>
