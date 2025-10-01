@@ -121,21 +121,21 @@
   <table>
     <tr>
       <td align="center">
-        <img src="이미지3_URL" width="300"/><br/>
+        <img src="./public/images/clubDetail.png" width="300"/><br/>
         <b>동호회 상세 페이지</b>
       </td>
       <td align="center">
-        <img src="이미지4_URL" width="300"/><br/>
+        <img src="./public/images/cal.png" width="300"/><br/>
         <b>일정 캘린더</b>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="이미지3_URL" width="300"/><br/>
+        <img src="./public/images/mem.png" width="300"/><br/>
         <b>멤버탭</b>
       </td>
       <td align="center">
-        <img src="이미지4_URL" width="300"/><br/>
+        <img src="./public/images/reviewTab.png" width="300"/><br/>
         <b>리뷰탭</b>
       </td>
     </tr>
