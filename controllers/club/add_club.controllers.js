@@ -102,9 +102,14 @@ const checkUserPoint = async (req, res, next) => {
 
         const searchUserPoint = await Points.findOne({where : { user_id_fk : userId }});
         const point = searchUserPoint?.point || 0;
-        if (point < 300) res.json({state : 401, message : "동호회생성은 포인트 300점 이상부터 가능합니다."})
-        next();
+        if (point < 300) {
+            res.json({state : 401, message : "동호회생성은 포인트 300점 이상부터 가능합니다."})
+        } else {
+            next();
+        }
     } catch (error) {
+        // next();
+
         res.json({state : 403, message : "포인트 확인 중 서버 오류"})
     }
 }
